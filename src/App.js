@@ -6,6 +6,7 @@ import {
 import './App.css';
 import UserCreate from './component/UserCreate';
 import Usercomponent from "./component/Usercomponent";
+import Camtest from './component/Camtest';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <Route path="/" exact component={UserCreate} />
         <Route path="/users/" exact component={Usercomponent} />
+        <Route path="/camtest/" exact component={Camtest} />
       </Router>
     </div>
   );

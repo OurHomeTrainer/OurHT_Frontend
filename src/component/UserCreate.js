@@ -5,6 +5,7 @@ const UserCreate = ({match, history}) => {
 
     let userId = match.params.id
     let [user, setUser] = useState(null)
+    // let [user, age, setUser] = useState(null)
 
     useEffect(() => {
         getUser()
@@ -23,7 +24,11 @@ const UserCreate = ({match, history}) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(user)
-            
+            /*
+            body: JSON.stringify({
+                "user":user,
+                "age":age,
+            })*/        
         })
         console.log(user);
     }
@@ -36,6 +41,11 @@ const UserCreate = ({match, history}) => {
                 console.log(e.target.value);
                 }
             }/> 
+            {/* <input onChange={(e) => {
+                setUser(age => e.target.value)
+                console.log(e.target.value);
+                }
+            }/>  */}
             <Link to={`/users/`}>
                 <button onClick={createUser}> Create User </button>
             </Link>
