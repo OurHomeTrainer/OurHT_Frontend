@@ -38,7 +38,6 @@ function Camtest() {
         return imageUrl;
     };
 
-    //let url = capture_url();
     async function postimage(url){
         fetch(`/api/images/`, {
             method: "POST",
@@ -47,8 +46,11 @@ function Camtest() {
                 'X-CSRFToken': getCookie("csrftoken"),
                 "Accept": "application/json",
             },
+            // body: JSON.stringify({
+            //     'url': url,
+            //     'name': "test"
+            // })
             body: JSON.stringify(url)
-            
         })
         console.log(url);
     }
