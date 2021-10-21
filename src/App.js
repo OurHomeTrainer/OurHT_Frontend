@@ -7,6 +7,7 @@ import './App.css';
 import UserCreate from './component/UserCreate';
 import Usercomponent from "./component/Usercomponent";
 import Camtest from './component/Camtest';
+import login from './developtest/login';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" exact component={UserCreate} />
         <Route path="/users/" exact component={Usercomponent} />
         <Route path="/camtest/" exact component={Camtest} />
+        <Route path="/login/" exact component={login} />
       </Router>
     </div>
   );
