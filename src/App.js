@@ -5,7 +5,10 @@ import Navigation from './components/Nav';
 import Main from './components/Main';
 import Result from './components/Result';
 import Info from './components/Info';
+
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Sample from './components/Sample';
+
 
 function App() {
   return (
@@ -26,7 +29,7 @@ function App() {
 
           <Route path="/info">
             <h1>THIS iS infofofofo page</h1>
-            <Info />
+            <Sample />
           </Route>
           {/* nicdee */}
 
