@@ -22,9 +22,12 @@ function Navigation() {
 
                     </Nav>
                     <Nav>
-                        <Link to="/info">내정보</Link>
-                        <Nav.Link href="#TBD">
-                            여긴뭐넣지
+                        <Link to="/sample">샘플</Link>
+                        <Nav.Link href="/login-page">
+                            로그인
+                        </Nav.Link>
+                        <Nav.Link href="/info">
+                            내정보
                         </Nav.Link>
                     </Nav>
                 </Container>
