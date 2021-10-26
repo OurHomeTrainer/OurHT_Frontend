@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Webcam from "react-webcam";
 import * as posenet from "@tensorflow-models/posenet";
 import { drawKeypoints, drawSkeleton } from "../utilities";
+import jQuery from 'jquery'
 
 function Cameratest() {
   const webcamRef = useRef(null);
@@ -55,8 +56,6 @@ function Cameratest() {
       console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
       console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
       console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
-
-      //여기서 보내면 됨
       /*
       var isSholCenter = false;
       var isKneeCenter = false;
@@ -77,8 +76,40 @@ function Cameratest() {
       */
 
       drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
+      postimage(pose);
     }
+
   };
+
+  //여기서 보내면 됨!!!
+  // CSRF Token 처리 함수, POST 요청시 반드시 필요함! 
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = jQuery.trim(cookies[i]);
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  async function postimage(pose) {
+    fetch(`/api/images/getjointpoint`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie("csrftoken"),
+        "Accept": "application/json",
+      },
+      body: JSON.stringify(pose)
+    })
+    console.log("보냈습니다~");
+  }
 
   const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
     const ctx = canvas.current.getContext("2d");
@@ -93,7 +124,7 @@ function Cameratest() {
 
   return (
     <div>
-      <div> 비디오 </div>
+      <div> 비비디비오디오 </div>
       <Webcam
         ref={webcamRef}
         style={{
