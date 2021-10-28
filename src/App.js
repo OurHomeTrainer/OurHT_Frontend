@@ -11,6 +11,7 @@ import Sample from './components/Sample';
 import Login from './components/examples/Login';
 import Profile from './components/examples/Profile';
 import DemoNavbar from './components/Navbars/DemoNavbar';
+import Cameratest from './components/camera/Cameratest';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <h1>THISIS MAIN</h1>
-            <Main />
+            <Cameratest />
           </Route>
 
 

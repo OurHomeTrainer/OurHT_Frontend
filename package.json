@@ -48,6 +48,8 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "@tensorflow-models/posenet": "^2.2.2",
+    "@tensorflow/tfjs": "^3.11.0",
     "bootstrap": "4.3.1",
     "classnames": "2.3.1",
     "headroom.js": "0.12.0",
@@ -61,6 +63,7 @@
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
+    "react-webcam": "^6.0.0",
     "reactstrap": "8.9.0"
   },
   "devDependencies": {
