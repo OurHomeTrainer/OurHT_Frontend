@@ -50,58 +50,17 @@ class Login extends React.Component {
         <DemoNavbar />
         <main ref="main">
           <section className="section section-shaped section-lg">
-            <div className="shape shape-style-1 bg-gradient-default">
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
+            <div className="shape shape-style-1 bg-gradient-success">
+
             </div>
             <Container className="pt-lg-7">
               <Row className="justify-content-center">
                 <Col lg="5">
                   <Card className="bg-secondary shadow border-0">
-                    <CardHeader className="bg-white pb-5">
-                      <div className="text-muted text-center mb-3">
-                        <small>Sign in with</small>
-                      </div>
-                      <div className="btn-wrapper text-center">
-                        <Button
-                          className="btn-neutral btn-icon"
-                          color="default"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <span className="btn-inner--icon mr-1">
-                            <img
-                              alt="..."
-                              src={require("assets/img/icons/common/github.svg")}
-                            />
-                          </span>
-                          <span className="btn-inner--text">Github</span>
-                        </Button>
-                        <Button
-                          className="btn-neutral btn-icon ml-1"
-                          color="default"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <span className="btn-inner--icon mr-1">
-                            <img
-                              alt="..."
-                              src={require("assets/img/icons/common/google.svg")}
-                            />
-                          </span>
-                          <span className="btn-inner--text">Google</span>
-                        </Button>
-                      </div>
-                    </CardHeader>
+
                     <CardBody className="px-lg-5 py-lg-5">
                       <div className="text-center text-muted mb-4">
-                        <small>Or sign in with credentials</small>
+                        <small>홈트하자 로그인 뭐쓰지 </small>
                       </div>
                       <Form role="form">
                         <FormGroup className="mb-3">
@@ -138,7 +97,7 @@ class Login extends React.Component {
                             className="custom-control-label"
                             htmlFor=" customCheckLogin"
                           >
-                            <span>Remember me</span>
+                            <span>자동저장</span>
                           </label>
                         </div>
                         <div className="text-center">

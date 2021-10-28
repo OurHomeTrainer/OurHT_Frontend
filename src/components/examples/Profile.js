@@ -37,7 +37,7 @@ class Profile extends React.Component {
         <main className="profile-page" ref="main">
           <section className="section-profile-cover section-shaped my-0">
             {/* background */}
-            <div className="shape shape-style-1 shape-default alpha-4">
+            <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
 
             </div>
 
