@@ -125,7 +125,7 @@ function Cameratest() {
 
   return (
     <div>
-      <div> 비비디비오디오 </div>
+      <div> 비디오 </div>
       <Webcam
         ref={webcamRef}
         style={{
