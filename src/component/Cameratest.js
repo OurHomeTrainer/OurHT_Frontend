@@ -100,7 +100,7 @@ function Cameratest() {
   }
 
   async function postimage(pose) {
-    fetch(`/api/images/getjointpoint`, {
+    fetch(`/apis/images/getjointpoint`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
