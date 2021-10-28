@@ -10,12 +10,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Sample from './components/Sample';
 import Login from './components/examples/Login';
 import Profile from './components/examples/Profile';
+import DemoNavbar from './components/Navbars/DemoNavbar';
 
 
 function App() {
   return (
     <BrowserRouter>
-      <Navigation />
+
       <div className="App">
         <Switch>
           <Route path="/" exact>
@@ -30,22 +31,20 @@ function App() {
           </Route>
 
           <Route path="/info">
-            <h1>THIS iS infofofofo page</h1>
             <Profile />
           </Route>
 
           <Route path="/sample">
-            <h1>Sample page 테스트</h1>
             <Sample />
           </Route>
 
           <Route path="/login-page">
-            <h1>로그인 페이지 테스트</h1>
+
             <Login />
           </Route>
 
           <Route path="/profile-page">
-            <h1>로그인 페이지 테스트</h1>
+
             <Profile />
           </Route>
 

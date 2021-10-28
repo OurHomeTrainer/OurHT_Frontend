@@ -36,50 +36,29 @@ class Profile extends React.Component {
         <DemoNavbar />
         <main className="profile-page" ref="main">
           <section className="section-profile-cover section-shaped my-0">
-            {/* Circles background */}
+            {/* background */}
             <div className="shape shape-style-1 shape-default alpha-4">
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
+
             </div>
-            {/* SVG separator */}
-            <div className="separator separator-bottom separator-skew">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-              >
-                <polygon
-                  className="fill-white"
-                  points="2560 0 2560 100 0 100"
-                />
-              </svg>
-            </div>
+
+
           </section>
+
+          {/* 여기부터가 컨테이너 부분 */}
           <section className="section">
             <Container>
               <Card className="card-profile shadow mt--300">
                 <div className="px-4">
                   <Row className="justify-content-center">
-                    <Col className="order-lg-2" lg="3">
-                      <div className="card-profile-image">
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                          <img
-                            alt="..."
-                            className="rounded-circle"
-                            src={require("assets/img/theme/team-4-800x800.jpg")}
-                          />
-                        </a>
-                      </div>
+                    {/*<Col className="order-lg-2" lg="3">
+                      카드의 레이아웃 행렬 가운데 부분임 주석 풀면 가운데에 추가로 넣을수 있음
                     </Col>
-                    <Col
+    */}
+
+
+                    {/* 아래부분은 프로필에서 버튼만들고 링크 넣는 부분 추후 필요하면 활성화 할 것. */}
+
+                    {/* <Col
                       className="order-lg-3 text-lg-right align-self-lg-center"
                       lg="4"
                     >
@@ -103,53 +82,58 @@ class Profile extends React.Component {
                           Message
                         </Button>
                       </div>
-                    </Col>
+                    </Col> */}
+
                     <Col className="order-lg-1" lg="4">
                       <div className="card-profile-stats d-flex justify-content-center">
                         <div>
-                          <span className="heading">22</span>
-                          <span className="description">Friends</span>
+                          <span className="heading">12</span>
+                          <span className="description">운동횟수</span>
                         </div>
                         <div>
                           <span className="heading">10</span>
-                          <span className="description">Photos</span>
+                          <span className="description">분석결과</span>
                         </div>
                         <div>
-                          <span className="heading">89</span>
-                          <span className="description">Comments</span>
+                          <span className="heading">890</span>
+                          <span className="description">점수</span>
                         </div>
                       </div>
                     </Col>
+
+
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
                       김병달{" "}
-                      <span className="font-weight-light">, 27</span>
+                      <span className="font-weight-light">, 24</span>
                     </h3>
                     <div className="h6 font-weight-300">
                       <i className="ni location_pin mr-2" />
-                      서울 양천구
+                      185cm 70kg
                     </div>
                     <div className="h6 mt-4">
                       <i className="ni business_briefcase-24 mr-2" />
-                      캡스톤 팀
+                      여기에 캘린더 및 운동기록들 모아서 보여줘야함
+                      저장된 분석 결과들 리스트 출력
                     </div>
                     <div>
                       <i className="ni education_hat mr-2" />
-                      중앙머
+
+
+                      간략하게 보여주고 특정일자 및 특정 운동의 상세보기는 더보기 링크 통해
+                      상세 페이지로 이동하여 보여주려 생각중. 의견 부탁
                     </div>
                   </div>
                   <div className="mt-5 py-5 border-top text-center">
                     <Row className="justify-content-center">
                       <Col lg="9">
                         <p>
-                          중앙대 최고 아웃풋 김병달
-                          목동의 자랑
-                          대 명 문 백암고 출신
-                          육군병장 만기전역
+                          위에서는 요약 여기서는 운동 통계 및 그동안 기록된 리스트들 나열
                         </p>
+                        {/* 일단 링크 막아둠 */}
                         <a href="#pablo" onClick={e => e.preventDefault()}>
-                          Show more
+                          더 보기
                         </a>
                       </Col>
                     </Row>
