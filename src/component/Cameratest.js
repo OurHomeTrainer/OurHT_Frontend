@@ -54,8 +54,9 @@ function Cameratest() {
       var diff = knee_y - shol_y;
 
       console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
-      console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
       console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
+      console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
+      console.log(`ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ`);
       /*
       var isSholCenter = false;
       var isKneeCenter = false;
@@ -108,7 +109,7 @@ function Cameratest() {
       },
       body: JSON.stringify(pose)
     })
-    console.log("보냈습니다~");
+    // console.log("보냈습니다~");
   }
 
   const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {

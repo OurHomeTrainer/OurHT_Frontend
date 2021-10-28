@@ -9,11 +9,11 @@ function Camtest() {
 
     const capture = useCallback(
         () => {
-          const imageUrl = webcamRef.current.capture();
+            const imageUrl = webcamRef.current.capture();
         },
         [webcamRef]
     );
-    
+
     // CSRF Token 처리 함수, POST 요청시 반드시 필요함! 
     function getCookie(name) {
         var cookieValue = null;
@@ -38,7 +38,7 @@ function Camtest() {
         return imageUrl;
     };
 
-    async function postimage(url){
+    async function postimage(url) {
         fetch(`/api/images/`, {
             method: "POST",
             headers: {
@@ -53,19 +53,20 @@ function Camtest() {
             body: JSON.stringify(url)
         })
         console.log(url);
+        console.log("사진을 서버로 보냈습니다.");
     }
 
     return (
         <div>
             <div>
-            <Webcam
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            style={{
-                width:640,
-                height:480,
-            }}
-            />
+                <Webcam
+                    ref={webcamRef}
+                    screenshotFormat="image/jpeg"
+                    style={{
+                        width: 640,
+                        height: 480,
+                    }}
+                />
             </div>
 
             <button onClick={capture_url}> Capture Photo </button>
