@@ -50,7 +50,7 @@ class Login extends React.Component {
         <DemoNavbar />
         <main ref="main">
           <section className="section section-shaped section-lg">
-            <div className="shape shape-style-1 bg-gradient-success">
+            <div className="shape shape-style-1 bg-gradient-info">
 
             </div>
             <Container className="pt-lg-7">
@@ -60,7 +60,7 @@ class Login extends React.Component {
 
                     <CardBody className="px-lg-5 py-lg-5">
                       <div className="text-center text-muted mb-4">
-                        <small>홈트하자 로그인 뭐쓰지 </small>
+                        <small> Our Home Training </small>
                       </div>
                       <Form role="form">
                         <FormGroup className="mb-3">
@@ -113,7 +113,7 @@ class Login extends React.Component {
                     </CardBody>
                   </Card>
                   <Row className="mt-3">
-                    <Col xs="6">
+                    {/* <Col xs="6">
                       <a
                         className="text-light"
                         href="#pablo"
@@ -121,8 +121,8 @@ class Login extends React.Component {
                       >
                         <small>Forgot password?</small>
                       </a>
-                    </Col>
-                    <Col className="text-right" xs="6">
+                    </Col> */}
+                    <Col className="text-right" xs="8">
                       <a
                         className="text-light"
                         href="#pablo"

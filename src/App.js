@@ -11,6 +11,7 @@ import Sample from './components/Sample';
 import Login from './components/examples/Login';
 import Profile from './components/examples/Profile';
 import DemoNavbar from './components/Navbars/DemoNavbar';
+import Landing from './components/examples/Landing';
 import Cameratest from './components/camera/Cameratest';
 
 
@@ -21,14 +22,18 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/" exact>
-            <h1>THISIS MAIN</h1>
-            <Cameratest />
+
+            <Landing />
           </Route>
 
 
           <Route path="/result">
-            <h1>THIS iS result page</h1>
+
             <Result />
+          </Route>
+
+          <Route path="/home">
+            <Landing />
           </Route>
 
           <Route path="/info">
