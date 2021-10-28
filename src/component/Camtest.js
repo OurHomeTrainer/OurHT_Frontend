@@ -39,7 +39,7 @@ function Camtest() {
     };
 
     async function postimage(url) {
-        fetch(`/apis/images/`, {
+        fetch(`/api/images/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
