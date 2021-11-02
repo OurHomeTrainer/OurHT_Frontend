@@ -18,8 +18,9 @@ function CameraSkeletonSend() {
         //
         setInterval(() => {
             detect(net);
-        }, 10000);
+        }, 2000);
     };
+
 
     const detect = async (net) => {
         if (
@@ -53,9 +54,9 @@ function CameraSkeletonSend() {
             const heep_y = pose.keypoints[11].position["y"];
             var diff = knee_y - shol_y;
 
-            console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
-            console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
-            console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
+            // console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
+            // console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
+            // console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
             /*
             var isSholCenter = false;
             var isKneeCenter = false;
@@ -99,7 +100,7 @@ function CameraSkeletonSend() {
     }
 
     async function postimage(pose) {
-        fetch(`http://127.0.0.1:8000/#/apis/images/getjointpoint`, {
+        fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -107,8 +108,9 @@ function CameraSkeletonSend() {
                 "Accept": "application/json",
             },
             body: JSON.stringify(pose)
-        })
-        console.log("보냈습니다~");
+        }).then((response) => (response.json()))
+            .then((data) => console.log("response:", data))
+        // console.log("보냈습니다~");
     }
 
     const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
