@@ -2,7 +2,7 @@ import { useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 import jQuery from "jquery";
 
-function Camtest() {
+function CameraSendImage() {
 
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
@@ -74,4 +74,4 @@ function Camtest() {
     )
 }
 
-export default Camtest;
+export default CameraSendImage;

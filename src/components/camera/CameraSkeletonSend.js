@@ -4,7 +4,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import { drawKeypoints, drawSkeleton } from "../../utilities";
 import jQuery from 'jquery'
 
-function Cameratest() {
+function CameraSkeletonSend() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
@@ -18,7 +18,7 @@ function Cameratest() {
         //
         setInterval(() => {
             detect(net);
-        }, 2000);
+        }, 10000);
     };
 
     const detect = async (net) => {
@@ -99,7 +99,7 @@ function Cameratest() {
     }
 
     async function postimage(pose) {
-        fetch(`/api/images/getjointpoint`, {
+        fetch(`http://127.0.0.1:8000/#/apis/images/getjointpoint`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -157,4 +157,4 @@ function Cameratest() {
     )
 }
 
-export default Cameratest;
+export default CameraSkeletonSend;

@@ -12,7 +12,8 @@ import Login from './components/examples/Login';
 import Profile from './components/examples/Profile';
 import DemoNavbar from './components/Navbars/DemoNavbar';
 import Landing from './components/examples/Landing';
-import Cameratest from './components/camera/Cameratest';
+import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
+import CameraSendImage from './components/camera/CameraSendImage'
 
 
 function App() {
@@ -24,6 +25,13 @@ function App() {
           <Route path="/" exact>
 
             <Landing />
+          </Route>
+
+          <Route path="/camskel">
+            <CameraSkeletonSend />
+          </Route>
+          <Route path="/camsendimg">
+            <CameraSendImage />
           </Route>
 
 
