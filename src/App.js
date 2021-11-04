@@ -14,7 +14,7 @@ import DemoNavbar from './components/Navbars/DemoNavbar';
 import Landing from './components/examples/Landing';
 import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
 import CameraSendImage from './components/camera/CameraSendImage'
-
+import CounterTest from './components/camera/CounterTest';
 
 function App() {
   return (
@@ -32,6 +32,10 @@ function App() {
           </Route>
           <Route path="/camsendimg">
             <CameraSendImage />
+          </Route>
+
+          <Route path="/counter">
+            <CounterTest />
           </Route>
 
 
