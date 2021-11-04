@@ -14,7 +14,8 @@ import DemoNavbar from './components/Navbars/DemoNavbar';
 import Landing from './components/examples/Landing';
 import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
 import CameraSendImage from './components/camera/CameraSendImage'
-import CounterTest from './components/camera/CounterTest';
+import CounterTest from './components/camera/CounterTest';  // 나중에 지울것
+import InitialCheckSquat from './components/camera/InitialCheckSquat';
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
 
           <Route path="/counter">
             <CounterTest />
+          </Route>
+
+          <Route path="/squat-page">
+            <InitialCheckSquat />
           </Route>
 
 
@@ -62,7 +67,6 @@ function App() {
           </Route>
 
           <Route path="/profile-page">
-
             <Profile />
           </Route>
 
