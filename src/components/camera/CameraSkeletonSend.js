@@ -40,44 +40,8 @@ function CameraSkeletonSend() {
             // Make Detections
             const pose = await net.estimateSinglePose(video);
 
-            //오른쪽 어깨
-            var shol_x = parseFloat(pose.keypoints[6].position["x"]);
-            shol_x.toFixed(2);
-            const shol_y = pose.keypoints[6].position["y"];
-
-            //오른쪽 무릎
-            const knee_x = pose.keypoints[14].position["x"];
-            const knee_y = pose.keypoints[14].position["y"];
-
-            //엉덩이
-            const heep_x = pose.keypoints[11].position["x"];
-            const heep_y = pose.keypoints[11].position["y"];
-            var diff = knee_y - shol_y;
-
-            // console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
-            // console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
-            // console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
-            /*
-            var isSholCenter = false;
-            var isKneeCenter = false;
-            if (shol_x > 180 && shol_x < 280) {
-              isSholCenter = true;
-            }
-            if (knee_x > 180 && knee_x < 280) {
-              isKneeCenter = true;
-            }
-            if (isSholCenter && isKneeCenter) {
-              if (diff >= 300)
-                console.log("ready   diff:" + diff)
-              if (diff < 300) { // 앉았을때 -> 스쿼트 했을 때
-                console.log("스퀏!   diff:" + diff)
-                // to do: 여기서 pose를 json형식으로 전달하기(POST 이용)
-              }
-            }
-            */
-
             drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-            postimage(pose);
+            postJointPoint(pose);
         }
 
     };
@@ -99,7 +63,7 @@ function CameraSkeletonSend() {
         return cookieValue;
     }
 
-    async function postimage(pose) {
+    async function postJointPoint(pose) {
         fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
             method: "POST",
             headers: {
