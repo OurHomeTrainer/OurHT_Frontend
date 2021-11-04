@@ -2,11 +2,13 @@ import { useRef } from "react";
 import Webcam from "react-webcam";
 import * as posenet from "@tensorflow-models/posenet";
 import { drawKeypoints, drawSkeleton } from "../../utilities";
-import jQuery from 'jquery'
+import jQuery, { data } from 'jquery';
+import React, { useState } from "react";
 
 function CameraSkeletonSend() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
+    const [tData, setData] = useState([]);
 
     const runPosenet = async () => {
         const net = await posenet.load({
@@ -18,8 +20,9 @@ function CameraSkeletonSend() {
         //
         setInterval(() => {
             detect(net);
-        }, 10000);
+        }, 2000);
     };
+
 
     const detect = async (net) => {
         if (
@@ -53,9 +56,9 @@ function CameraSkeletonSend() {
             const heep_y = pose.keypoints[11].position["y"];
             var diff = knee_y - shol_y;
 
-            console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
-            console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
-            console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
+            // console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
+            // console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
+            // console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
             /*
             var isSholCenter = false;
             var isKneeCenter = false;
@@ -99,7 +102,7 @@ function CameraSkeletonSend() {
     }
 
     async function postimage(pose) {
-        fetch(`http://127.0.0.1:8000/#/apis/images/getjointpoint`, {
+        fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -107,8 +110,11 @@ function CameraSkeletonSend() {
                 "Accept": "application/json",
             },
             body: JSON.stringify(pose)
-        })
-        console.log("보냈습니다~");
+        }).then((response) => (response.json()))
+        .then((data) => {setData(data)})
+        // .then((data) => console.log("response:", data))
+        
+        //console.log("보냈습니다~",msgtest);
     }
 
     const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
@@ -125,6 +131,9 @@ function CameraSkeletonSend() {
     return (
         <div>
             <div> 비비디비오디오 </div>
+            <div>
+                <h2>정렬 Test 입니다.  . {tData}  </h2>
+            </div>
             <Webcam
                 ref={webcamRef}
                 style={{
@@ -153,6 +162,7 @@ function CameraSkeletonSend() {
                     height: 480,
                 }}
             />
+            
         </div>
     )
 }
