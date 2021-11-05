@@ -1,10 +1,10 @@
 
-import { useRef } from "react";
+// import { useRef } from "react";
 import Webcam from "react-webcam";
 import * as posenet from "@tensorflow-models/posenet";
 import { drawKeypoints, drawSkeleton } from "../../utilities";
 import jQuery, { data } from 'jquery';
-import React, { useState } from "react";
+import React, { useState , useRef} from "react";
 
 // reactstrap components
 import { Button, Card, Container, Row, Col } from "reactstrap";
@@ -87,43 +87,43 @@ function InitialCheckSquat() {
             */
 
             drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-           // postimage(pose);
+            postimage(pose);
         }
 
     };
 
-    // //여기서 보내면 됨!!!
-    // // CSRF Token 처리 함수, POST 요청시 반드시 필요함! 
-    // function getCookie(name) {
-    //     var cookieValue = null;
-    //     if (document.cookie && document.cookie !== '') {
-    //         var cookies = document.cookie.split(';');
-    //         for (var i = 0; i < cookies.length; i++) {
-    //             var cookie = jQuery.trim(cookies[i]);
-    //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-    //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     return cookieValue;
-    // }
+    //여기서 보내면 됨!!!
+    // CSRF Token 처리 함수, POST 요청시 반드시 필요함! 
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 
-    // async function postimage(pose) {
-    //     fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
-    //         method: "POST",
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-CSRFToken': getCookie("csrftoken"),
-    //             "Accept": "application/json",
-    //         },
-    //         body: JSON.stringify(pose)
-    //     }).then((response) => (response.json()))
-    //     .then((data) => {setData(data)})
-    //     // .then((data) => console.log("response:", data))
+    async function postimage(pose) {
+        fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie("csrftoken"),
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(pose)
+        }).then((response) => (response.json()))
+        .then((data) => {setData(data)})
+        // .then((data) => console.log("response:", data))
         
-    //     //console.log("보냈습니다~",msgtest);
-    // }
+        //console.log("보냈습니다~",msgtest);
+    }
 
     const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
         const ctx = canvas.current.getContext("2d");
@@ -144,7 +144,7 @@ function InitialCheckSquat() {
     return (
         <>
           <DemoNavbar />
-          <main className="profile-page" ref="main">
+          <main className="profile-page">
             <section className="section-profile-cover section-shaped my-0">
               {/* background */}
               <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
@@ -165,17 +165,17 @@ function InitialCheckSquat() {
                       <Col className="order-lg-1" lg="4">
                         <div className="card-profile-stats d-flex justify-content-center">
                           <div>
-                            <span className="heading">12</span>
-                            <span className="description">운동횟수</span>
+                            <span className="heading">{tData}</span>
+                            <span className="description">측면 정렬 상태 </span>
                           </div>
-                          <div>
+                          {/* <div>
                             <span className="heading">10</span>
                             <span className="description">분석결과</span>
                           </div>
                           <div>
                             <span className="heading">890</span>
                             <span className="description">점수</span>
-                          </div>
+                          </div> */}
                         </div>
                       </Col>
   
@@ -183,7 +183,7 @@ function InitialCheckSquat() {
                     </Row>
                     <div className="text-center mt-5">
                       
-                      하잉
+                      하윙
                       
                     </div>
                     
@@ -191,7 +191,7 @@ function InitialCheckSquat() {
                             <Webcam
                         ref={webcamRef}
                         style={{
-                            position: "absolute",
+                            position: "relative",
                             marginLeft: "auto",
                             marginRight: "auto",
                             left: 0,
@@ -205,7 +205,7 @@ function InitialCheckSquat() {
                     <canvas
                         ref={canvasRef}
                         style={{
-                            position: "absolute",
+                            position: "relative",
                             marginLeft: "auto",
                             marginRight: "auto",
                             left: 0,
@@ -227,7 +227,7 @@ function InitialCheckSquat() {
           </main>
           <SimpleFooter />
         </>
-      );
+      )
 
 
 

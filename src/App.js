@@ -70,6 +70,10 @@ function App() {
             <Profile />
           </Route>
 
+          <Route path="/main">
+            <Main />
+          </Route>
+
 
           {/* nicdee */}
 
