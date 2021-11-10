@@ -119,7 +119,7 @@ function InitialCheckSquat() {
             },
             body: JSON.stringify(pose)
         }).then((response) => (response.json()))
-        .then((data) => {setData(data)})
+        .then((data) => setData(data))
         // .then((data) => console.log("response:", data))
         
         //console.log("보냈습니다~",msgtest);
@@ -191,7 +191,7 @@ function InitialCheckSquat() {
                             <Webcam
                         ref={webcamRef}
                         style={{
-                            position: "relative",
+                            position: "absolute",
                             marginLeft: "auto",
                             marginRight: "auto",
                             left: 0,

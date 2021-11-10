@@ -111,8 +111,8 @@ function CameraSkeletonSend() {
             },
             body: JSON.stringify(pose)
         }).then((response) => (response.json()))
-        .then((data) => {setData(data)})
-        // .then((data) => console.log("response:", data))
+        // .then((data) => {setData(data)})
+        .then((data) => console.log("response:", data))
         
         //console.log("보냈습니다~",msgtest);
     }
