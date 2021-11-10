@@ -18,7 +18,7 @@ function CameraSkeletonSend() {
         //
         setInterval(() => {
             detect(net);
-        }, 2000);
+        }, 200);
     };
 
 
