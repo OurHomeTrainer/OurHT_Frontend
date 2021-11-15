@@ -27,19 +27,27 @@ function InitialCheckSquat() {
         const RunPosenet = async () => {
 
           useEffect(()=>{
-            
+            if (net==undefined){
+              console.log("unde");
+              
+            }
 
             const interval = setInterval(()=>{
               
+            console.log(webcamRef.current);
             detect(net);
-            console.log({tData});
+            console.log({net});
+            
               
             },2500);
+            
 
             
             //console.log({tData});
             return () => clearInterval(interval);
-            },[tData]);
+            },[net]);
+
+            
 
           const net = await posenet.load({
               architecture: 'ResNet50',
@@ -61,7 +69,7 @@ function InitialCheckSquat() {
 
     const detect = async (net) => {
         if (
-            typeof webcamRef.current !== "undefined" &&
+            webcamRef.current !== undefined &&
             webcamRef.current !== null &&
             webcamRef.current.video.readyState === 4
         ) {
@@ -117,7 +125,7 @@ function InitialCheckSquat() {
             Postimage(pose);
         }
         else{
-          console.log("sdsdsdsdsd")
+          console.log("sdsdsdsdsd");
         }
 
     };
