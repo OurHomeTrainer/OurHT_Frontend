@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-export class Login extends Component {
+export class LoginByJames extends Component {
   state = {
     username: "",
     password: "",
@@ -10,6 +10,7 @@ export class Login extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     console.log("submit");
+    console.log(e.target.name);
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -56,4 +57,4 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+export default LoginByJames;

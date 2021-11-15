@@ -1,29 +1,26 @@
-import React from 'react';
+import React from "react";
 
-
-import Navigation from './components/Nav';
-import Main from './components/Main';
-import Result from './components/Result';
-import Info from './components/Info';
+import Navigation from "./components/Nav";
+import Main from "./components/Main";
+import Result from "./components/Result";
+import Info from "./components/Info";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Sample from './components/Sample';
-import Login from './components/examples/Login';
-import Profile from './components/examples/Profile';
-import DemoNavbar from './components/Navbars/DemoNavbar';
-import Landing from './components/examples/Landing';
-import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
-import CameraSendImage from './components/camera/CameraSendImage'
-
+import Sample from "./components/Sample";
+import Login from "./components/examples/Login";
+import Profile from "./components/examples/Profile";
+import DemoNavbar from "./components/Navbars/DemoNavbar";
+import Landing from "./components/examples/Landing";
+import CameraSkeletonSend from "./components/camera/CameraSkeletonSend";
+import CameraSendImage from "./components/camera/CameraSendImage";
+import LoginByJames from "./components/LoginPageByJames";
 
 function App() {
   return (
     <BrowserRouter>
-
       <div className="App">
         <Switch>
           <Route path="/" exact>
-
             <Landing />
           </Route>
 
@@ -34,9 +31,7 @@ function App() {
             <CameraSendImage />
           </Route>
 
-
           <Route path="/result">
-
             <Result />
           </Route>
 
@@ -53,35 +48,21 @@ function App() {
           </Route>
 
           <Route path="/login-page">
-
             <Login />
           </Route>
 
-          <Route path="/profile-page">
+          <Route path="/login_by_james">
+            <LoginByJames />
+          </Route>
 
+          <Route path="/profile-page">
             <Profile />
           </Route>
 
-
           {/* nicdee */}
-
         </Switch>
-
-
-
-
-
-
       </div>
     </BrowserRouter>
-
-
-
-
-
-
-
-
   );
 }
 
