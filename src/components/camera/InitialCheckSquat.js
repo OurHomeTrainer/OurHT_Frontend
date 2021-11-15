@@ -4,7 +4,8 @@ import Webcam from "react-webcam";
 import * as posenet from "@tensorflow-models/posenet";
 import { drawKeypoints, drawSkeleton } from "../../utilities";
 import jQuery, { data } from 'jquery';
-import React, { useState , useRef} from "react";
+import React, { useState , useRef, useEffect} from "react";
+import ReactDOM from "react-dom";
 
 // reactstrap components
 import { Button, Card, Container, Row, Col } from "reactstrap";
@@ -13,23 +14,49 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
+
+
 function InitialCheckSquat() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
-    const [tData, setData] = useState([]);
+    const [tData, setData] = useState("시작!");
 
-    const runPosenet = async () => {
-        const net = await posenet.load({
-            architecture: 'ResNet50',
-            outputStride: 32,
-            inputResolution: { width: 257, height: 200 },
-            quantBytes: 2
-        });
-        //
-        setInterval(() => {
+    
+
+      
+        const RunPosenet = async () => {
+
+          useEffect(()=>{
+            
+
+            const interval = setInterval(()=>{
+              
             detect(net);
-        }, 2000);
+            console.log({tData});
+              
+            },2500);
+
+            
+            //console.log({tData});
+            return () => clearInterval(interval);
+            },[tData]);
+
+          const net = await posenet.load({
+              architecture: 'ResNet50',
+              outputStride: 32,
+              inputResolution: { width: 257, height: 200 },
+              quantBytes: 2
+          });
+
+        // // 
+        // setInterval(() => {
+        //     detect(net);
+        // }, 2000);
+        // //
+        
     };
+
+
 
 
     const detect = async (net) => {
@@ -87,7 +114,10 @@ function InitialCheckSquat() {
             */
 
             drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-            postimage(pose);
+            Postimage(pose);
+        }
+        else{
+          console.log("sdsdsdsdsd")
         }
 
     };
@@ -107,9 +137,26 @@ function InitialCheckSquat() {
             }
         }
         return cookieValue;
-    }
+    };
 
-    async function postimage(pose) {
+    //  useEffect(() => {
+    //   console.log('=== useEffect ===');
+    //   const Postimage = async () => {
+    //   setIsError(false);
+    //   try {
+    //   const articleData = await Postimage();
+    //   setArticles(articleData);
+    //   } catch (error) {
+    //   setIsError(true);
+    //   }
+    //   }
+    //   Postimage();
+    //   }, [data]);
+      
+
+
+
+    async function Postimage(pose) {
         fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
             method: "POST",
             headers: {
@@ -118,12 +165,18 @@ function InitialCheckSquat() {
                 "Accept": "application/json",
             },
             body: JSON.stringify(pose)
-        }).then((response) => (response.json()))
+        })
+        
+        .then((response) => (response.json()))
+        //.then((data)=>console.log("output",data))
         .then((data) => setData(data))
-        // .then((data) => console.log("response:", data))
+        //.then( console.log("response:", data.name))
+        //console.log("response:", response.name)
         
         //console.log("보냈습니다~",msgtest);
     }
+
+    
 
     const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
         const ctx = canvas.current.getContext("2d");
@@ -134,7 +187,7 @@ function InitialCheckSquat() {
         drawSkeleton(pose["keypoints"], 0.7, ctx);
     };
 
-    runPosenet();
+    RunPosenet();
     // componentDidMount() {
     //     document.documentElement.scrollTop = 0;
     //     document.scrollingElement.scrollTop = 0;
@@ -230,7 +283,10 @@ function InitialCheckSquat() {
       )
 
 
-
 }
+
+
+
+
 export default InitialCheckSquat;
 
