@@ -6,6 +6,7 @@ import { drawKeypoints, drawSkeleton } from "../../utilities";
 import jQuery, { data } from 'jquery';
 import React, { useState , useRef, useEffect} from "react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import { Button, Card, Container, Row, Col } from "reactstrap";
@@ -39,7 +40,7 @@ function InitialCheckSquat() {
             console.log({net});
             
               
-            },1000);
+            },200);
             
 
             
@@ -84,6 +85,7 @@ function InitialCheckSquat() {
 
             // Make Detections
             const pose = await net.estimateSinglePose(video);
+            const imageUrl = webcamRef.current.getScreenshot();
 
             //오른쪽 어깨
             var shol_x = parseFloat(pose.keypoints[6].position["x"]);
@@ -122,7 +124,7 @@ function InitialCheckSquat() {
             */
 
             drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-            Postimage(pose);
+            Postimage(pose, imageUrl);
         }
         else{
           console.log("sdsdsdsdsd");
@@ -165,7 +167,7 @@ function InitialCheckSquat() {
 
 
 
-    async function Postimage(pose) {
+    async function Postimage(pose, imageUrl) {
         fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
             method: "POST",
             headers: {
@@ -173,7 +175,10 @@ function InitialCheckSquat() {
                 'X-CSRFToken': getCookie("csrftoken"),
                 "Accept": "application/json",
             },
-            body: JSON.stringify(pose)
+            body: JSON.stringify({
+              'skeletonpoint': pose,
+              'url': imageUrl,
+            })
         })
         
         .then((response) => (response.json()))
@@ -281,6 +286,16 @@ function InitialCheckSquat() {
 
 
                     </div>
+                    <span>
+                    <Link to="result">
+                            <Button
+                              className="mt-4"
+                              color="primary"
+                            >
+                              결과보기
+                            </Button>
+                          </Link>
+                    </span>
                     
                   </div>
                 </Card>

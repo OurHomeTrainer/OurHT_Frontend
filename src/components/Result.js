@@ -22,8 +22,25 @@ function Result() {
     const [feeds,setFeed]=useState([]);
 
     useEffect(() => {
-        feedTest()
-      }, [feeds]);
+        async function feedTest() {
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie("csrftoken"),
+                    "Accept": "application/json",
+                },
+            })
+            .then((response) => (response.json()))
+            .then((data) => setFeed(data))
+            //.then((responseData) => setFeed(responseData[0]))
+            //.then((responseData) => console.log(responseData))
+            //.then((responseData) => {setCheck(responseData[0].checklist);})
+            //.then((responseData) => {setPhoto(responseData[0].photo);})
+        }
+        feedTest();
+        
+      }, [data]);
 
 
 
@@ -43,25 +60,24 @@ function Result() {
     };
     
 
-    async function feedTest() {
-        fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie("csrftoken"),
-                "Accept": "application/json",
-            },
+    // async function feedTest() {
+    //     fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`, {
+    //         method: "GET",
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-CSRFToken': getCookie("csrftoken"),
+    //             "Accept": "application/json",
+    //         },
+    //     })
         
-        })
-        
-        .then((response) => (response.json()))
-        .then((data) => setFeed(data))
-        //.then((responseData) => setFeed(responseData[0]))
-        //.then((responseData) => console.log(responseData[0].checklist))
-        //.then((responseData) => {setCheck(responseData[0].checklist);})
-        //.then((responseData) => {setPhoto(responseData[0].photo);})
-    }
-    feedTest();
+    //     .then((response) => (response.json()))
+    //     //.then((data) => setFeed(data))
+    //     //.then((responseData) => setFeed(responseData[0]))
+    //     .then((responseData) => console.log(responseData))
+    //     //.then((responseData) => {setCheck(responseData[0].checklist);})
+    //     //.then((responseData) => {setPhoto(responseData[0].photo);})
+    // }
+    //feedTest();
 
 
 
@@ -109,24 +125,34 @@ function Result() {
                           </div> */}
                         </div>
                       </Col>
-  
-  
                     </Row>
                     <div className="text-center mt-5">
+                      <Row>
+                          <Col className="text-center">사진</Col>
+                          <Col className="text-center">횟수</Col>
+                          <Col className="text-center">피드백</Col>
+                      </Row>
                       
-                      하윙
-                      {/* {feeds} */}
-                      {/* <img
-                      src={photo}
-                      />
-                      {check} */}
 
 
-                      <ul>
+                      <ul className="img-box">
                           {feeds.map(feed=>(
-                              <li key={feed.id}>
-                                  <img src={feed.photo} alt={feed.checklist}/>
-                                  <span>{feed.checklist}</span>
+                              <li key={feed.id} className="row align-items-center"> 
+                                <div className="col-3 py-5">
+                                  <img src={feed.photo} ></img>
+                                </div>
+                                
+                                  
+                                  <span className="col">{feed.count_number}</span>
+                                  {/* <span className="col">{feed.checklist}</span> */}
+                                  <span className="col">
+                                      {feed.checklist.map((checklist=>
+                                        <li key={checklist.id} className="row align-items-center">
+                                            <span className="col">{checklist.check_item_name}</span>
+                                            </li>
+                                            ))}
+                                      </span>
+                                  
                                   </li>
                           ))}
                       </ul>
