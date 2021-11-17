@@ -39,7 +39,7 @@ function InitialCheckSquat() {
             console.log({net});
             
               
-            },2500);
+            },1000);
             
 
             
@@ -69,8 +69,8 @@ function InitialCheckSquat() {
 
     const detect = async (net) => {
         if (
-            webcamRef.current !== undefined &&
-            webcamRef.current !== null &&
+            //webcamRef.current !== undefined &&
+            //webcamRef.current !== null &&
             webcamRef.current.video.readyState === 4
         ) {
             // Get Video Properties
@@ -126,6 +126,7 @@ function InitialCheckSquat() {
         }
         else{
           console.log("sdsdsdsdsd");
+          
         }
 
     };
