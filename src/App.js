@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Navigation from "./components/Nav";
 import Main from "./components/Main";
@@ -16,6 +16,14 @@ import CameraSendImage from "./components/camera/CameraSendImage";
 import LoginByJames from "./components/LoginPageByJames";
 
 function App() {
+  const [token, setToken] = useState("");
+
+  const userLogin = (tok) => {
+    setToken(tok);
+    console.log("tok:" + tok);
+    console.log("token:" + token);
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -32,7 +40,7 @@ function App() {
           </Route>
 
           <Route path="/result">
-            <Result />
+            <Result token={token} />
           </Route>
 
           <Route path="/home">
@@ -52,7 +60,7 @@ function App() {
           </Route>
 
           <Route path="/login_by_james">
-            <LoginByJames />
+            <LoginByJames userLogin={userLogin} />
           </Route>
 
           <Route path="/profile-page">

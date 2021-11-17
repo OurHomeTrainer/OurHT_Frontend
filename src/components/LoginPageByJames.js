@@ -1,57 +1,70 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component} from 'react';
 
-export class LoginByJames extends Component {
+class LoginByJames extends Component {
+
   state = {
-    username: "",
-    password: "",
-  };
+    credentials: {username: '', password: ''}
+  }
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit");
-    console.log(e.target.name);
-  };
+  login = event => {
+    console.log(this.state.credentials);
+    fetch('http://127.0.0.1:8000/auth/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(this.state.credentials)
+    })
+    .then( data => data.json())
+    .then(
+      data => {
+        console.log(data.token);
+        this.props.userLogin(data.token);
+      }
+    )
+    .catch( error => console.error(error))
+  }
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  register = event => {
+    console.log(this.state.credentials);
+    fetch('http://127.0.0.1:8000/apis/users/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(this.state.credentials)
+    })
+    .then( data => data.json())
+    .then(
+      data => {
+        console.log(data.token);
+      }
+    )
+    .catch( error => console.error(error))
+  }
+  inputChanged = event => {
+    const cred = this.state.credentials;
+    cred[event.target.name] = event.target.value;
+    this.setState({credentials: cred});
+  }
 
   render() {
-    const { username, password } = this.state;
     return (
-      <div className="col-md-6 m-auto">
-        <div className="card card-body mt-5">
-          <h2 className="text-center">Login</h2>
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label>Username</label>
-              <input
-                type="text"
-                className="form-control"
-                name="username"
-                onChange={this.onChange}
-                value={username}
-              />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                onChange={this.onChange}
-                value={password}
-              />
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">
-                Login
-              </button>
-            </div>
-            <p>
-              Do not have an account? <Link to="/register">Register</Link>
-            </p>
-          </form>
-        </div>
+      <div>
+        <h1>Login user form</h1>
+
+        <label>
+          Username:
+          <input type="text" name="username"
+           value={this.state.credentials.username}
+           onChange={this.inputChanged}/>
+        </label>
+        <br/>
+        <label>
+          Password:
+          <input type="password" name="password"
+           value={this.state.credentials.password}
+           onChange={this.inputChanged} />
+        </label>
+        <br/>
+        <button onClick={this.login}>Login</button>
+        <button onClick={this.register}>Register</button>
       </div>
     );
   }
