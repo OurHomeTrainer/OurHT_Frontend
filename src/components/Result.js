@@ -2,7 +2,7 @@
 // import { useRef } from "react";
 
 import jQuery, { data } from 'jquery';
-import React, { useState , useRef, useEffect, Component } from "react";
+import React, { useState , useContext, useEffect, Component } from "react";
 
 
 // reactstrap components
@@ -12,7 +12,8 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-
+// 전역값
+//import UserContext from '../UserContext.js';
 
 
 function Result() {
@@ -20,6 +21,7 @@ function Result() {
     const [photo,setPhoto]=useState([]);
     const [check,setCheck]=useState([]);
     const [feeds,setFeed]=useState([]);
+ 
 
     useEffect(() => {
         async function feedTest() {

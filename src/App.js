@@ -16,10 +16,13 @@ import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
 import CameraSendImage from './components/camera/CameraSendImage'
 import CounterTest from './components/camera/CounterTest';  // 나중에 지울것
 import InitialCheckSquat from './components/camera/InitialCheckSquat';
+import UserStore from './store/users';  // 전역 변수 사용위함
 
 function App() {
   return (
+ 
     <BrowserRouter>
+       
 
       <div className="App">
         <Switch>
@@ -27,6 +30,8 @@ function App() {
 
             <Landing />
           </Route>
+          {/* <UserStore> */}
+          
 
           <Route path="/camskel">
             <CameraSkeletonSend />
@@ -39,9 +44,12 @@ function App() {
             <CounterTest />
           </Route>
 
+          
+
           <Route path="/squat-page">
             <InitialCheckSquat />
           </Route>
+          
 
 
           <Route path="/result">
@@ -73,6 +81,7 @@ function App() {
           <Route path="/main">
             <Main />
           </Route>
+          {/* </UserStore> */}
 
 
           {/* nicdee */}
@@ -80,17 +89,10 @@ function App() {
         </Switch>
 
 
-
-
-
-
       </div>
+
     </BrowserRouter>
-
-
-
-
-
+    
 
 
 
