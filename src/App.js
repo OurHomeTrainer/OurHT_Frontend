@@ -16,7 +16,8 @@ import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
 import CameraSendImage from './components/camera/CameraSendImage'
 import CounterTest from './components/camera/CounterTest';  // 나중에 지울것
 import InitialCheckSquat from './components/camera/InitialCheckSquat';
-import UserStore from './store/users';  // 전역 변수 사용위함
+import { UserContextProvider } from './components/camera/users';  // 전역 변수 사용위함
+import SquatMiddle from './components/camera/SquatMiddle';
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
 
             <Landing />
           </Route>
-          {/* <UserStore> */}
+          
+          <UserContextProvider>
           
 
           <Route path="/camskel">
@@ -81,7 +83,11 @@ function App() {
           <Route path="/main">
             <Main />
           </Route>
-          {/* </UserStore> */}
+
+          <Route path="/middle">
+            <SquatMiddle />
+          </Route>
+          </UserContextProvider>
 
 
           {/* nicdee */}

@@ -131,9 +131,6 @@ function CameraSkeletonSend() {
     return (
         <div>
             <div> 비비디비오디오 </div>
-            <div>
-                <h2>정렬 Test 입니다.  . {tData}  </h2>
-            </div>
             <Webcam
                 ref={webcamRef}
                 style={{
@@ -162,6 +159,10 @@ function CameraSkeletonSend() {
                     height: 480,
                 }}
             />
+            <div>
+                <h2>정렬 Test 입니다.  . {tData}  </h2>
+            </div>
+            
             
         </div>
     )

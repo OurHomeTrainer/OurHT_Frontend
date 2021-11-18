@@ -15,7 +15,8 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 //전역
-import { UserContext } from "../../store/users.js";
+
+import { useUserContext } from './users';
 
 
 
@@ -23,7 +24,8 @@ function InitialCheckSquat() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     const [tData, setData] = useState("시작!");
-    const context = useContext(UserContext);
+    const { user } = useUserContext();
+    // const context = useContext(UserContext);
 
     
 
@@ -88,7 +90,7 @@ function InitialCheckSquat() {
 
             // Make Detections
             const pose = await net.estimateSinglePose(video);
-            const imageUrl = webcamRef.current.getScreenshot();
+            
 
             //오른쪽 어깨
             var shol_x = parseFloat(pose.keypoints[6].position["x"]);
@@ -125,9 +127,12 @@ function InitialCheckSquat() {
               }
             }
             */
-
+            
+            if (webcamRef != null) {
             drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
+            const imageUrl = webcamRef.current.getScreenshot();
             Postimage(pose, imageUrl);
+            }
         }
         else{
           console.log("sdsdsdsdsd");
@@ -227,8 +232,49 @@ function InitialCheckSquat() {
             {/* 여기부터가 컨테이너 부분 */}
             <section className="section">
               <Container>
-                <Card className="card-profile shadow mt--300">
-                  <div className="px-4">
+                <Card className="card-profile shadow mt-300 ">
+
+            
+
+         
+             
+                  <div style={{
+                       marginLeft: "auto",
+                      marginRight: "auto",
+                      position: "relative"
+                  }} className="px-4">
+                    <Webcam
+                        ref={webcamRef}
+                        style={{
+                            
+                        //  marginLeft: "auto",
+                        //    marginRight: "auto",
+                            //left: 0,
+                            //right: 0,
+                            textAlign: "center",
+                            zindex: 9,
+                            width: 640,
+                            height: 480,
+                        }}
+                        />
+                         <canvas
+                        ref={canvasRef}
+                        style={{
+                            position: "absolute",
+                        //    marginLeft: "auto",
+                        //    marginRight: "auto",
+                           // top: 0,
+                            left: 0,
+                         //  right: 100,
+                            textAlign: "center",
+                            zindex: 10,
+                            width: 640,
+                            height: 480,
+                        }}
+                    />
+
+
+
                     <Row className="justify-content-center">
                       
   
@@ -251,45 +297,29 @@ function InitialCheckSquat() {
   
   
                     </Row>
-                    <div className="text-center mt-5">
+                    {/* <div className="text-center mt-5">
                       
                       하윙
-                      
-                    </div>
+                      {user}
+                    </div> */}
                     
-                    <div>
-                            <Webcam
-                        ref={webcamRef}
-                        style={{
-                            position: "absolute",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            left: 0,
-                            right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                    />
-                    <canvas
-                        ref={canvasRef}
-                        style={{
-                            position: "relative",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            left: 0,
-                            right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                    />
-
-
+                    
+                
+                    
+                  </div>
+                         
+                  <div style={{
+                    borderWidth:10,
+                    //  position: 'relative',
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      width: 640,
+                      height: 480,
+                  }}>
+                  
                     </div>
-                    <span>
+                            <span>
+                              <div style={{position: "center"}}>
                     <Link to="result">
                             <Button
                               className="mt-4"
@@ -299,9 +329,8 @@ function InitialCheckSquat() {
                               {/* {context.pk} */}
                             </Button>
                           </Link>
+                          </div>
                     </span>
-                    
-                  </div>
                 </Card>
               </Container>
             </section>

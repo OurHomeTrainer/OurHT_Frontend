@@ -133,7 +133,7 @@ class Landing extends React.Component {
                             </Badge>
                           </div>
 
-                          <Link to="squat-page">
+                          <Link to="middle">
                             <Button
                               className="mt-4"
                               color="primary"
