@@ -25,7 +25,8 @@ function Result() {
 
     useEffect(() => {
         async function feedTest() {
-            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`, {
+            //fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=super&date=2021-11-15T08:50:05.000Z`
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=1`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
