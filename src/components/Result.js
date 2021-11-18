@@ -26,7 +26,7 @@ function Result() {
     useEffect(() => {
         async function feedTest() {
             //fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=super&date=2021-11-15T08:50:05.000Z`
-            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=1`, {
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=5`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function Result() {
             //.then((responseData) => {setPhoto(responseData[0].photo);})
         }
         feedTest();
-        
+        console.log(feeds);
       }, [data]);
 
 
@@ -141,12 +141,12 @@ function Result() {
                       <ul className="img-box">
                           {feeds.map(feed=>(
                               <li key={feed.id} className="row align-items-center"> 
-                                <div className="col-3 py-5">
-                                  <img src={feed.photo} ></img>
+                                <div className="col-3 py-3">
+                                  <img width="200" height="200" src={'data:image/jpeg;base64,' + feed.photo} ></img>
                                 </div>
                                 
                                   
-                                  <span className="col">{feed.count_number}</span>
+                                  <span className="col align-items-center">{feed.count_number}</span>
                                   {/* <span className="col">{feed.checklist}</span> */}
                                   <span className="col">
                                       {feed.checklist.map((checklist=>

@@ -45,7 +45,7 @@ function InitialCheckSquat() {
               else{
                 console.log(net)
               }
-            },200);
+            },400);
             
             //console.log({tData});
             return () => clearInterval(interval);
@@ -88,8 +88,7 @@ function InitialCheckSquat() {
 
             // Make Detections
             const pose = await net.estimateSinglePose(video);
-            const imageUrl = webcamRef.current.getScreenshot();
-
+        
             //오른쪽 어깨
             var shol_x = parseFloat(pose.keypoints[6].position["x"]);
             shol_x.toFixed(2);
@@ -126,8 +125,15 @@ function InitialCheckSquat() {
             }
             */
 
-            drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-            Postimage(pose, imageUrl);
+            
+            if (webcamRef != null){
+              if (canvasRef != null) {
+                drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
+              }
+              const imageUrl = webcamRef.current.getScreenshot();
+              //console.log(imageUrl);
+              Postimage(pose, imageUrl);
+            }
         }
         else{
           console.log("sdsdsdsdsd");
@@ -228,7 +234,41 @@ function InitialCheckSquat() {
             <section className="section">
               <Container>
                 <Card className="card-profile shadow mt--300">
-                  <div className="px-4">
+                  <div style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    position:"relative"
+                  }} 
+                  className="px-4">
+                    
+                  <Webcam
+                        ref={webcamRef}
+                        style={{
+                            // position: "absolute",
+                            // marginLeft: "auto",
+                            // marginRight: "auto",
+                            // left: 0,
+                            // right: 0,
+                            textAlign: "center",
+                            zindex: 9,
+                            width: 640,
+                            height: 480,
+                        }}
+                    />
+                    <canvas
+                        ref={canvasRef}
+                        style={{
+                            position: "absolute",
+                            // marginLeft: "auto",
+                            // marginRight: "auto",
+                            left: 0,
+                            // right: 0,
+                            textAlign: "center",
+                            zindex: 10,
+                            width: 640,
+                            height: 480,
+                        }}
+                    />
                     <Row className="justify-content-center">
                       
   
@@ -236,7 +276,6 @@ function InitialCheckSquat() {
                         <div className="card-profile-stats d-flex justify-content-center">
                           <div>
                             <span className="heading">{tData}</span>
-                            <span className="description">측면 정렬 상태 </span>
                           </div>
                           {/* <div>
                             <span className="heading">10</span>
@@ -251,55 +290,22 @@ function InitialCheckSquat() {
   
   
                     </Row>
-                    <div className="text-center mt-5">
-                      
-                      하윙
-                      
-                    </div>
-                    
-                    <div>
-                            <Webcam
-                        ref={webcamRef}
-                        style={{
-                            position: "absolute",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            left: 0,
-                            right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                    />
-                    <canvas
-                        ref={canvasRef}
-                        style={{
-                            position: "relative",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            left: 0,
-                            right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                    />
+                    <div className="text-center mt-4">
 
-
-                    </div>
-                    <span>
                     <Link to="result">
                             <Button
-                              className="mt-4"
+                              className="mb-3"
                               color="primary"
                             >
                               결과보기
                               {/* {context.pk} */}
                             </Button>
                           </Link>
-                    </span>
+                          </div>
+                    
+                    
+              
+      
                     
                   </div>
                 </Card>
