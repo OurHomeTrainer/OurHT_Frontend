@@ -27,8 +27,9 @@ function Result() {
  
 
     useEffect(() => {
+        
         async function feedTest() {
-            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`, {
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=1&motion_index=999`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,13 +39,14 @@ function Result() {
             })
             .then((response) => (response.json()))
             .then((data) => setFeed(data))
+            
             //.then((responseData) => setFeed(responseData[0]))
             //.then((responseData) => console.log(responseData))
             //.then((responseData) => {setCheck(responseData[0].checklist);})
             //.then((responseData) => {setPhoto(responseData[0].photo);})
         }
         feedTest();
-        
+        console.log("klsdafjskldaj")
       }, [data]);
 
 
@@ -63,6 +65,7 @@ function Result() {
         }
         return cookieValue;
     };
+    
     
 
     // async function feedTest() {
@@ -144,7 +147,7 @@ function Result() {
                           {feeds.map(feed=>(
                               <li key={feed.id} className="row align-items-center"> 
                                 <div className="col-3 py-5">
-                                  <img src={feed.photo} ></img>
+                                  {/* <img src={feed.photo} ></img> */}
                                 </div>
                                 
                                   
@@ -169,7 +172,7 @@ function Result() {
 
                   <div className="row">
       {feeds.map(feed => (
-        <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-3 p-md-3" key={feed.id}>
+        <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
           <div className="card">
             {/* <img src={feed.phot }
                  style={{width: '100%'}}></img> */}

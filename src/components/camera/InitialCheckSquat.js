@@ -176,6 +176,7 @@ function InitialCheckSquat() {
 
 
     async function Postimage(pose, imageUrl) {
+        console.log("찾았다 이 시발럼")
         fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
             method: "POST",
             headers: {
@@ -319,17 +320,16 @@ function InitialCheckSquat() {
                   
                     </div>
                             <span>
-                              <div style={{position: "center"}}>
                     <Link to="result">
                             <Button
                               className="mt-4"
                               color="primary"
+                              position="center"
                             >
                               결과보기
                               {/* {context.pk} */}
                             </Button>
                           </Link>
-                          </div>
                     </span>
                 </Card>
               </Container>

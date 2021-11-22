@@ -32,7 +32,9 @@ function SquatMiddle() {
                         'X-CSRFToken': getCookie("csrftoken"),
                         "Accept": "application/json",
                     },
-                    body: JSON.stringify({})
+                    body: JSON.stringify({
+                        "userid": 1,
+                    })
                 })
                 
                 
@@ -112,7 +114,7 @@ function SquatMiddle() {
                     <div className="text-center mt-5">
                         <span>안녕!</span>
                         <span>더꾸며봅시다</span>
-                        <span>{user}</span>
+                        {/* <span>{user}</span> */}
                     </div>
                     <div className="text-center mt-5">
                         <span>{user}</span>

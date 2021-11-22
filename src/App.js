@@ -18,6 +18,7 @@ import CounterTest from './components/camera/CounterTest';  // 나중에 지울�
 import InitialCheckSquat from './components/camera/InitialCheckSquat';
 import { UserContextProvider } from './components/camera/users';  // 전역 변수 사용위함
 import SquatMiddle from './components/camera/SquatMiddle';
+import Feed from './components/Feed';
 
 function App() {
   return (
@@ -38,26 +39,22 @@ function App() {
           <Route path="/camskel">
             <CameraSkeletonSend />
           </Route>
-          <Route path="/camsendimg">
-            <CameraSendImage />
-          </Route>
 
-          <Route path="/counter">
-            <CounterTest />
-          </Route>
-
-          
 
           <Route path="/squat-page">
             <InitialCheckSquat />
           </Route>
           
-
-
           <Route path="/result">
-
             <Result />
           </Route>
+
+          <Route path="/feed/:id">
+            <Feed />
+          </Route>
+
+
+
 
           <Route path="/home">
             <Landing />
@@ -88,9 +85,6 @@ function App() {
             <SquatMiddle />
           </Route>
           </UserContextProvider>
-
-
-          {/* nicdee */}
 
         </Switch>
 
