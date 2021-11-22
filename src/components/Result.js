@@ -6,7 +6,8 @@ import React, { useState , useContext, useEffect, Component } from "react";
 
 
 // reactstrap components
-import { Button, Card, Container, Row, Col } from "reactstrap";
+import { Button, Container, Row, Col } from "reactstrap";
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
@@ -14,6 +15,8 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 // 전역값
 //import UserContext from '../UserContext.js';
+//테스트용 이미지
+import Testimg from 'components/test2.jpeg'
 
 
 function Result() {
@@ -160,13 +163,26 @@ function Result() {
                       </ul>
                     </div>
                     
-
-
-                    
-                    
-                    
-                    
                   </div>
+                  
+
+
+                  <div className="row">
+      {feeds.map(feed => (
+        <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-3 p-md-3" key={feed.id}>
+          <div className="card">
+            {/* <img src={feed.phot }
+                 style={{width: '100%'}}></img> */}
+                 <img src= {Testimg} alt={feed.count_number}>
+                     </img>
+            <div className="card-body">
+              <h5 className="card-title">{feed.count_number} 회차 </h5>
+              <p className="card-text">PERFECT!{feed.check_item_name}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
                 </Card>
               </Container>
             </section>
