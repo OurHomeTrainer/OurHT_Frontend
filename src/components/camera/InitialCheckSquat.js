@@ -5,7 +5,6 @@ import * as posenet from "@tensorflow-models/posenet";
 import { drawKeypoints, drawSkeleton } from "../../utilities";
 import jQuery, { data } from 'jquery';
 import React, { useState , useRef, useEffect, useContext } from "react";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 // reactstrap components
@@ -17,304 +16,341 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 //전역
 import { UserContext } from "../../store/users.js";
 
-
-
 function InitialCheckSquat() {
-    const webcamRef = useRef(null);
-    const canvasRef = useRef(null);
-    const [tData, setData] = useState("시작!");
-    const context = useContext(UserContext);
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [tData, setData] = useState("시작!");
+  const context = useContext(UserContext);
 
+  let count = 1;
+  let is_person_gone_to_stand = "no";
+  let pose_list = [];
+  let url_list = [];
+
+  const RunPosenet = async () => {
+
+    useEffect(()=>{  
+      const interval = setInterval(()=>{
+        if (net!=undefined){
+          detect(net);
+        }
+      },200);
     
+      //console.log({tData});
+      return () => clearInterval(interval);
+    },[net]);  
 
-      
-        const RunPosenet = async () => {
+    const net = await posenet.load({
+        architecture: 'ResNet50',
+        outputStride: 32,
+        inputResolution: { width: 257, height: 200 },
+        quantBytes: 2
+    });
+  };
 
-          useEffect(()=>{
-            
+  const detect = async (net) => {
+    if (webcamRef.current.video.readyState === 4) {
+      // Get Video Properties
+      const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
 
-            const interval = setInterval(()=>{
-              
-              if (net!=undefined){
-                console.log("No unde");
-                
-                console.log(webcamRef.current);
-                detect(net);
-                console.log({net});
-              }
-              else{
-                console.log(net)
-              }
-            },200);
-            
-            //console.log({tData});
-            return () => clearInterval(interval);
-            },[net]);
+      // Set video width
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
 
-            
+      // Make Detections
+      const pose = await net.estimateSinglePose(video);
+      const imageUrl = webcamRef.current.getScreenshot();
 
-          const net = await posenet.load({
-              architecture: 'ResNet50',
-              outputStride: 32,
-              inputResolution: { width: 257, height: 200 },
-              quantBytes: 2
-          });
+      drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
 
-        // // 
-        // setInterval(() => {
-        //     detect(net);
-        // }, 2000);
-        // //
-        
-    };
-
-
-
-
-    const detect = async (net) => {
-        if (
-            //webcamRef.current !== undefined &&
-            //webcamRef.current !== null &&
-            webcamRef.current.video.readyState === 4
-        ) {
-            // Get Video Properties
-            const video = webcamRef.current.video;
-            const videoWidth = webcamRef.current.video.videoWidth;
-            const videoHeight = webcamRef.current.video.videoHeight;
-
-            // Set video width
-            webcamRef.current.video.width = videoWidth;
-            webcamRef.current.video.height = videoHeight;
-
-            // Make Detections
-            const pose = await net.estimateSinglePose(video);
-            const imageUrl = webcamRef.current.getScreenshot();
-
-            //오른쪽 어깨
-            var shol_x = parseFloat(pose.keypoints[6].position["x"]);
-            shol_x.toFixed(2);
-            const shol_y = pose.keypoints[6].position["y"];
-
-            //오른쪽 무릎
-            const knee_x = pose.keypoints[14].position["x"];
-            const knee_y = pose.keypoints[14].position["y"];
-
-            //엉덩이
-            const heep_x = pose.keypoints[11].position["x"];
-            const heep_y = pose.keypoints[11].position["y"];
-            var diff = knee_y - shol_y;
-
-            // console.log(`어깨 x: ${shol_x}/어깨 y:${shol_y}`);
-            // console.log(`무릎 x: ${knee_x}/무릎 y:${knee_y}`);
-            // console.log(`엉덩이 x: ${heep_x}/엉덩이 y:${heep_y}`);
-            /*
-            var isSholCenter = false;
-            var isKneeCenter = false;
-            if (shol_x > 180 && shol_x < 280) {
-              isSholCenter = true;
+      // 샘플링 로직
+      const camSetFlag = isCameraSetted(pose, videoWidth);
+      if (camSetFlag == true) {
+        const squat_state = returnSquatState(pose);
+        if (squat_state == "squat") {
+          pose_list.push(pose);
+          url_list.push(imageUrl);
+          is_person_gone_to_stand = "no";
+        } 
+        else {
+          if (squat_state == "stand") {
+            is_person_gone_to_stand = "yes";
+          }
+          if (is_person_gone_to_stand == "yes") {
+            let pose_list_for_hip_y = [];
+            for (let i = 0; i < pose_list.length; i++) {
+              pose_list_for_hip_y.push(pose_list[i]["keypoints"][11]["position"]["y"])
             }
-            if (knee_x > 180 && knee_x < 280) {
-              isKneeCenter = true;
-            }
-            if (isSholCenter && isKneeCenter) {
-              if (diff >= 300)
-                console.log("ready   diff:" + diff)
-              if (diff < 300) { // 앉았을때 -> 스쿼트 했을 때
-                console.log("스퀏!   diff:" + diff)
-                // to do: 여기서 pose를 json형식으로 전달하기(POST 이용)
+            const max_hip_y = Math.max(...pose_list_for_hip_y);
+            let max_hip_y_index;
+            for (let i = 0; i < pose_list_for_hip_y.length; i++) {
+              if (max_hip_y == pose_list_for_hip_y[i]) {
+                max_hip_y_index = i;
               }
             }
-            */
 
-            drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-            Postimage(pose, imageUrl);
+            const sampling_skel_data = pose_list[max_hip_y_index];
+            const sampling_image_data = url_list[max_hip_y_index];
+
+            Postimage(sampling_skel_data, sampling_image_data);
+
+            pose_list.length = 0;
+            url_list.length = 0;
+          }
         }
-        else{
-          console.log("sdsdsdsdsd");
-          
+      }
+    }
+  };
+
+  function isCameraSetted(data, camera_width) {
+    const mid = camera_width / 2;
+    let is_ankle_show = false;
+    let is_ankle_mid = false;
+    let is_shoulder_sideview = false;
+
+    const left_ankle_x = data["keypoints"][15]["position"]["x"];
+    const left_ankle_y = data["keypoints"][15]["position"]["y"];
+
+    const right_ankle_x = data["keypoints"][16]["position"]["x"];
+    const right_ankle_y = data["keypoints"][16]["position"]["y"];
+
+    const left_shoulder_x = data["keypoints"][5]["position"]["x"];
+    const right_shoulder_x = data["keypoints"][6]["position"]["x"];
+
+    const mis_align = Math.abs(left_shoulder_x - right_shoulder_x);
+
+    const ankle_x = (left_ankle_x + right_ankle_x) / 2;
+    const ankle_y = (left_ankle_y + right_ankle_y) / 2;
+
+    // 발목 보이는지 체크
+    const below_ankle = 480 - ankle_y;
+    console.log("발목 아래 공간: ",below_ankle);
+    if (below_ankle > 20) {
+        is_ankle_show = true;
+        console.log("1-1-1: 발목이 보여요");
+        if (mid - 100 < ankle_x < mid + 100) {
+          is_ankle_mid = true;
+          console.log("1-1-2: 중앙정렬 완료");
         }
-
-    };
-
-    //여기서 보내면 됨!!!
-    // CSRF Token 처리 함수, POST 요청시 반드시 필요함! 
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+        else {
+            is_ankle_mid = false;
+            console.log("발목이 중앙에 오도록 하세요!");
         }
-        return cookieValue;
-    };
-
-    //  useEffect(() => {
-    //   console.log('=== useEffect ===');
-    //   const Postimage = async () => {
-    //   setIsError(false);
-    //   try {
-    //   const articleData = await Postimage();
-    //   setArticles(articleData);
-    //   } catch (error) {
-    //   setIsError(true);
-    //   }
-    //   }
-    //   Postimage();
-    //   }, [data]);
-      
-
-
-
-    async function Postimage(pose, imageUrl) {
-        fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie("csrftoken"),
-                "Accept": "application/json",
-            },
-            body: JSON.stringify({
-              'skeletonpoint': pose,
-              'url': imageUrl,
-            })
-        })
-        
-        .then((response) => (response.json()))
-        //.then((data)=>console.log("output",data))
-        .then((data) => setData(data))
-        //.then( console.log("response:", data.name))
-        //console.log("response:", response.name)
-        
-        //console.log("보냈습니다~",msgtest);
+    }
+    else {
+        is_ankle_show = false;
+        console.log("발목이 안 보여요!");
     }
 
+    // 어깨의 측면view 정렬을 위해
+    console.log(mis_align)
+    if (mis_align < 50) {
+        is_shoulder_sideview = true;
+        console.log("1-1-3: 측면으로 잘 섰습니다");
+    }
+    else {
+        is_shoulder_sideview = false;
+        console.log("몸을 틀어, 측면이 잘 보이도록 조정해주세요!");
+    }
+
+    // 최종 판단
+    if (is_ankle_mid && is_shoulder_sideview == true) {
+        console.log("1-1: 카메라 세팅 완료");
+        return true;
+    }
+    else {
+        return false;
+    }
+  }
+
+  function returnSquatState(data) {
+    // 좌표 받아오기
+    const left_hip = data["keypoints"][11]["position"];
+    const right_hip = data["keypoints"][12]["position"];
+    const left_knee = data["keypoints"][13]["position"];
+    const right_knee = data["keypoints"][14]["position"];
+
+    // 관절 좌, 우 중심점 찾기
+    let hip = [
+        (left_hip["x"] + right_hip["x"]) / 2,
+        (left_hip["y"] + right_hip["y"]) / 2,
+    ];
+    let knee = [
+        (left_knee["x"] + right_knee["x"]) / 2,
+        (left_knee["y"] + right_knee["y"]) / 2,
+    ];
+
+    // extra_point=[hip의 x, knee의 y]
+    // 즉, hip에서 수직으로 선 긋고, knee에서 수평으로 선 그엇을때 만나는 점
+    let extra_point = [hip[0], knee[1]];
+    let angle = calculate_angle(hip, knee, extra_point);
+
+    if (hip[1] < knee[1]){  // 일반적인 경우 --> hip의 y좌표가 작다.
+        if (angle < 20) {
+            console.log("squat");
+            return "squat";
+        }
+        else if (angle > 80) {
+            console.log("stand");
+            return "stand";
+        }
+        else {
+            console.log("ongoing");
+            return "ongoing";
+        }
+    }
+    else {                  // 가동범위가 좋아서, 깊게 앉은 경우 --> hip의 y좌표가 더 커진다.
+        console.log("squat");
+        return "squat";
+    }
+  }
+
+  function calculate_angle(a, b, c) {
     
+    const radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+    let angle = Math.abs(radians * 180.0 / Math.PI);
 
-    const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
-        const ctx = canvas.current.getContext("2d");
-        canvas.current.width = videoWidth;
-        canvas.current.height = videoHeight;
+    if (angle > 180.0) {
+      angle = 360 - angle;
+    }
 
-        drawKeypoints(pose["keypoints"], 0.6, ctx);
-        drawSkeleton(pose["keypoints"], 0.7, ctx);
-    };
+    return angle;
+  }
 
-    RunPosenet();
-    // componentDidMount() {
-    //     document.documentElement.scrollTop = 0;
-    //     document.scrollingElement.scrollTop = 0;
-    //     this.refs.main.scrollTop = 0;
-    // }
+  // CSRF Token 처리 함수, POST 요청시 반드시 필요함! 
+  function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  };
+      
+  async function Postimage(pose, imageUrl) {
+    console.log(pose);
+    fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie("csrftoken"),
+          "Accept": "application/json",
+      },
+      body: JSON.stringify({
+        'skeletonpoint': pose,
+        'url': imageUrl,
+        'count': count,
+        // 'exercise_pk':exercise_pk,
+      })
+    })
+    .then((response) => (response.json()))
+    .then((data) => setData(data))
 
-    return (
-        <>
-          <DemoNavbar />
-          <main className="profile-page">
-            <section className="section-profile-cover section-shaped my-0">
-              {/* background */}
-              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
-  
-              </div>
-  
-  
-            </section>
-  
-            {/* 여기부터가 컨테이너 부분 */}
-            <section className="section">
-              <Container>
-                <Card className="card-profile shadow mt--300">
-                  <div className="px-4">
-                    <Row className="justify-content-center">
-                      
-  
-                      <Col className="order-lg-1" lg="4">
-                        <div className="card-profile-stats d-flex justify-content-center">
-                          <div>
-                            <span className="heading">{tData}</span>
-                            <span className="description">측면 정렬 상태 </span>
-                          </div>
-                          {/* <div>
-                            <span className="heading">10</span>
-                            <span className="description">분석결과</span>
-                          </div>
-                          <div>
-                            <span className="heading">890</span>
-                            <span className="description">점수</span>
-                          </div> */}
+    count += 1;
+  }
+
+  const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
+      const ctx = canvas.current.getContext("2d");
+      canvas.current.width = videoWidth;
+      canvas.current.height = videoHeight;
+
+      drawKeypoints(pose["keypoints"], 0.6, ctx);
+      drawSkeleton(pose["keypoints"], 0.7, ctx);
+  };
+
+  RunPosenet();
+
+  return (
+      <>
+        <DemoNavbar />
+        <main className="profile-page">
+          <section className="section-profile-cover section-shaped my-0">
+            {/* background */}
+            <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"/>
+          </section>
+
+          {/* 여기부터가 컨테이너 부분 */}
+          <section className="section">
+            <Container>
+              <Card className="card-profile shadow mt--300">
+                <div className="px-4">
+                  <Row className="justify-content-center">
+                    
+
+                    <Col className="order-lg-1" lg="4">
+                      <div className="card-profile-stats d-flex justify-content-center">
+                        <div>
+                          <span className="heading">{tData}</span>
+                          <span className="description">측면 정렬 상태 </span>
                         </div>
-                      </Col>
-  
-  
-                    </Row>
-                    <div className="text-center mt-5">
-                      
-                      하윙
-                      
-                    </div>
-                    
-                    <div>
-                            <Webcam
-                        ref={webcamRef}
-                        style={{
-                            position: "absolute",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            left: 0,
-                            right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                    />
-                    <canvas
-                        ref={canvasRef}
-                        style={{
-                            position: "relative",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            left: 0,
-                            right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                    />
+                      </div>
+                    </Col>
 
 
-                    </div>
-                    <span>
-                    <Link to="result">
-                            <Button
-                              className="mt-4"
-                              color="primary"
-                            >
-                              결과보기
-                              {/* {context.pk} */}
-                            </Button>
-                          </Link>
-                    </span>
-                    
+                  </Row>
+                  <div className="text-center mt-5">  
+                    Test
                   </div>
-                </Card>
-              </Container>
-            </section>
-          </main>
-          <SimpleFooter />
-        </>
-      )
-
-
+                  
+                  <div>
+                          <Webcam
+                      ref={webcamRef}
+                      style={{
+                          position: "absolute",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          left: 0,
+                          right: 0,
+                          textAlign: "center",
+                          zindex: 9,
+                          width: 640,
+                          height: 480,
+                      }}
+                  />
+                  <canvas
+                      ref={canvasRef}
+                      style={{
+                          position: "relative",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          left: 0,
+                          right: 0,
+                          textAlign: "center",
+                          zindex: 9,
+                          width: 640,
+                          height: 480,
+                      }}
+                  />
+                  </div>
+                  <span>
+                  <Link to="result">
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                    >
+                      결과보기
+                      {/* {context.pk} */}
+                    </Button>
+                  </Link>
+                  </span>
+                  
+                </div>
+              </Card>
+            </Container>
+          </section>
+        </main>
+        <SimpleFooter />
+      </>
+    )
 }
-
-
-
 
 export default InitialCheckSquat;
 
