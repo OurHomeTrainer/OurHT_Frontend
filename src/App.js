@@ -45,13 +45,16 @@ function App() {
             <InitialCheckSquat />
           </Route>
           
-          <Route path="/result">
-            <Result />
+          <Route exact path="/result" component={Result}>
+            
           </Route>
 
-          <Route path="/feed/:id">
+          {/* <Route path="/feed/:id">
             <Feed />
-          </Route>
+          </Route> */}
+          <Switch>
+          <Route path="/result/feed/:id" component={Feed}></Route>
+          </Switch>
 
 
 
