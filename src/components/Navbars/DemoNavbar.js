@@ -27,15 +27,15 @@ import {
   DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
-  Media,
+  //Media,
   NavbarBrand,
   Navbar,
   NavItem,
   NavLink,
   Nav,
   Container,
-  Row,
-  Col,
+  //Row,
+  //Col,
   UncontrolledTooltip
 } from "reactstrap";
 

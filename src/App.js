@@ -6,7 +6,6 @@ import Sample from './components/Sample';
 import Login from './components/examples/Login';
 import Profile from './components/examples/Profile';
 import Landing from './components/examples/Landing';
-import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
 import InitialCheckSquat from './components/camera/InitialCheckSquat';
 import { UserContextProvider } from './components/camera/users';  // 전역 변수 사용위함
 import SquatMiddle from './components/camera/SquatMiddle';
@@ -21,17 +20,10 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/" exact>
-
             <Landing />
           </Route>
           
           <UserContextProvider>
-          
-
-          <Route path="/camskel">
-            <CameraSkeletonSend />
-          </Route>
-
 
           <Route path="/squat-page">
             <InitialCheckSquat />
@@ -42,7 +34,7 @@ function App() {
           </Route>
 
           <Switch>
-          <Route path="/result/feed/:id" component={Feed}></Route>
+          <Route path="/result/feed/:id/:count_number" component={Feed}></Route>
           </Switch>
 
 

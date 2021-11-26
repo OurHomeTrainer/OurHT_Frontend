@@ -41,8 +41,7 @@ function SquatMiddle() {
                 setUser(data)
             })
         }
-        makePk();
-        
+        makePk();       
       }, [data]);
 
 

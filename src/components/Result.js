@@ -1,5 +1,5 @@
 
-import jQuery, { data } from 'jquery';
+import jQuery from 'jquery';
 import React, { useState , useEffect} from "react";
 
 // reactstrap components
@@ -24,7 +24,7 @@ function Result(props) {
 
       let current_user;
 
-      if (user == 999) {
+      if (user === 999 || user === "999") {
         let temp = localStorage.getItem("saveexercisepk");
         current_user = temp;
       } else {
@@ -62,12 +62,12 @@ function Result(props) {
         return cookieValue;
     };
 
-    const handleClick = (event, id) => {
+    const handleClick = (event, id, count_number) => {
         console.log(event, id);
         event.preventDefault();
-        props.history.push(`/result/feed/${id}`);
+        props.history.push(`/result/feed/${id}/${count_number}`);
       }
-    
+
     return (
         <>
 
@@ -98,7 +98,8 @@ function Result(props) {
                         </div>
                       </Col>
                     </Row>
-                    <div className="text-center mt-5">
+                    
+                    {/* <div className="text-center mt-5">
                       <Row>
                           <Col className="text-center">사진</Col>
                           <Col className="text-center">횟수</Col>
@@ -111,12 +112,12 @@ function Result(props) {
                           {feeds.map(feed=>(
                               <li key={feed.id} className="row align-items-center"> 
                                 <div className="col-3 py-5">
-                                  {/* <img src={feed.photo} ></img> */}
+                                  <img src={feed.photo} ></img>
                                 </div>
                                 
                                   
                                   <span className="col">{feed.count_number}</span>
-                                  {/* <span className="col">{feed.checklist}</span> */}
+                                  <span className="col">{feed.checklist}</span>
                                   <span className="col">
                                       {feed.checklist.map((checklist=>
                                         <li key={checklist.id} className="row align-items-center">
@@ -128,7 +129,7 @@ function Result(props) {
                                   </li>
                           ))}
                       </ul>
-                    </div>
+                    </div> */}
                     
                   </div>
                   
@@ -138,7 +139,7 @@ function Result(props) {
                     {feeds.map(feed => (
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
                         <div className="card" key={feed.id}
-                 onClick={(e) => handleClick(e, feed.id)} style={{cursor: 'pointer'}}>
+                 onClick={(e) => handleClick(e, feed.id, feed.count_number)} style={{cursor: 'pointer'}}>
                             <img src={"data:image/webp;base64," + feed.photo}
                                 style={{width: '100%'}}></img>
                                 {/* <img src= {Testimg} alt={feed.count_number}>

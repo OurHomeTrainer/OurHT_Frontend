@@ -35,9 +35,6 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-// index page sections
-import Download from "../IndexSections/Download.js";
-
 class Landing extends React.Component {
   state = {};
   componentDidMount() {
