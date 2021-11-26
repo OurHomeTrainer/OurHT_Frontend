@@ -16,7 +16,9 @@ import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
 import CameraSendImage from './components/camera/CameraSendImage'
 import CounterTest from './components/camera/CounterTest';  // 나중에 지울것
 import InitialCheckSquat from './components/camera/InitialCheckSquat';
-import UserStore from './store/users';  // 전역 변수 사용위함
+import { UserContextProvider } from './components/camera/users';  // 전역 변수 사용위함
+import SquatMiddle from './components/camera/SquatMiddle';
+import Feed from './components/Feed';
 
 function App() {
   return (
@@ -30,32 +32,32 @@ function App() {
 
             <Landing />
           </Route>
-          {/* <UserStore> */}
+          
+          <UserContextProvider>
           
 
           <Route path="/camskel">
             <CameraSkeletonSend />
           </Route>
-          <Route path="/camsendimg">
-            <CameraSendImage />
-          </Route>
 
-          <Route path="/counter">
-            <CounterTest />
-          </Route>
-
-          
 
           <Route path="/squat-page">
             <InitialCheckSquat />
           </Route>
           
-
-
-          <Route path="/result">
-
-            <Result />
+          <Route exact path="/result" component={Result}>
+            
           </Route>
+
+          {/* <Route path="/feed/:id">
+            <Feed />
+          </Route> */}
+          <Switch>
+          <Route path="/result/feed/:id" component={Feed}></Route>
+          </Switch>
+
+
+
 
           <Route path="/home">
             <Landing />
@@ -81,10 +83,11 @@ function App() {
           <Route path="/main">
             <Main />
           </Route>
-          {/* </UserStore> */}
 
-
-          {/* nicdee */}
+          <Route path="/middle">
+            <SquatMiddle />
+          </Route>
+          </UserContextProvider>
 
         </Switch>
 

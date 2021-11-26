@@ -6,7 +6,8 @@ import React, { useState , useContext, useEffect, Component } from "react";
 
 
 // reactstrap components
-import { Button, Card, Container, Row, Col } from "reactstrap";
+import { Button, Container, Row, Col } from "reactstrap";
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
@@ -14,18 +15,22 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 // 전역값
 //import UserContext from '../UserContext.js';
+//테스트용 이미지
+import Testimg from 'components/test2.jpeg'
+import Feed from 'components/Feed.js';
+import {  Route, Switch } from "react-router-dom";
 
 
-function Result() {
+function Result(props) {
 
-    const [photo,setPhoto]=useState([]);
-    const [check,setCheck]=useState([]);
+    
     const [feeds,setFeed]=useState([]);
  
 
     useEffect(() => {
+        
         async function feedTest() {
-            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`, {
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=1&motion_index=999`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,13 +40,14 @@ function Result() {
             })
             .then((response) => (response.json()))
             .then((data) => setFeed(data))
+            
             //.then((responseData) => setFeed(responseData[0]))
             //.then((responseData) => console.log(responseData))
             //.then((responseData) => {setCheck(responseData[0].checklist);})
             //.then((responseData) => {setPhoto(responseData[0].photo);})
         }
         feedTest();
-        
+        console.log("여기 체크")
       }, [data]);
 
 
@@ -60,39 +66,23 @@ function Result() {
         }
         return cookieValue;
     };
+
+    const handleClick = (event, id) => {
+        console.log(event, id);
+        event.preventDefault();
+        props.history.push(`/result/feed/${id}`);
+      }
+    
     
 
-    // async function feedTest() {
-    //     fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`, {
-    //         method: "GET",
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-CSRFToken': getCookie("csrftoken"),
-    //             "Accept": "application/json",
-    //         },
-    //     })
-        
-    //     .then((response) => (response.json()))
-    //     //.then((data) => setFeed(data))
-    //     //.then((responseData) => setFeed(responseData[0]))
-    //     .then((responseData) => console.log(responseData))
-    //     //.then((responseData) => {setCheck(responseData[0].checklist);})
-    //     //.then((responseData) => {setPhoto(responseData[0].photo);})
-    // }
-    //feedTest();
 
-
-
-    // fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?username=quad&date=2021-11-15T08:50:05.000Z`)
-    // .then(res=>res.json())
-    // .then(res=>console.log(res))
-
-    // fetch(`http://127.0.0.1:8000/apis/users/getexercise?username=quad`)
-    // .then(res=>res.json())
-    // .then(res=>console.log(res))
 
     return (
         <>
+
+        
+
+
           <DemoNavbar />
           <main className="profile-page">
             <section className="section-profile-cover section-shaped my-0">
@@ -141,7 +131,7 @@ function Result() {
                           {feeds.map(feed=>(
                               <li key={feed.id} className="row align-items-center"> 
                                 <div className="col-3 py-5">
-                                  <img src={feed.photo} ></img>
+                                  {/* <img src={feed.photo} ></img> */}
                                 </div>
                                 
                                   
@@ -160,13 +150,27 @@ function Result() {
                       </ul>
                     </div>
                     
-
-
-                    
-                    
-                    
-                    
                   </div>
+                  
+
+
+                  <div className="row">
+                    {feeds.map(feed => (
+                        <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
+                        <div className="card" key={feed.id}
+                 onClick={(e) => handleClick(e, feed.id)} style={{cursor: 'pointer'}}>
+                            {/* <img src={feed.phot }
+                                style={{width: '100%'}}></img> */}
+                                <img src= {Testimg} alt={feed.count_number}>
+                                    </img>
+                            <div className="card-body">
+                            <h5 className="card-title">{feed.count_number} 회차 </h5>
+                            <p className="card-text">PERFECT!{feed.check_item_name}</p>
+                            </div>
+                        </div>
+                        </div>
+                ))}
+                </div>
                 </Card>
               </Container>
             </section>

@@ -13,14 +13,15 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
-//전역
-import { UserContext } from "../../store/users.js";
+
+// 전역
+import { useUserContext } from './users';
 
 function InitialCheckSquat() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [tData, setData] = useState("시작!");
-  const context = useContext(UserContext);
+  const {user} = useUserContext();
 
   let count = 1;
   let is_person_gone_to_stand = "no";
