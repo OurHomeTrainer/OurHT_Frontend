@@ -1,36 +1,39 @@
 
-// import { useRef } from "react";
-
 import jQuery, { data } from 'jquery';
-import React, { useState , useContext, useEffect, Component } from "react";
-
+import React, { useState , useEffect} from "react";
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Container, Row, Col } from "reactstrap";
+import { Card} from 'react-bootstrap';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 // 전역값
-//import UserContext from '../UserContext.js';
-//테스트용 이미지
-import Testimg from 'components/test2.jpeg'
-import Feed from 'components/Feed.js';
-import {  Route, Switch } from "react-router-dom";
-
+import { useUserContext } from './camera/users';
 
 function Result(props) {
 
+  // 전역
+  const { user } = useUserContext();
     
-    const [feeds,setFeed]=useState([]);
- 
+  const [feeds,setFeed]=useState([]);
 
     useEffect(() => {
-        
+
+      let current_user;
+
+      if (user == 999) {
+        let temp = localStorage.getItem("saveexercisepk");
+        current_user = temp;
+      } else {
+        current_user = user;
+        localStorage.setItem("saveexercisepk", JSON.stringify(current_user));
+      }
+
         async function feedTest() {
-            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=1&motion_index=999`, {
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_user}&motion_index=999`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,17 +43,9 @@ function Result(props) {
             })
             .then((response) => (response.json()))
             .then((data) => setFeed(data))
-            
-            //.then((responseData) => setFeed(responseData[0]))
-            //.then((responseData) => console.log(responseData))
-            //.then((responseData) => {setCheck(responseData[0].checklist);})
-            //.then((responseData) => {setPhoto(responseData[0].photo);})
         }
         feedTest();
-        console.log("여기 체크")
-      }, [data]);
-
-
+      }, [user]);
 
     function getCookie(name) {
         var cookieValue = null;
@@ -73,15 +68,8 @@ function Result(props) {
         props.history.push(`/result/feed/${id}`);
       }
     
-    
-
-
-
     return (
         <>
-
-        
-
 
           <DemoNavbar />
           <main className="profile-page">
@@ -107,14 +95,6 @@ function Result(props) {
                           <div>
                             <span className="heading"> 분석 결과 </span>
                           </div>
-                          {/* <div>
-                            <span className="heading">10</span>
-                            <span className="description">분석결과</span>
-                          </div>
-                          <div>
-                            <span className="heading">890</span>
-                            <span className="description">점수</span>
-                          </div> */}
                         </div>
                       </Col>
                     </Row>
@@ -159,10 +139,10 @@ function Result(props) {
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
                         <div className="card" key={feed.id}
                  onClick={(e) => handleClick(e, feed.id)} style={{cursor: 'pointer'}}>
-                            {/* <img src={feed.phot }
-                                style={{width: '100%'}}></img> */}
-                                <img src= {Testimg} alt={feed.count_number}>
-                                    </img>
+                            <img src={"data:image/webp;base64," + feed.photo}
+                                style={{width: '100%'}}></img>
+                                {/* <img src= {Testimg} alt={feed.count_number}>
+                                    </img> */}
                             <div className="card-body">
                             <h5 className="card-title">{feed.count_number} 회차 </h5>
                             <p className="card-text">PERFECT!{feed.check_item_name}</p>
@@ -179,11 +159,7 @@ function Result(props) {
         </>
       )
 
-
 }
-
-
-
 
 export default Result;
 

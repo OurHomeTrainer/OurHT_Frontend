@@ -1,10 +1,8 @@
-
-// import { useRef } from "react";
 import Webcam from "react-webcam";
 import * as posenet from "@tensorflow-models/posenet";
 import { drawKeypoints, drawSkeleton } from "../../utilities";
-import jQuery, { data } from 'jquery';
-import React, { useState , useRef, useEffect, useContext } from "react";
+import jQuery from 'jquery';
+import React, { useState , useRef, useEffect} from "react";
 import { Link } from "react-router-dom";
 
 // reactstrap components
@@ -32,12 +30,11 @@ function InitialCheckSquat() {
 
     useEffect(()=>{  
       const interval = setInterval(()=>{
-        if (net!=undefined){
+        if (net!=undefined && webcamRef != null && canvasRef != null){
           detect(net);
         }
       },200);
-    
-      //console.log({tData});
+
       return () => clearInterval(interval);
     },[net]);  
 
@@ -216,7 +213,6 @@ function InitialCheckSquat() {
     if (angle > 180.0) {
       angle = 360 - angle;
     }
-
     return angle;
   }
 
@@ -249,7 +245,7 @@ function InitialCheckSquat() {
         'skeletonpoint': pose,
         'url': imageUrl,
         'count': count,
-        // 'exercise_pk':exercise_pk,
+        'exercise_pk': user,
       })
     })
     .then((response) => (response.json()))

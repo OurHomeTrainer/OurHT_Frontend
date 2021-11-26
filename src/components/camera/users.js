@@ -4,9 +4,7 @@ import React, { createContext, useState, useContext } from "react";
 const Context = createContext()
 
 export function UserContextProvider({ children }) {
-  const [user, setUser] = useState('1')
-
-
+  const [user, setUser] = useState('999')
   
   return (
     //변수명.Provider 문법으로 그 범위 안에있는 컴포넌트한테 값을 공유할 수 있음

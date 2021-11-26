@@ -1,20 +1,12 @@
 import React from 'react';
-
-
-import Navigation from './components/Nav';
-import Main from './components/Main';
 import Result from './components/Result';
-import Info from './components/Info';
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Sample from './components/Sample';
 import Login from './components/examples/Login';
 import Profile from './components/examples/Profile';
-import DemoNavbar from './components/Navbars/DemoNavbar';
 import Landing from './components/examples/Landing';
 import CameraSkeletonSend from './components/camera/CameraSkeletonSend';
-import CameraSendImage from './components/camera/CameraSendImage'
-import CounterTest from './components/camera/CounterTest';  // 나중에 지울것
 import InitialCheckSquat from './components/camera/InitialCheckSquat';
 import { UserContextProvider } from './components/camera/users';  // 전역 변수 사용위함
 import SquatMiddle from './components/camera/SquatMiddle';
@@ -49,9 +41,6 @@ function App() {
             
           </Route>
 
-          {/* <Route path="/feed/:id">
-            <Feed />
-          </Route> */}
           <Switch>
           <Route path="/result/feed/:id" component={Feed}></Route>
           </Switch>
@@ -80,10 +69,6 @@ function App() {
             <Profile />
           </Route>
 
-          <Route path="/main">
-            <Main />
-          </Route>
-
           <Route path="/middle">
             <SquatMiddle />
           </Route>
@@ -95,8 +80,6 @@ function App() {
       </div>
 
     </BrowserRouter>
-    
-
 
 
   );

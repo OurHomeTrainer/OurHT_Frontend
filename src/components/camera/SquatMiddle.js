@@ -1,9 +1,6 @@
 
-// import { useRef } from "react";
-
 import jQuery, { data } from 'jquery';
-import React, { useState , useRef, useEffect, useContext } from "react";
-import ReactDOM from "react-dom";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 
 import { useUserContext } from './users';
@@ -34,6 +31,7 @@ function SquatMiddle() {
                     },
                     body: JSON.stringify({
                         "userid": 1,
+                        /* 이 자리 로그인 하면 유저 pk가 들어와야 함! */
                     })
                 })
                 
@@ -42,12 +40,6 @@ function SquatMiddle() {
             .then((data) => {
                 setUser(data)
             })
-            //.then((data) => console.log(data))
-
-            //.then((responseData) => setFeed(responseData[0]))
-            //.then((responseData) => console.log(responseData))
-            //.then((responseData) => {setCheck(responseData[0].checklist);})
-            //.then((responseData) => {setPhoto(responseData[0].photo);})
         }
         makePk();
         
@@ -100,14 +92,6 @@ function SquatMiddle() {
                           <div>
                             <span className="heading"> 스쿼트는 실시간으로 Perfect, Good, Bad로 상태를 ~ </span>
                           </div>
-                          {/* <div>
-                            <span className="heading">10</span>
-                            <span className="description">분석결과</span>
-                          </div>
-                          <div>
-                            <span className="heading">890</span>
-                            <span className="description">점수</span>
-                          </div> */}
                         </div>
                       </Col>
                     </Row>
