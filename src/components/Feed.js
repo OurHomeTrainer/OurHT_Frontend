@@ -16,12 +16,23 @@ function Feed(props) {
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
-    feedTest(props.match.params.count_number);
+
+    let current_user;
+
+    if (user === 999 || user === "999") {
+      let temp = localStorage.getItem("saveexercisepk");
+      current_user = temp;
+    } else {
+      current_user = user;
+      localStorage.setItem("saveexercisepk", JSON.stringify(current_user));
+    }
+    
+    feedTest(current_user, props.match.params.count_number);
   }, [props.match.params.count_number]);
 
-  async function feedTest(count_number) {
+  async function feedTest(current_user, count_number) {
       fetch(
-        `http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=25&motion_index=${count_number}`,
+        `http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_user}&motion_index=${count_number}`,
         {
           method: "GET",
           headers: {
@@ -74,6 +85,7 @@ function Feed(props) {
   console.log(feed);
   let i = 0;
   const checklist = feed.checklist;
+
   if (checklist != undefined) {
     console.log("함수 내부", checklist);
     const check = [false, false, false, false, false, false];
@@ -178,12 +190,6 @@ function Feed(props) {
       </main>
       <SimpleFooter />
     </>
-    // <div>
-    // <h1>Feeeed page</h1>
-    // <h1>여기는 {props.match.params.id}입니다</h1>
-    // <img src={feeds.photo} ></img>
-    // <h2>{feeds.count_number}</h2>
-    // </div>
   );
 }
 

@@ -41,7 +41,8 @@ function SquatMiddle() {
                 setUser(data)
             })
         }
-        makePk();       
+        makePk();
+        localStorage.setItem("saveexercisepk", JSON.stringify(user));      
       }, [data]);
 
 
@@ -60,10 +61,6 @@ function SquatMiddle() {
         }
         return cookieValue;
     };
-
-
-    
-
     
     return (
         <>
@@ -71,11 +68,7 @@ function SquatMiddle() {
           <main className="profile-page">
             <section className="section-profile-cover section-shaped my-0">
               {/* background */}
-              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
-  
-              </div>
-  
-  
+              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"/>
             </section>
   
             {/* 여기부터가 컨테이너 부분 */}
@@ -94,11 +87,13 @@ function SquatMiddle() {
                         </div>
                       </Col>
                     </Row>
+
                     <div className="text-center mt-5">
                         <span>안녕!</span>
                         <span>더꾸며봅시다</span>
                         {/* <span>{user}</span> */}
                     </div>
+
                     <div className="text-center mt-5">
                         <span>{user}</span>
                         <Link to="squat-page">
@@ -111,12 +106,7 @@ function SquatMiddle() {
                               시작하기
                             </Button>
                           </Link>
-                        
-                    </div>
-                    
-
-
-                        
+                    </div>                
                     
                   </div>
                 </Card>

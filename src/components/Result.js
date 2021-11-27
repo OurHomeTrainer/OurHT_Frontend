@@ -75,11 +75,7 @@ function Result(props) {
           <main className="profile-page">
             <section className="section-profile-cover section-shaped my-0">
               {/* background */}
-              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
-  
-              </div>
-  
-  
+              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"/>
             </section>
   
             {/* 여기부터가 컨테이너 부분 */}
@@ -97,43 +93,8 @@ function Result(props) {
                           </div>
                         </div>
                       </Col>
-                    </Row>
-                    
-                    {/* <div className="text-center mt-5">
-                      <Row>
-                          <Col className="text-center">사진</Col>
-                          <Col className="text-center">횟수</Col>
-                          <Col className="text-center">피드백</Col>
-                      </Row>
-                      
-
-
-                      <ul className="img-box">
-                          {feeds.map(feed=>(
-                              <li key={feed.id} className="row align-items-center"> 
-                                <div className="col-3 py-5">
-                                  <img src={feed.photo} ></img>
-                                </div>
-                                
-                                  
-                                  <span className="col">{feed.count_number}</span>
-                                  <span className="col">{feed.checklist}</span>
-                                  <span className="col">
-                                      {feed.checklist.map((checklist=>
-                                        <li key={checklist.id} className="row align-items-center">
-                                            <span className="col">{checklist.check_item_name}</span>
-                                            </li>
-                                            ))}
-                                      </span>
-                                  
-                                  </li>
-                          ))}
-                      </ul>
-                    </div> */}
-                    
+                    </Row>               
                   </div>
-                  
-
 
                   <div className="row">
                     {feeds.map(feed => (

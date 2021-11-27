@@ -58,7 +58,11 @@ function InitialCheckSquat() {
 
       // Make Detections
       const pose = await net.estimateSinglePose(video);
-      const imageUrl = webcamRef.current.getScreenshot();
+      let imageUrl = null;
+      if (webcamRef.current !== null) {
+      imageUrl = webcamRef.current.getScreenshot();
+      }
+      
 
       drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
 
