@@ -254,12 +254,14 @@ function InitialCheckSquat() {
   }
 
   const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
-    const ctx = canvas.current.getContext("2d");
+    let ctx = null;
+    if (canvas.current !== null){
+    ctx = canvas.current.getContext("2d");
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
-
     drawKeypoints(pose["keypoints"], 0.6, ctx);
     drawSkeleton(pose["keypoints"], 0.7, ctx);
+    }
   };
 
   RunPosenet();
@@ -277,7 +279,88 @@ function InitialCheckSquat() {
         <section className="section">
           <Container>
             <Card className="card-profile shadow mt--300">
-              <div className="px-4">
+              
+            <div style={{
+                       marginLeft: "auto",
+                      marginRight: "auto",
+                      position: "relative"
+                  }} className="px-4">
+                    <Webcam
+                        ref={webcamRef}
+                        style={{
+                            
+                        //  marginLeft: "auto",
+                        //    marginRight: "auto",
+                            //left: 0,
+                            //right: 0,
+                            textAlign: "center",
+                            zindex: 9,
+                            width: 640,
+                            height: 480,
+                        }}
+                        />
+                         <canvas
+                        ref={canvasRef}
+                        style={{
+                            position: "absolute",
+                        //    marginLeft: "auto",
+                        //    marginRight: "auto",
+                           // top: 0,
+                            left: 0,
+                         //  right: 100,
+                            textAlign: "center",
+                            zindex: 10,
+                            width: 640,
+                            height: 480,
+                        }}
+                    />
+
+
+
+                    <Row className="justify-content-center">
+                      
+  
+                      <Col className="order-lg-1" lg="4">
+                        <div className="card-profile-stats d-flex justify-content-center">
+                          <div>
+                            <span className="heading">{tData}</span>
+                            <span className="description">측면 정렬 상태 </span>
+                          </div>
+                          {/* <div>
+                            <span className="heading">10</span>
+                            <span className="description">분석결과</span>
+                          </div>
+                          <div>
+                            <span className="heading">890</span>
+                            <span className="description">점수</span>
+                          </div> */}
+                        </div>
+                      </Col>
+  
+  
+                    </Row>
+                    {/* <div className="text-center mt-5">
+                      
+                      하윙
+                      {user}
+                    </div> */}
+                    
+                  </div>               
+                            <span>
+                    <div className="text-center mt-5">
+                    <Link to="result">
+                            <Button
+                              className="mx-4"
+                              color="primary"
+                              position="center"
+                            >
+                              결과보기
+                              {/* {context.pk} */}
+                            </Button>
+                          </Link>
+                      </div>
+                    </span>
+              {/* <div className="px-4">
                 <Row className="justify-content-center">
                   <Col className="order-lg-1" lg="4">
                     <div className="card-profile-stats d-flex justify-content-center">
@@ -324,11 +407,11 @@ function InitialCheckSquat() {
                   <Link to="result">
                     <Button className="mt-4" color="primary">
                       결과보기
-                      {/* {context.pk} */}
+                       {context.pk}
                     </Button>
                   </Link>
                 </span>
-              </div>
+              </div> */}
             </Card>
           </Container>
         </section>

@@ -16,24 +16,24 @@ import { useUserContext } from './camera/users';
 function Result(props) {
 
   // 전역
-  const { user } = useUserContext();
+  const { exercise_pk } = useUserContext();
     
   const [feeds,setFeed]=useState([]);
 
     useEffect(() => {
 
-      let current_user;
+      let current_exercise_pk;
 
-      if (user === 999 || user === "999") {
+      if (exercise_pk === 999 || exercise_pk === "999") {
         let temp = localStorage.getItem("saveexercisepk");
-        current_user = temp;
+        current_exercise_pk = temp;
       } else {
-        current_user = user;
-        localStorage.setItem("saveexercisepk", JSON.stringify(current_user));
+        current_exercise_pk = exercise_pk;
+        localStorage.setItem("saveexercisepk", JSON.stringify(current_exercise_pk));
       }
 
         async function feedTest() {
-            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_user}&motion_index=999`, {
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_exercise_pk}&motion_index=999`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ function Result(props) {
             .then((data) => setFeed(data))
         }
         feedTest();
-      }, [user]);
+      }, [exercise_pk]);
 
     function getCookie(name) {
         var cookieValue = null;

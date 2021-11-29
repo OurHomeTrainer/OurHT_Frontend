@@ -16,9 +16,11 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 function SquatMiddle() {
 
+  let user_pk_temp = localStorage.getItem("user_pk");
+  console.log(user_pk_temp);
 
-    const { setUser, user } = useUserContext();
-    
+  const { setExercisepk, exercise_pk } = useUserContext();
+
     useEffect(() => {
         async function makePk() {
             
@@ -30,7 +32,7 @@ function SquatMiddle() {
                         "Accept": "application/json",
                     },
                     body: JSON.stringify({
-                        "userid": 1,
+                        "userid": user_pk_temp,
                         /* 이 자리 로그인 하면 유저 pk가 들어와야 함! */
                     })
                 })
@@ -38,11 +40,11 @@ function SquatMiddle() {
                 
             .then((response) => (response.json()))
             .then((data) => {
-                setUser(data)
+                setExercisepk(data)
             })
         }
         makePk();
-        localStorage.setItem("saveexercisepk", JSON.stringify(user));      
+        localStorage.setItem("saveexercisepk", JSON.stringify(exercise_pk));      
       }, [data]);
 
 
@@ -95,7 +97,7 @@ function SquatMiddle() {
                     </div>
 
                     <div className="text-center mt-5">
-                        <span>{user}</span>
+                        <span>{exercise_pk}</span>
                         <Link to="squat-page">
                             <Button
                               className="mt-4"
