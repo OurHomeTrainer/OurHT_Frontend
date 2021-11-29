@@ -1,7 +1,7 @@
 import React , { useState , useEffect, useContext } from 'react';
 import jQuery, { data } from 'jquery';
 
-import { Button, Container, Row, Col } from "reactstrap";
+import { Button, Badge, Container, Row, Col } from "reactstrap";
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 // core components
@@ -21,7 +21,7 @@ function Feed(props) {
 
     useEffect(() => {
         feedTest(props.match.params.id);
-    }, [props.match.params.id]);
+    }, []);
 
 
 
@@ -160,16 +160,19 @@ function Feed(props) {
                 <td>{feed.name}</td>
             </tr>
             
+
+            
             <tr>
                 <th scope="row">ID</th>
-                <td>{props.match.params.id}</td>
+                <td><Badge color="primary" pill className="badge-lg">
+                            
+                            {props.match.params.id}피드백내용은 이러이러이러어ㅓ합니다</Badge></td>
             </tr>
             <tr>
                 <th scope="row">Count Number</th>
-                <td>{feed.count_number}</td>
+                <td><Badge color="primary" pill className="badge-lg">여기는 어때요? 피드백내용이 나오는거</Badge></td>
             </tr>
 
-            
             
             
             </tbody>

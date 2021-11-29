@@ -6,8 +6,8 @@ import React, { useState , useContext, useEffect, Component } from "react";
 
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Card, CardBody, Button, Container, Row, Col } from "reactstrap";
+import {  ListGroup, ListGroupItem } from 'react-bootstrap';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
@@ -28,7 +28,6 @@ function Result(props) {
  
 
     useEffect(() => {
-        
         async function feedTest() {
             fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=1&motion_index=999`, {
                 method: "GET",
@@ -40,7 +39,6 @@ function Result(props) {
             })
             .then((response) => (response.json()))
             .then((data) => setFeed(data))
-            
             //.then((responseData) => setFeed(responseData[0]))
             //.then((responseData) => console.log(responseData))
             //.then((responseData) => {setCheck(responseData[0].checklist);})
@@ -80,8 +78,6 @@ function Result(props) {
     return (
         <>
 
-        
-
 
           <DemoNavbar />
           <main className="profile-page">
@@ -119,24 +115,24 @@ function Result(props) {
                       </Col>
                     </Row>
                     <div className="text-center mt-5">
-                      <Row>
+                      {/* <Row>
                           <Col className="text-center">사진</Col>
                           <Col className="text-center">횟수</Col>
                           <Col className="text-center">피드백</Col>
-                      </Row>
+                      </Row> */}
                       
 
 
-                      <ul className="img-box">
+                      {/* <ul className="img-box">
                           {feeds.map(feed=>(
                               <li key={feed.id} className="row align-items-center"> 
                                 <div className="col-3 py-5">
-                                  {/* <img src={feed.photo} ></img> */}
+                                  <img src={feed.photo} ></img>
                                 </div>
                                 
                                   
                                   <span className="col">{feed.count_number}</span>
-                                  {/* <span className="col">{feed.checklist}</span> */}
+                                  <span className="col">{feed.checklist}</span>
                                   <span className="col">
                                       {feed.checklist.map((checklist=>
                                         <li key={checklist.id} className="row align-items-center">
@@ -147,30 +143,38 @@ function Result(props) {
                                   
                                   </li>
                           ))}
-                      </ul>
+                      </ul> */}
                     </div>
                     
                   </div>
                   
 
-
                   <div className="row">
                     {feeds.map(feed => (
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
-                        <div className="card" key={feed.id}
+                        <Card className="card-lift--hover shadow border-0">
+                        <div key={feed.id}
                  onClick={(e) => handleClick(e, feed.id)} style={{cursor: 'pointer'}}>
                             {/* <img src={feed.phot }
                                 style={{width: '100%'}}></img> */}
+                                <CardBody className="card-profile-image">
                                 <img src= {Testimg} alt={feed.count_number}>
                                     </img>
-                            <div className="card-body">
-                            <h5 className="card-title">{feed.count_number} 회차 </h5>
-                            <p className="card-text">PERFECT!{feed.check_item_name}</p>
+                                    
+                            <div>
+                            <h5 className="text-primary text-uppercase">{feed.count_number} 회차 </h5>
+                            <p className="description mt-3">PERFECT!{feed.check_item_name}</p>
                             </div>
+                            </CardBody>
                         </div>
+                        </Card>
                         </div>
                 ))}
                 </div>
+
+
+                  
+                
                 </Card>
               </Container>
             </section>

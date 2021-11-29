@@ -309,20 +309,12 @@ function InitialCheckSquat() {
                     
                   </div>
                          
-                  <div style={{
-                    borderWidth:10,
-                    //  position: 'relative',
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      width: 640,
-                      height: 480,
-                  }}>
                   
-                    </div>
                             <span>
+                    <div className="text-center mt-5">
                     <Link to="result">
                             <Button
-                              className="mt-4"
+                              className="mx-4"
                               color="primary"
                               position="center"
                             >
@@ -330,6 +322,7 @@ function InitialCheckSquat() {
                               {/* {context.pk} */}
                             </Button>
                           </Link>
+                      </div>
                     </span>
                 </Card>
               </Container>
