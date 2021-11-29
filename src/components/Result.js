@@ -3,8 +3,8 @@ import jQuery from 'jquery';
 import React, { useState , useEffect} from "react";
 
 // reactstrap components
-import { Container, Row, Col } from "reactstrap";
-import { Card} from 'react-bootstrap';
+import { Card, CardBody, Button, Container, Row, Col } from "reactstrap";
+import {  ListGroup, ListGroupItem } from 'react-bootstrap';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
@@ -89,7 +89,8 @@ function Result(props) {
                       <Col className="order-lg-1" lg="4">
                         <div className="card-profile-stats d-flex justify-content-center">
                           <div>
-                            <span className="heading"> 분석 결과 </span>
+                            {/* <span className="heading"> <h3>분석 결과</h3> </span> */}
+                            <h4 className="display-4 mb-0">분석 결과</h4>
                           </div>
                         </div>
                       </Col>
@@ -99,20 +100,29 @@ function Result(props) {
                   <div className="row">
                     {feeds.map(feed => (
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
-                        <div className="card" key={feed.id}
-                 onClick={(e) => handleClick(e, feed.id, feed.count_number)} style={{cursor: 'pointer'}}>
-                            <img src={"data:image/webp;base64," + feed.photo}
-                                style={{width: '100%'}}></img>
-                                {/* <img src= {Testimg} alt={feed.count_number}>
-                                    </img> */}
-                            <div className="card-body">
-                            <h5 className="card-title">{feed.count_number} 회차 </h5>
-                            <p className="card-text">PERFECT!{feed.check_item_name}</p>
+                        <Card className="card-lift--hover shadow border-0">
+                        <div key={feed.id}
+                 onClick={(e) => handleClick(e, feed.id)} style={{cursor: 'pointer'}}>
+                            {/* <img src={feed.phot }
+                                style={{width: '100%'}}></img> */}
+                                <CardBody className="card-profile-image">
+                                <img src= {"data:image/webp;base64," + feed.photo} alt={feed.count_number}>
+                                    </img>
+                                    
+                            <div>
+                            <h5 className="text-primary text-uppercase">{feed.count_number} 회차 </h5>
+                            <p className="description mt-3">PERFECT!{feed.check_item_name}</p>
                             </div>
+                            </CardBody>
                         </div>
+                        </Card>
                         </div>
                 ))}
                 </div>
+
+
+                  
+                
                 </Card>
               </Container>
             </section>

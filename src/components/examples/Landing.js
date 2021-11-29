@@ -35,8 +35,6 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-import { useUserContext } from "components/camera/users.js";
-
 function Landing() {
   
   const main = React.createRef();
