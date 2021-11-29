@@ -101,7 +101,8 @@ function Result(props) {
                       <Col className="order-lg-1" lg="4">
                         <div className="card-profile-stats d-flex justify-content-center">
                           <div>
-                            <span className="heading"> 분석 결과 </span>
+                            {/* <span className="heading"> <h3>분석 결과</h3> </span> */}
+                            <h4 className="display-4 mb-0">분석 결과</h4>
                           </div>
                           {/* <div>
                             <span className="heading">10</span>

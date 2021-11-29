@@ -170,7 +170,7 @@ function Feed(props) {
             </tr>
             <tr>
                 <th scope="row">Count Number</th>
-                <td><Badge color="primary" pill className="badge-lg">여기는 어때요? 피드백내용이 나오는거</Badge></td>
+                <td><Badge color="success" pill className="badge-lg">여기는 어때요? 피드백내용이 나오는거</Badge></td>
             </tr>
 
             

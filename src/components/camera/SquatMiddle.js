@@ -10,11 +10,13 @@ import { useUserContext } from './users';
 
 
 // reactstrap components
-import { Button, Card, Container, Row, Col } from "reactstrap";
+import { Button, Card, Container, Row, Col,UncontrolledCarousel} from "reactstrap";
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
+//이미지 테스트
+import Testimg from 'components/test2.jpeg'
 
 
 function SquatMiddle() {
@@ -69,6 +71,20 @@ function SquatMiddle() {
         }
         return cookieValue;
     };
+    const items = [
+        {
+          src: Testimg,
+          altText: '',
+          caption: '',
+          header: ''
+        },
+        {
+          src: Testimg,
+          altText: '',
+          caption: '',
+          header: ''
+        }
+      ];
 
 
     
@@ -88,9 +104,9 @@ function SquatMiddle() {
             </section>
   
             {/* 여기부터가 컨테이너 부분 */}
-            <section className="section">
+            <section className="section section-lg pt-lg-0 mt--300">
               <Container>
-                <Card className="card-profile shadow mt--300">
+                <Card className="card-profile shadow mt--100">
                   <div className="px-4">
                     <Row className="justify-content-center">
                       
@@ -98,7 +114,9 @@ function SquatMiddle() {
                       <Col className="order-lg-1" lg="4">
                         <div className="card-profile-stats d-flex justify-content-center">
                           <div>
-                            <span className="heading"> 스쿼트는 실시간으로 Perfect, Good, Bad로 상태를 ~ </span>
+                          <h3 className="display-4 mb-0">
+                            스쿼트 가이드
+                         </h3>
                           </div>
                           {/* <div>
                             <span className="heading">10</span>
@@ -112,16 +130,29 @@ function SquatMiddle() {
                       </Col>
                     </Row>
                     <div className="text-center mt-5">
-                        <span>안녕!</span>
-                        <span>더꾸며봅시다</span>
+                        <h4 className="display-4 mb-0">OurHT는 자세분석과 등의 곡률을 계산하여 정확한</h4>
+                       
                         {/* <span>{user}</span> */}
+                    </div>
+
+                    <div style={{
+                       marginLeft: "auto",
+                      marginRight: "auto",
+                      position: "relative",
+                      width:"50%"
+                  }} >
+                    <UncontrolledCarousel items={items} />
+                    </div>
+                    <div className="text-center mt-1">
+                    
+                    <h5 className="display-4 mb-0">위와 같이 측면을 향하도록 서주세요</h5>
                     </div>
                     <div className="text-center mt-5">
                         <span>{user}</span>
                         <Link to="squat-page">
                             <Button
                               className="mt-4"
-                              color="primary"
+                              color="default"
                               position="center"
                               
                             >
