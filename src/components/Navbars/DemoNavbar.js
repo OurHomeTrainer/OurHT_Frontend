@@ -63,6 +63,68 @@ class DemoNavbar extends React.Component {
   };
 
   render() {
+    
+    const currentuser = localStorage.getItem("user_pk");
+    let currenturl = document.location.href;
+
+    console.log("데모바", currentuser);
+    console.log("현재 url", currenturl);
+
+    let logincheck;
+    let mypagecheck;
+
+    if (currentuser !== "0") {
+      logincheck = <Link to="/login-page">
+      <Button className="btn-neutral btn-icon" color="default">
+        {/*<span className="btn-inner--icon">
+          <i className="fa fa-cloud-download mr-2" />
+        </span> 아이콘 나중에 추가해야함*/}
+        <span className="nav-link-inner--text ml-1">
+          로그아웃
+        </span>
+      </Button>
+    </Link>;
+      if (currenturl === "http://localhost:3000/info") {
+        mypagecheck = <Link to="/">
+        <Button className="btn-neutral btn-icon" color="default">
+  
+          {/*<span className="btn-inner--icon">
+            <i className="fa fa-cloud-download mr-2" />
+          </span> 아이콘 나중에 추가해야함
+  */}
+          <span className="nav-link-info ml-1">
+            홈으로
+          </span>
+        </Button>
+      </Link>
+      }
+      else {
+        mypagecheck = <Link to="/info">
+        <Button className="btn-neutral btn-icon" color="default">
+  
+          {/*<span className="btn-inner--icon">
+            <i className="fa fa-cloud-download mr-2" />
+          </span> 아이콘 나중에 추가해야함
+  */}
+          <span className="nav-link-info ml-1">
+            내정보
+          </span>
+        </Button>
+      </Link>
+      }
+    } else {
+      logincheck = <Link to="/login-page">
+        <Button className="btn-neutral btn-icon" color="default">
+        {/*<span className="btn-inner--icon">
+          <i className="fa fa-cloud-download mr-2" />
+        </span> 아이콘 나중에 추가해야함*/}
+        <span className="nav-link-inner--text ml-1">
+          로그인
+        </span>
+        </Button>
+      </Link>;
+    }
+
     return (
       <>
         <header className="header-global">
@@ -148,39 +210,11 @@ class DemoNavbar extends React.Component {
 
 
                   <NavItem className="d-none d-lg-block ml-lg-3" >
-                    <Link to="/info">
-                      <Button
-                        className="btn-neutral btn-icon"
-                        color="default"
-                      >
-
-                        {/*<span className="btn-inner--icon">
-                          <i className="fa fa-cloud-download mr-2" />
-                        </span> 아이콘 나중에 추가해야함
-    */}
-                        <span className="nav-link-info ml-1">
-                          내정보
-                        </span>
-                      </Button>
-
-                    </Link>
+                    {mypagecheck}
                   </NavItem>
 
                   <NavItem className="d-none d-lg-block ml-lg-1">
-                    <Link to="/login-page">
-                      <Button
-                        className="btn-neutral btn-icon"
-                        color="default"
-                      >
-                        {/*<span className="btn-inner--icon">
-                          <i className="fa fa-cloud-download mr-2" />
-                        </span> 아이콘 나중에 추가해야함
-    */}
-                        <span className="nav-link-inner--text ml-1">
-                          로그인
-                        </span>
-                      </Button>
-                    </Link>
+                    {logincheck}
                   </NavItem>
 
 

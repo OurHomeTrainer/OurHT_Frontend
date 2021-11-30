@@ -43,6 +43,8 @@ function Login() {
 
   const main = React.createRef();
 
+  localStorage.setItem("user_pk", 0);
+
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [usertoken, setUsertoken] = useState();
@@ -62,7 +64,6 @@ function Login() {
   }
   
   useEffect(() => {
-    console.log("useeffect");
     async function loginrequest(username, password) {
       console.log(username, password);
       fetch(`/rest-auth/login/`, {
@@ -80,17 +81,13 @@ function Login() {
         .then((data) => {
           if (data.key !== undefined) {
             setUsertoken(data.key)
-            console.log("로그인 성공!");
-          }
-          else {
-            console.log("로그인 실패! 아이디 패스워드 확인해주세요");
           }
         })
       }
     loginrequest(username, password);
   }, [count]);
 
-  async function getuserinfo(usertoken) {
+  async function getuserid(usertoken) {
     console.log(usertoken);
     fetch(`/apis/users/login`, {
       method: "POST",
@@ -103,7 +100,10 @@ function Login() {
       }),
     })
       .then((response) => response.json())
-      .then((data) => setUserpk(data))
+      .then((data) => {
+        localStorage.setItem("user_pk", JSON.stringify(data));
+        document.location.href = "/";
+      })
   }
 
   function doLogin() {
@@ -113,13 +113,7 @@ function Login() {
   }
 
   if (usertoken !== undefined) {
-    console.log("들어와")
-    getuserinfo(usertoken);
-    console.log("들어온 후", user_pk);
-    if (user_pk !== undefined) {
-        localStorage.setItem("user_pk", JSON.stringify(user_pk));
-        document.location.href = "/";
-      }
+    getuserid(usertoken);
   }
 
   return (
@@ -204,10 +198,9 @@ function Login() {
                   <Col className="text-right" xs="8">
                     <a
                       className="text-light"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
+                      href="/register-page"
                     >
-                      <small>Create new account</small>
+                      <small >Create new account</small>
                     </a>
                   </Col>
                 </Row>
