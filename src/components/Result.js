@@ -4,30 +4,18 @@ import React, { useState , useEffect} from "react";
 
 // reactstrap components
 import { Card, CardBody, Button, Container, Row, Col } from "reactstrap";
-import {  ListGroup, ListGroupItem } from 'react-bootstrap';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-// 전역값
-import { useUserContext } from './camera/users';
-
 function Result(props) {
-
-  // 전역
-  const { exercise_pk } = useUserContext();
     
   const [feeds,setFeed]=useState([]);
 
     useEffect(() => {
 
-      let current_exercise_pk;
-
-      if (exercise_pk === 999 || exercise_pk === "999") {
-        let temp = localStorage.getItem("saveexercisepk");
-        current_exercise_pk = temp;
-      } 
+      let current_exercise_pk = getItem("saveexercisepk");
 
         async function feedTest() {
             fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_exercise_pk}&motion_index=999`, {
@@ -42,7 +30,7 @@ function Result(props) {
             .then((data) => setFeed(data))
         }
         feedTest();
-      }, [exercise_pk]);
+      }, []);
 
     function getCookie(name) {
         var cookieValue = null;
@@ -115,11 +103,7 @@ function Result(props) {
                         </Card>
                         </div>
                 ))}
-                </div>
-
-
-                  
-                
+                </div>              
                 </Card>
               </Container>
             </section>
