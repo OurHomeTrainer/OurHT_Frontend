@@ -14,6 +14,8 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 //이미지 테스트
 import Testimg from 'components/test2.jpeg'
+//icon
+import {BsCheckLg, BsXLg} from 'react-icons/bs';
 
 
 function SquatMiddle() {
@@ -82,55 +84,95 @@ function SquatMiddle() {
     return (
         <>
           <DemoNavbar />
-          <main className="profile-page">
-            <section className="section-profile-cover section-shaped my-0">
+          <main className="profile-page" id="ImageLetter">
+            <section className="section section-shaped section-lg">
               {/* background */}
-              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"/>
-            </section>
+              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
   
-            {/* 여기부터가 컨테이너 부분 */}
-            <section className="section section-lg pt-lg-0 mt--300">
-              <Container>
-                <Card className="card-profile shadow mt--100">
+              </div>
+
+              <Container className="pt-lg-5">
+                <Card className="bg-secondary shadow border-0">
                   <div className="px-4">
                     <Row className="justify-content-center">
                       
   
                       <Col className="order-lg-1" lg="4">
                         <div className="card-profile-stats d-flex justify-content-center">
-                          <div>
-                          <h3 className="display-4 mb-0">
-                            스쿼트 가이드
+                          <div id="ImageLetter">
+                          <h3 className="display-3 mt-5 mb-5">
+                            시작 전 주의사항
                          </h3>
                           </div>
                         </div>
                       </Col>
                     </Row>
 
-                    <div className="text-center mt-5">
-                        <h4 className="display-4 mb-0">OurHT는 자세분석과 등의 곡률을 계산하여 정확한</h4>
+                    <Row>
+                          <Col className="text-center">
+                          <div>
+                        <img src={Testimg} style={{maxWidth: '80%'}}></img> 
+                        </div>
+                              </Col>
+                          <Col className="text-center">
+                              <div>
+                                <img src={Testimg} style={{maxWidth: '80%'}}></img> 
+                                </div>
+                                </Col>
+                          
+                      </Row>
+
+                      <div className="text-center mt-4">
+                    <Row>
+                          <Col className="text-center">
                        
-                        {/* <span>{user}</span> */}
+
+                              <BsCheckLg className="icon" color="green"/>
+
+                              </Col>
+                          
+                          <Col className="text-center">
+                      
+                              
+                              <BsXLg className="icon" color="red"/>
+
+
+                              </Col>
+                      </Row>
                     </div>
 
-                    <div style={{
-                       marginLeft: "auto",
-                      marginRight: "auto",
-                      position: "relative",
-                      width:"50%"
-                  }} >
-                    <UncontrolledCarousel items={items} />
+
+                      <div className="text-center mt-5">
+                    <h5 className="text-primary mt-3">OurHT는 측면 운동 자세를 통해 관절 분석과 등의 곡률을 계산하여 정확한 자세 판단을 진행합니다.</h5>
+                     
                     </div>
+
+                    
+
+
+                
+
+
+                    {/* <UncontrolledCarousel items={items} /> */}
+                    
                     <div className="text-center mt-1">
                     
-                    <h5 className="display-4 mb-0">위와 같이 측면을 향하도록 서주세요</h5>
+                    <h5 className="text-primary mt-1">위와 같이 측면을 향하고 발목이 보이도록 위치해주세요</h5>
                     </div>
-                    <div className="text-center mt-5">
-                        <span>{exercise_pk}</span>
+                    <div className="text-center mt-5 mb-5">
+                        
                         <Link to="squat-page">
                             <Button
                               className="mt-4"
-                              color="default"
+                              color="primary"
                               position="center"
                               
                             >
@@ -142,7 +184,14 @@ function SquatMiddle() {
                   </div>
                 </Card>
               </Container>
+  
+  
             </section>
+  
+            {/* 여기부터가 컨테이너 부분 */}
+            {/* <section className="section section-lg pt-lg-0 mt--300">
+              
+            </section> */}
           </main>
           <SimpleFooter />
         </>

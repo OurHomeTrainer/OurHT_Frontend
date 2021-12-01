@@ -45,7 +45,10 @@ function InitialCheckSquat() {
   const detect = async (net) => {
     if (webcamRef.current.video.readyState === 4) {
       // Get Video Properties
-      const video = webcamRef.current.video;
+      let video = null;
+      if (webcamRef.current.video !== null) {
+        video = webcamRef.current.video;
+      }
       const videoWidth = webcamRef.current.video.videoWidth;
       const videoHeight = webcamRef.current.video.videoHeight;
 
@@ -267,22 +270,35 @@ function InitialCheckSquat() {
   return (
     <>
       <DemoNavbar />
-      <main className="profile-page">
-        <section className="section-profile-cover section-shaped my-0">
+      <main className="profile-page" id="ImageLetter">
+        <section className="section section-shaped section-lg">
           {/* background */}
-          <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"/>
-        </section>
-        {/* 여기부터가 컨테이너 부분 */}
-        <section className="section section-lg pt-lg-0 mt--300 ">
-          <Container>
-            <Card className="card-profile shadow mt--300">
+          <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+
+          <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+
+          </div>
+
+          <Container className="pt-lg-5">
+            <Card className="bg-secondary shadow border-0">
 
             <div className="px-4">
+
+
             <Row className="justify-content-center">
                   <Col className="order-lg-1" lg="4">
                     <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                        <span className="heading"> 실시간 상태 </span>
+                        <h3 className="display-3 mt-5 mb-5">
+                            실시간 상태
+                         </h3>
                       </div>
                       <div>
                         <span className="heading"> {tData} </span>
@@ -347,7 +363,14 @@ function InitialCheckSquat() {
 
             </Card>
           </Container>
+
+
         </section>
+
+        {/* 여기부터가 컨테이너 부분 */}
+        {/* <section className="section section-lg pt-lg-0 mt--300 ">
+          
+        </section> */}
       </main>
       <SimpleFooter />
     </>

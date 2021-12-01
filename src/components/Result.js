@@ -15,7 +15,7 @@ function Result(props) {
 
     useEffect(() => {
 
-      let current_exercise_pk = getItem("saveexercisepk");
+      let current_exercise_pk = localStorage.getItem("saveexercisepk");
 
         async function feedTest() {
             fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_exercise_pk}&motion_index=999`, {
