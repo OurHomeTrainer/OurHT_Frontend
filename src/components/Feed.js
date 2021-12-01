@@ -8,24 +8,15 @@ import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-// 전역값
-import { useUserContext } from "./camera/users";
-
 function Feed(props) {
-  const { user } = useUserContext();
+
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
 
-    let current_user;
+    let current_user = localStorage.getItem("saveexercisepk");
+    console.log("currnet user", current_user)
 
-    if (user === 999 || user === "999") {
-      let temp = localStorage.getItem("saveexercisepk");
-      current_user = temp;
-    } else {
-      current_user = user;
-      localStorage.setItem("saveexercisepk", JSON.stringify(current_user));
-    }
     
     feedTest(current_user, props.match.params.count_number);
   }, [props.match.params.count_number]);

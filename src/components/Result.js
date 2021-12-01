@@ -27,10 +27,7 @@ function Result(props) {
       if (exercise_pk === 999 || exercise_pk === "999") {
         let temp = localStorage.getItem("saveexercisepk");
         current_exercise_pk = temp;
-      } else {
-        current_exercise_pk = exercise_pk;
-        localStorage.setItem("saveexercisepk", JSON.stringify(current_exercise_pk));
-      }
+      } 
 
         async function feedTest() {
             fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_exercise_pk}&motion_index=999`, {
@@ -63,7 +60,7 @@ function Result(props) {
     };
 
     const handleClick = (event, id, count_number) => {
-        console.log(event, id);
+        console.log(event, id, count_number);
         event.preventDefault();
         props.history.push(`/result/feed/${id}/${count_number}`);
       }
@@ -102,7 +99,7 @@ function Result(props) {
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
                         <Card className="card-lift--hover shadow border-0">
                         <div key={feed.id}
-                 onClick={(e) => handleClick(e, feed.id)} style={{cursor: 'pointer'}}>
+                 onClick={(e) => handleClick(e, feed.id,feed.count_number)} style={{cursor: 'pointer'}}>
                             {/* <img src={feed.phot }
                                 style={{width: '100%'}}></img> */}
                                 <CardBody className="card-profile-image">

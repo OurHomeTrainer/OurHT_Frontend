@@ -40,7 +40,6 @@ function Landing() {
   const main = React.createRef();
 
   let user_pk_temp = localStorage.getItem("user_pk");
-  console.log(user_pk_temp);
 
   return (
     <>

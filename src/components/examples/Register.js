@@ -92,6 +92,7 @@ function Register() {
   //   autoClose: 3000,
   //   position: toast.POSITION.TOP_RIGHT
   // });
+
   return (
     <>
       <DemoNavbar />

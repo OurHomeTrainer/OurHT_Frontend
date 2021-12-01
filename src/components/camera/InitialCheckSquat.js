@@ -12,19 +12,16 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-// 전역
-import { useUserContext } from "./users";
-
 function InitialCheckSquat() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [tData, setData] = useState("시작!");
-  const { user } = useUserContext();
 
   let count = 1;
   let is_person_gone_to_stand = "start";
   let pose_list = [];
   let url_list = [];
+  let current_exercise_pk = localStorage.getItem("saveexercisepk");
 
   const RunPosenet = async () => {
     useEffect(() => {
@@ -132,30 +129,30 @@ function InitialCheckSquat() {
     const below_ankle = 480 - ankle_y;
     if (below_ankle > 20) {
       is_ankle_show = true;
-      console.log("1-1-1: 발목이 보여요");
+      //console.log("1-1-1: 발목이 보여요");
       if (mid - 100 < ankle_x < mid + 100) {
         is_ankle_mid = true;
-        console.log("1-1-2: 중앙정렬 완료");
+        //console.log("1-1-2: 중앙정렬 완료");
       } else {
         is_ankle_mid = false;
       }
     } else {
       is_ankle_show = false;
-      console.log("발목이 안 보여요!");
+      //console.log("발목이 안 보여요!");
     }
 
     // 어깨의 측면view 정렬을 위해
-    console.log(mis_align);
+    // console.log(mis_align);
     if (mis_align < 50) {
       is_shoulder_sideview = true;
     } else {
       is_shoulder_sideview = false;
-      console.log("몸을 틀어, 측면이 잘 보이도록 조정해주세요!");
+      //console.log("몸을 틀어, 측면이 잘 보이도록 조정해주세요!");
     }
 
     // 최종 판단
     if (is_ankle_mid && is_shoulder_sideview === true) {
-      console.log("1-1: 카메라 세팅 완료");
+      //console.log("1-1: 카메라 세팅 완료");
       return true;
     } else {
       return false;
@@ -187,18 +184,18 @@ function InitialCheckSquat() {
     if (hip[1] < knee[1]) {
       // 일반적인 경우 --> hip의 y좌표가 작다.
       if (angle < 20) {
-        console.log("squat");
+        //console.log("squat");
         return "squat";
       } else if (angle > 80) {
-        console.log("stand");
+        //console.log("stand");
         return "stand";
       } else {
-        console.log("ongoing");
+        //console.log("ongoing");
         return "ongoing";
       }
     } else {
       // 가동범위가 좋아서, 깊게 앉은 경우 --> hip의 y좌표가 더 커진다.
-      console.log("squat");
+      //console.log("squat");
       return "squat";
     }
   }
@@ -243,11 +240,12 @@ function InitialCheckSquat() {
         skeletonpoint: pose,
         url: imageUrl,
         count: count,
-        exercise_pk: user,
+        exercise_pk: current_exercise_pk,
       }),
     })
       .then((response) => response.json())
-      .then((data) => setData(data));
+      .then((data) => setData(data))
+      .then((data) => console.log(data))
 
     console.log("몇 회차인가요?", count);
     count += 1;
@@ -272,24 +270,14 @@ function InitialCheckSquat() {
       <main className="profile-page">
         <section className="section-profile-cover section-shaped my-0">
           {/* background */}
-          <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
-
-          </div>
-
-
+          <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"/>
         </section>
-
         {/* 여기부터가 컨테이너 부분 */}
         <section className="section section-lg pt-lg-0 mt--300 ">
           <Container>
             <Card className="card-profile shadow mt--300">
 
             <div className="px-4">
-
-
-
-
-
             <Row className="justify-content-center">
                   <Col className="order-lg-1" lg="4">
                     <div className="card-profile-stats d-flex justify-content-center">

@@ -20,7 +20,7 @@ function SquatMiddle() {
 
   let user_pk_temp = localStorage.getItem("user_pk");
   console.log(user_pk_temp);
-
+  
   const { setExercisepk, exercise_pk } = useUserContext();
 
     useEffect(() => {
@@ -42,11 +42,10 @@ function SquatMiddle() {
                 
             .then((response) => (response.json()))
             .then((data) => {
-                setExercisepk(data)
+              localStorage.setItem("saveexercisepk", JSON.stringify(data)); 
             })
         }
-        makePk();
-        localStorage.setItem("saveexercisepk", JSON.stringify(exercise_pk));      
+        makePk();   
       }, [data]);
 
 

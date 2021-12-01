@@ -67,9 +67,6 @@ class DemoNavbar extends React.Component {
     const currentuser = localStorage.getItem("user_pk");
     let currenturl = document.location.href;
 
-    console.log("데모바", currentuser);
-    console.log("현재 url", currenturl);
-
     let logincheck;
     let mypagecheck;
 
