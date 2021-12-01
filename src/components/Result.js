@@ -1,6 +1,6 @@
 
 import jQuery from 'jquery';
-import React, { useState , useEffect} from "react";
+import React, { useState , useEffect, useParams} from "react";
 
 // reactstrap components
 import { Card, CardBody, Button, Container, Row, Col } from "reactstrap";
@@ -13,9 +13,13 @@ function Result(props) {
     
   const [feeds,setFeed]=useState([]);
 
+  let currenturl = document.location.href;
+  currenturl = currenturl.slice(currenturl.length - 2, currenturl.length);
+  let current_exercise_pk = currenturl;
+  localStorage.setItem("saveexercisepk", current_exercise_pk)
+
     useEffect(() => {
 
-      let current_exercise_pk = localStorage.getItem("saveexercisepk");
 
         async function feedTest() {
             fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_exercise_pk}&motion_index=999`, {
@@ -87,7 +91,7 @@ function Result(props) {
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
                         <Card className="card-lift--hover shadow border-0">
                         <div key={feed.id}
-                 onClick={(e) => handleClick(e, feed.id,feed.count_number)} style={{cursor: 'pointer'}}>
+                 onClick={(e) => handleClick(e, current_exercise_pk,feed.count_number)} style={{cursor: 'pointer'}}>
                             {/* <img src={feed.phot }
                                 style={{width: '100%'}}></img> */}
                                 <CardBody className="card-profile-image">

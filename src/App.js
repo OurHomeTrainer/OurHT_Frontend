@@ -33,7 +33,7 @@ function App() {
             <InitialCheckSquat />
           </Route>
           
-          <Route exact path="/result" component={Result}>
+          <Route exact path="/result/feed/:id" component={Result}>
             
           </Route>
 

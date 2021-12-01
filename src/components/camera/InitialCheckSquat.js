@@ -17,6 +17,8 @@ function InitialCheckSquat() {
   const canvasRef = useRef(null);
   const [tData, setData] = useState("시작!");
 
+  let camcheck;
+
   let count = 1;
   let is_person_gone_to_stand = "start";
   let pose_list = [];
@@ -26,7 +28,7 @@ function InitialCheckSquat() {
   const RunPosenet = async () => {
     useEffect(() => {
       const interval = setInterval(() => {
-        if (net !== undefined) {
+        if (net !== undefined || webcamRef.current === null) {
           detect(net);
         }
       }, 200);
@@ -43,7 +45,7 @@ function InitialCheckSquat() {
   };
 
   const detect = async (net) => {
-    if (webcamRef.current.video.readyState === 4) {
+    if (webcamRef.current.video.readyState === 4 && webcamRef.current !== null) {
       // Get Video Properties
       let video = null;
       if (webcamRef.current.video !== null) {
@@ -296,19 +298,21 @@ function InitialCheckSquat() {
                   <Col className="order-lg-1" lg="4">
                     <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                        <h3 className="display-3 mt-5 mb-5">
-                            실시간 상태
-                         </h3>
+                        <h5 className="display-5 mt-3 mb-3"> 실시간 피드백 {tData} </h5>
                       </div>
-                      <div>
-                        <span className="heading"> {tData} </span>
-                      </div>
-                    
                     </div>
                   </Col>
-                </Row>
-
-                </div>
+                  </Row>
+            <Row className="justify-content-center">
+                  <Col className="order-lg-1" lg="4">
+                  <div className="card-profile-stats d-flex justify-content-center">
+                      <div>
+                        <h5 className="display-5 mt-3 mb-3"> 실시간 상태 </h5>
+                      </div>
+                    </div>
+                  </Col>
+            </Row>
+            </div>
 
             <div style={{
                        marginLeft: "auto",
@@ -348,7 +352,7 @@ function InitialCheckSquat() {
                     
                 </div>
                 <div className="text-center mt-5 mb-5">
-                    <Link to="result">
+                    <Link to={`result/feed/${current_exercise_pk}`}>
                             <Button
                               className="mx-4"
                               color="primary"
