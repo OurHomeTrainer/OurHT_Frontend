@@ -6,6 +6,8 @@ const Context = createContext()
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState('1')
 
+  
+
 
   
   return (

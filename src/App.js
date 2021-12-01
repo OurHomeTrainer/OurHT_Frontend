@@ -1,10 +1,11 @@
 import React from 'react';
 
-
+import './App.css';
 import Navigation from './components/Nav';
 import Main from './components/Main';
 import Result from './components/Result';
 import Info from './components/Info';
+
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Sample from './components/Sample';

@@ -65,46 +65,7 @@ function Feed(props) {
 
     feedTest();
 
-    // useEffect(() => {
-    //     async function feedTest() {
-    //         fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=1&motion_index=4`, {
-    //             method: "GET",
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'X-CSRFToken': getCookie("csrftoken"),
-    //                 "Accept": "application/json",
-    //             },
-
-            
-    //         })
-    //         .then((response) => (response.json()))
-    //         //.then((data)=> console.log(data))
-    //         .then((data) => setFeed(data))
-    //         //.then((responseData) => setFeed(responseData[0]))
-    //         //.then((responseData) => console.log(responseData))
-    //         //.then((responseData) => {setCheck(responseData[0].checklist);})
-    //         //.then((responseData) => {setPhoto(responseData[0].photo);})
-    //     }
-    //     feedTest();
-        
-    //   }, []);
-
-
-
-    // function getCookie(name) {
-    //     var cookieValue = null;
-    //     if (document.cookie && document.cookie !== '') {
-    //         var cookies = document.cookie.split(';');
-    //         for (var i = 0; i < cookies.length; i++) {
-    //             var cookie = jQuery.trim(cookies[i]);
-    //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-    //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     return cookieValue;
-    // };
+    
 
 
     
@@ -115,20 +76,23 @@ function Feed(props) {
         <>
 
         <DemoNavbar />
-        <main className="profile-page">
-          <section className="section-profile-cover section-shaped my-0">
+        <main className="profile-page" id="ImageLetter">
+          <section className="section section-shaped section-lg">
             {/* background */}
             <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+                 <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+  
 
             </div>
-
-
-          </section>
-
-          {/* 여기부터가 컨테이너 부분 */}
-          <section className="section">
-            <Container>
-              <Card className="card-profile shadow mt--300">
+            <Container className="pt-lg-5">
+              <Card className="bg-secondary shadow border-0">
                 <div className="px-4">
                   <Row className="justify-content-center">
                     
@@ -136,7 +100,10 @@ function Feed(props) {
                     <Col className="order-lg-1" lg="4">
                       <div className="card-profile-stats d-flex justify-content-center">
                         <div>
-                          <span className="heading"> 분석 결과 </span>
+                        <h3 className="display-3 mt-5 mb-5">
+                            세부 피드백
+                         </h3>
+                            
                         </div>
                       </div>
                     </Col>
@@ -185,7 +152,14 @@ function Feed(props) {
                 </div>
               </Card>
             </Container>
+
+
           </section>
+
+          {/* 여기부터가 컨테이너 부분 */}
+          {/* <section className="section">
+            
+          </section> */}
         </main>
         <SimpleFooter />
       </>

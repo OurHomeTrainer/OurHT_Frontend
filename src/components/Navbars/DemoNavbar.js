@@ -65,7 +65,7 @@ class DemoNavbar extends React.Component {
   render() {
     return (
       <>
-        <header className="header-global">
+        <header id="ImageLetter" className="header-global">
           <Navbar
             className="navbar-main navbar-transparent navbar-light headroom"
             expand="lg"
@@ -86,7 +86,7 @@ class DemoNavbar extends React.Component {
                 onExited={this.onExited}
               >
 
-                <Nav className="navbar-nav-hover align-items-lg-center" navbar>
+                {/* <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
@@ -107,7 +107,7 @@ class DemoNavbar extends React.Component {
 
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
-                      <i className="ni ni-collection d-lg-none mr-1" />
+                      <i className="mr-1" />
                       <span className="nav-link-inner--text">결과분석</span>
                     </DropdownToggle>
                     <DropdownMenu>
@@ -125,7 +125,7 @@ class DemoNavbar extends React.Component {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-                </Nav>
+                </Nav> */}
                 <Nav className="align-items-lg-center ml-lg-auto" navbar>
 
                   <NavItem>

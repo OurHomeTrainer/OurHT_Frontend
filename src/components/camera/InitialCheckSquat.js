@@ -173,7 +173,7 @@ function getCookie(name) {
 
 
 async function Postimage(pose, imageUrl) {
-    console.log("찾았다 이 시발럼")
+    
     fetch(`http://127.0.0.1:8000/apis/images/getjointpoint`, {
         method: "POST",
         headers: {
@@ -224,32 +224,35 @@ RunPosenet();
 
 
       <DemoNavbar />
-      <main className="profile-page">
-        <section className="section-profile-cover section-shaped my-0">
+      <main className="profile-page" id="ImageLetter">
+        <section className="section section-shaped section-lg">
           {/* background */}
           <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
 
+          <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+
           </div>
 
-
-        </section>
-
-        {/* 여기부터가 컨테이너 부분 */}
-        <section className="section section-lg pt-lg-0 mt--300 ">
-          <Container>
-            <Card className="card-profile shadow mt--300">
+          <Container className="pt-lg-5">
+            <Card className="bg-secondary shadow border-0">
 
             <div className="px-4">
-
-
-
 
 
             <Row className="justify-content-center">
                   <Col className="order-lg-1" lg="4">
                     <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                        <span className="heading"> 실시간 상태 </span>
+                        <h3 className="display-3 mt-5 mb-5">
+                            실시간 상태
+                         </h3>
                       </div>
                     
                     </div>
@@ -314,7 +317,14 @@ RunPosenet();
             
             </Card>
           </Container>
+
+
         </section>
+
+        {/* 여기부터가 컨테이너 부분 */}
+        {/* <section className="section section-lg pt-lg-0 mt--300 ">
+          
+        </section> */}
       </main>
       <SimpleFooter />
     </>
