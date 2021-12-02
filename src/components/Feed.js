@@ -2,39 +2,36 @@ import React, { useState, useEffect } from "react";
 import jQuery, { data } from "jquery";
 
 import { Button, Badge, Container, Row, Col } from "reactstrap";
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 function Feed(props) {
-
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
-
     let current_user = localStorage.getItem("saveexercisepk");
-    console.log("currnet user", current_user)
+    console.log("currnet user", current_user);
 
-    
     feedTest(current_user, props.match.params.count_number);
   }, [props.match.params.count_number]);
 
   async function feedTest(current_user, count_number) {
-      fetch(
-        `http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_user}&motion_index=${count_number}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": getCookie("csrftoken"),
-            Accept: "application/json",
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => setFeed(data))
+    fetch(
+      `http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_user}&motion_index=${count_number}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCookie("csrftoken"),
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => setFeed(data));
   }
 
   const feedbackstring = [
@@ -108,88 +105,104 @@ function Feed(props) {
       }
     }
   }
-    feedTest();
+  feedTest();
 
-
-    return (
-
-        <>
-
-        <DemoNavbar />
-        <main className="profile-page" id="ImageLetter">
-          <section className="section section-shaped section-lg">
-            {/* background */}
-            <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
-                 <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-            </div>
-            <Container className="pt-lg-5">
-              <Card className="bg-secondary shadow border-0">
-                <div className="px-4">
-                  <Row className="justify-content-center">
-                    <Col className="order-lg-1" lg="4">
-                      <div className="card-profile-stats d-flex justify-content-center">
-                        <div>
+  return (
+    <>
+      <DemoNavbar />
+      <main className="profile-page" id="ImageLetter">
+        <section className="section section-shaped section-lg">
+          {/* background */}
+          <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+          <Container className="pt-lg-5">
+            <Card className="bg-secondary shadow border-0">
+              <div className="px-4">
+                <Row className="justify-content-center">
+                  <Col className="order-lg-1" lg="4">
+                    <div className="card-profile-stats d-flex justify-content-center">
+                      <div>
                         <h3 className="display-3 mt-5 mb-5">
-                            세부 피드백
-                         </h3>
-                            
-                        </div>
+                          {feed.count_number} 회차 세부 피드백
+                        </h3>
                       </div>
+                    </div>
                   </Col>
                 </Row>
-                </div>
+              </div>
 
-                <div>
-                  <table className="table">
-                    <tbody>
-                      <tr>
-                        <th scope="row"></th>
-                        <td>
-                          {
-                            <img
-                              src={"data:image/webp;base64," + feed.photo}
-                              alt={feed.name}
-                              style={{ maxWidth: "100%" }}
-                            ></img>
-                          }
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Feedback</th>
-                        <td>
+              <div>
+                <table className="table">
+                  <tbody>
+                    <tr>
+                      <th scope="row "></th>
+
+                      <td>
+                        {
+                          <img
+                            src={"data:image/webp;base64," + feed.photo}
+                            alt={feed.name}
+                            style={{ maxWidth: "80%" }}
+                          ></img>
+                        }
+                      </td>
+
+                      <td>
+                        {
+                          <img
+                            src={
+                              "data:image/webp;base64," +
+                              feed.photo_back_checked
+                            }
+                            alt={feed.name}
+                            style={{ maxWidth: "80%" }}
+                          ></img>
+                        }
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th scope="row">Feedback</th>
+                      <td colSpan="2">
+                        {displayfeedback.map((feedback) => (
+                          <ul>{feedback}</ul>
+                        ))}
+                      </td>
+                      {/* <td>
                           {displayfeedback.map(feedback => (
                           <ul>
                             {feedback}
                           </ul>
                           ))}
-                        </td>
-                      </tr>
+                        </td> */}
+                    </tr>
 
-                      <tr>
+                    {/* <tr>
                         <th scope="row">ID</th>
                         <td>{props.match.params.id}</td>
                       </tr>
                       <tr>
                         <th scope="row">Count Number</th>
                         <td>{feed.count_number}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <hr className="my-5" />
-                </div>
-              </Card>
-            </Container>
-          </section>
-        </main>
-        <SimpleFooter />
-      </>
+                      </tr> */}
+                  </tbody>
+                </table>
+                <hr className="my-5" />
+              </div>
+            </Card>
+          </Container>
+        </section>
+      </main>
+      <SimpleFooter />
+    </>
   );
 }
 

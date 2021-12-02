@@ -76,15 +76,15 @@ function getUserSquat(파라미터, user_pk) {
         ]);
       }
 
-      //console.log("squatEvents:");
-      //console.log(squatEvents);
+      console.log("squatEvents:");
+      console.log(squatEvents);
 
       // for (var i = 0; i < squatArray.length; i++) {
 
       // }
 
       파라미터();
-      squatEvents.splice(0, squatEvents.length);
+      //squatEvents.splice(0, squatEvents.length);
       // events.push(newDay);
     })
     .catch((Error) => {
@@ -118,7 +118,7 @@ function CalendarByJames() {
   //console.log("calendar by james");
 
   let user_pk_temp = localStorage.getItem("user_pk");
-  
+
   var [sqautEventsState, setSqautEventsState] = useState([
     {
       title: "스쿼트19회",

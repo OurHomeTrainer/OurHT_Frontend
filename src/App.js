@@ -1,5 +1,5 @@
-import './App.css';
-import Result from './components/Result';
+import "./App.css";
+import Result from "./components/Result";
 import React from "react";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -58,10 +58,6 @@ function App() {
               <Register />
             </Route>
 
-            <Route path="/userinfo">
-              <UserInfo />
-            </Route>
-
             <Route path="/profile-page">
               <Profile />
             </Route>
@@ -76,6 +72,9 @@ function App() {
 
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/userinfo">
+              <UserInfo />
             </Route>
           </UserContextProvider>
         </Switch>

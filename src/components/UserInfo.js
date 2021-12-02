@@ -32,7 +32,7 @@ import {
   Container,
   Row,
   Col,
-  Toast
+  Toast,
 } from "reactstrap";
 
 // core components
@@ -42,7 +42,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function UserInfo() {
-
   const main = React.createRef();
 
   let current_user_pk = localStorage.getItem("user_pk");
@@ -54,19 +53,24 @@ function UserInfo() {
   const onUserageChange = (e) => {
     setNewuserage(e.target.value);
     console.log(newuserage);
-  }
+  };
 
   const onUserheightChange = (e) => {
     setNewuserheight(e.target.value);
     console.log(newuserheight);
-  }
+  };
 
   const onUserweightChange = (e) => {
     setNewuserweight(e.target.value);
     console.log(newuserweight);
-  }
+  };
 
-  async function userinfoupdate(user_pk, newuserage, newuserheight, newuserweight) {
+  async function userinfoupdate(
+    user_pk,
+    newuserage,
+    newuserheight,
+    newuserweight
+  ) {
     fetch(`http://127.0.0.1:8000/apis/users/updateuserinfo`, {
       method: "POST",
       headers: {
@@ -74,39 +78,41 @@ function UserInfo() {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        "userid": user_pk,
-        "userage": newuserage,
-        "userheight": newuserheight,
-        "userweight": newuserweight
+        userid: user_pk,
+        userage: newuserage,
+        userheight: newuserheight,
+        userweight: newuserweight,
       }),
-    }).then((response) => response.json())
-    .then((data) => {
-        console.log(data)
-        document.location.href = "/info";
     })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        document.location.href = "/info";
+      });
   }
 
   function doUserinfoupdate() {
     console.log("정보 수정 버튼 클릭");
     console.log(current_user_pk, newuserage, newuserheight, newuserweight);
-    if (newuserage === undefined || newuserheight === undefined || newuserweight === undefined) {
-        toast.error("입력하지 않은 항목이 있습니다, 추가해주세요.", {
+    if (
+      newuserage === undefined ||
+      newuserheight === undefined ||
+      newuserweight === undefined
+    ) {
+      toast.error("입력하지 않은 항목이 있습니다, 추가해주세요.", {
         autoClose: 3000,
-        position: toast.POSITION.TOP_RIGHT
-        })
-    }
-    else {
-    userinfoupdate(current_user_pk, newuserage, newuserheight, newuserweight);
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else {
+      userinfoupdate(current_user_pk, newuserage, newuserheight, newuserweight);
     }
   }
-
-;
 
   return (
     <>
       <DemoNavbar />
       <main ref={main}>
-      <ToastContainer/>
+        <ToastContainer />
         <section className="section section-shaped section-lg">
           <div className="shape shape-style-1 bg-gradient-default">
             <span />
@@ -134,7 +140,11 @@ function UserInfo() {
                               <i className="ni ni-fat-add" />
                             </InputGroupText>
                           </InputGroupAddon>
-                          <Input placeholder="Age" type="text" onChange={onUserageChange}/>
+                          <Input
+                            placeholder="Age"
+                            type="text"
+                            onChange={onUserageChange}
+                          />
                         </InputGroup>
                       </FormGroup>
                       <FormGroup>
@@ -167,13 +177,14 @@ function UserInfo() {
                           />
                         </InputGroup>
                       </FormGroup>
-                      
+
                       <div className="text-center">
                         <Button
                           className="mt-4"
                           color="primary"
                           type="button"
-                          onClick={doUserinfoupdate}>
+                          onClick={doUserinfoupdate}
+                        >
                           수정한 정보 저장하기
                         </Button>
                       </div>
