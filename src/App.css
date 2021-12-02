@@ -43,6 +43,15 @@
   color: rgb(255, 255, 255);
   /* font-size: 70px; */
 }
+#ImageLetterColor {
+  /* margin-top: 140px; */
+  /* left: 59%; */
+  position: relative;
+  
+  font-family: "Jeju";
+  color: rgb(0, 0, 0);
+  /* font-size: 70px; */
+}
 /* .App-p {
   position: relative;
   font-family: "Jeju";

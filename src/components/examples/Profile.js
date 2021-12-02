@@ -15,113 +15,324 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // reactstrap components
-import { Card, Container, Row, Col } from "reactstrap";
+import { Card, Container, Button,Badge,Row, Col,Progress } from "reactstrap";
+import Puang from "components/puang.jpg"
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import CalendarByJames from "components/CalendarByJames";
+import ProfileModifiy from "components/examples/ProfileModifiy"
 
-class Profile extends React.Component {
-  componentDidMount() {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
-  }
-  render() {
-    return (
-      <>
-        <DemoNavbar />
-        <main className="profile-page" ref="main">
-          <section className="section-profile-cover section-shaped my-0">
-            {/* background */}
-            <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"></div>
-          </section>
+function Profile() {
 
-          {/* 여기부터가 컨테이너 부분 */}
-          <section className="section">
-            <Container>
-              <Card className="card-profile shadow mt--800">
-                <div className="px-4">
-                  <Row className="justify-content-center">
-                    {/*<Col className="order-lg-2" lg="3">
-                      카드의 레이아웃 행렬 가운데 부분임 주석 풀면 가운데에 추가로 넣을수 있음
-                    </Col>
-    */}
+  const main = React.createRef();
 
-                    {/* 아래부분은 프로필에서 버튼만들고 링크 넣는 부분 추후 필요하면 활성화 할 것. */}
+  const [userdata, setUserdata] = useState([]);
 
-                    {/* <Col
-                      className="order-lg-3 text-lg-right align-self-lg-center"
-                      lg="4"
-                    >
-                      <div className="card-profile-actions py-4 mt-lg-0">
-                        <Button
-                          className="mr-4"
-                          color="info"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          size="sm"
-                        >
-                          Connect
-                        </Button>
-                        <Button
-                          className="float-right"
-                          color="default"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          size="sm"
-                        >
-                          Message
-                        </Button>
+  let current_user_pk = localStorage.getItem("user_pk");
+
+  useEffect(() => {
+    async function getuserinfo(current_user_pk) {
+      fetch(`http://127.0.0.1:8000/apis/users/getuserinfo`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          userid:current_user_pk
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("허허", data)
+          if (data.age === null) {
+            data.age = "입력 필요!"
+          }
+          if (data.height === null) {
+            data.height = "입력 필요!"
+          }
+          if (data.weight === null) {
+            data.weight = "입력 필요!"
+          }
+          setUserdata(data)})
+      }
+    getuserinfo(current_user_pk);
+  }, []);
+
+  console.log(userdata);
+
+  return (
+    <>
+      <DemoNavbar />
+      <main ref={main} id="ImageLetter">
+        <section className="section section-shaped section-lg">
+          {/* background */}
+          <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />  
+          </div>
+          <div className="profile-page" >
+          <section className="section mt-4">
+          <Container className="pt-lg-4">
+            <Card className="card-profile shadow">
+              <div className="px-4">
+                <Row className="justify-content-center">
+                  <Col className="order-lg-1" lg="4">
+                    <div className="card-profile-actions py-4 mt-lg-0">
+                      
+                      
+                    </div>
+                  </Col>
+                  
+          {/*카드의 레이아웃 행렬 가운데 부분임 주석 풀면 가운데에 추가로 넣을수 있음*/}
+                  <Col className="order-lg-2" lg="3">
+                    <div className="card-profile-image2">
+                      <a href="#pablo" onClick={e => e.preventDefault()}>
+                        <img src={Puang} className="rounded-circle" ></img>
+                      </a>
+                    </div>
+                  </Col>
+                  
+                  
+
+                  {/* 아래부분은 프로필에서 버튼만들고 링크 넣는 부분 추후 필요하면 활성화 할 것. */}
+
+                  {/* <Col
+                    className="order-lg-3 text-lg-right align-self-lg-center"
+                    lg="4"
+                  >
+                    <div className="card-profile-actions py-4 mt-lg-0">
+                      <Button
+                        className="mr-4"
+                        color="info"
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                        size="sm"
+                      >
+                        Connect
+                      </Button>
+                      <Button
+                        className="float-right"
+                        color="default"
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                        size="sm"
+                      >
+                        Message
+                      </Button>
+                    </div>
+                  </Col> */}
+                  <Col
+                    className="order-lg-3 text-lg-right align-self-lg-center"
+                    lg="4"
+                  >
+                    <div className="card-profile-actions py-4 mt-lg-0">
+                      
+                      <Button
+                        className="float-right"
+                        color="default"
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                        size="sm"
+                      >
+                        안녕하세요!
+                      </Button>
+                      {/* <ProfileModifiy/> */}
+                    </div>
+                    
+                  </Col>
+                </Row>
+
+                <Row className="justify-content-center mt--5">
+                  <Col className="order-lg-1" lg="2">
+                    <div className="card-profile-stats d-flex justify-content-center" id="ImageLetterColor">
+                      <div >
+                        <span className="heading">{userdata.username}</span>
+                        <span className="description">이름</span>
                       </div>
-                    </Col> */}
-
-                    <Col className="order-lg-2" lg="6">
-                      <div className="card-profile-stats d-flex justify-content-center">
+                    </div>
+                  </Col>
+                  <Col className="order-lg-1" lg="2">
+                    <div className="card-profile-stats d-flex justify-content-center" id="ImageLetterColor">
                         <div>
-                          <span className="heading">김병주</span>
-                          <span className="description"></span>
+                          <span className="heading">{userdata.age}</span>
+                          <span className="description">나이</span>
                         </div>
-                        <div>
-                          <span className="heading">2</span>
-                          <span className="description">월간 운동횟수</span>
-                        </div>
-                        <div>
-                          <span className="heading">128 kcal</span>
-                          <span className="description">이번달 소모한 칼로리!</span>
-                        </div>
+                    </div>`
+                  </Col>
+                  <Col className="order-lg-1" lg="2">
+                    <div className="card-profile-stats d-flex justify-content-center" id="ImageLetterColor">
+                      <div>
+                        <span className="heading">{userdata.height}</span>
+                        <span className="description">신장</span>
                       </div>
-                    </Col>
-                  </Row>
-                  <CalendarByJames />
-
-                  <div className="mt-5 py-5 border-top text-center">
-                    <Row className="justify-content-center">
-                      <Col lg="9">
-                        <p>
-                          위에서는 요약 여기서는 운동 통계 및 그동안 기록된
-                          리스트들 나열
-                        </p>
-                        {/* 일단 링크 막아둠 */}
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                          더 보기
-                        </a>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-              </Card>
-            </Container>
+                    </div>
+                  </Col>
+                  <Col className="order-lg-1" lg="2">
+                    <div className="card-profile-stats d-flex justify-content-center" id="ImageLetterColor">
+                      <div>
+                        <span className="heading">{userdata.weight}</span>
+                        <span className="description">체중</span>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+                <CalendarByJames />   
+              </div>
+            </Card>
+          </Container>
           </section>
-        </main>
-        <SimpleFooter />
-      </>
-    );
-  }
+          </div>
+        </section>
+      </main>
+      <SimpleFooter />
+    </>
+  );
 }
 
 export default Profile;
+
+// class Profile extends React.Component {
+//   componentDidMount() {
+//     document.documentElement.scrollTop = 0;
+//     document.scrollingElement.scrollTop = 0;
+//     this.refs.main.scrollTop = 0;
+//   }
+//   render() {
+//     return (
+//       <>
+//         <DemoNavbar />
+//         <main ref="main" id="ImageLetter">
+//           <section className="section section-shaped section-lg">
+//             {/* background */}
+//             <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+//               <span />
+//               <span />
+//               <span />
+//               <span />
+//               <span />
+//               <span />
+//               <span />
+//               <span />  
+//             </div>
+//             <div className="profile-page" >
+//             <section className="section mt-4">
+//             <Container className="pt-lg-4">
+//               <Card className="card-profile shadow">
+//                 <div className="px-4">
+//                   <Row className="justify-content-center">
+//                     <Col className="order-lg-1" lg="4">
+//                       <div className="card-profile-actions py-4 mt-lg-0">
+                        
+                        
+//                       </div>
+//                     </Col>
+                    
+//             {/*카드의 레이아웃 행렬 가운데 부분임 주석 풀면 가운데에 추가로 넣을수 있음*/}
+//                     <Col className="order-lg-2" lg="3">
+//                       <div className="card-profile-image2">
+//                         <a href="#pablo" onClick={e => e.preventDefault()}>
+//                           <img src={Puang} className="rounded-circle" ></img>
+//                         </a>
+//                       </div>
+//                     </Col>
+                    
+                    
+
+//                     {/* 아래부분은 프로필에서 버튼만들고 링크 넣는 부분 추후 필요하면 활성화 할 것. */}
+
+//                     {/* <Col
+//                       className="order-lg-3 text-lg-right align-self-lg-center"
+//                       lg="4"
+//                     >
+//                       <div className="card-profile-actions py-4 mt-lg-0">
+//                         <Button
+//                           className="mr-4"
+//                           color="info"
+//                           href="#pablo"
+//                           onClick={e => e.preventDefault()}
+//                           size="sm"
+//                         >
+//                           Connect
+//                         </Button>
+//                         <Button
+//                           className="float-right"
+//                           color="default"
+//                           href="#pablo"
+//                           onClick={e => e.preventDefault()}
+//                           size="sm"
+//                         >
+//                           Message
+//                         </Button>
+//                       </div>
+//                     </Col> */}
+//                     <Col
+//                       className="order-lg-3 text-lg-right align-self-lg-center"
+//                       lg="4"
+//                     >
+//                       <div className="card-profile-actions py-4 mt-lg-0">
+                        
+//                         <Button
+//                           className="float-right"
+//                           color="default"
+//                           href="#pablo"
+//                           onClick={e => e.preventDefault()}
+//                           size="sm"
+//                         >
+//                           안녕하세요!
+//                         </Button>
+//                         {/* <ProfileModifiy/> */}
+//                       </div>
+                      
+//                     </Col>
+//                   </Row>
+
+//                   <Row className="justify-content-center mt--5">
+//                     <Col className="order-lg-1" lg="6">
+//                       <div className="card-profile-stats d-flex justify-content-center" id="ImageLetterColor">
+//                         <div >
+//                           <span className="heading">김푸앙</span>
+//                           <span className="description">이름</span>
+//                         </div>
+//                         <div>
+//                           <span className="heading">8세</span>
+//                           <span className="description">나이</span>
+//                         </div>
+//                         <div>
+//                           <span className="heading">80cm</span>
+//                           <span className="description">신장</span>
+//                         </div>
+//                         <div>
+//                           <span className="heading">20kg</span>
+//                           <span className="description">체중</span>
+//                         </div>
+//                       </div>
+//                     </Col>
+
+//                   </Row>
+//                   <CalendarByJames />   
+//                 </div>
+//               </Card>
+//             </Container>
+//             </section>
+//             </div>
+//           </section>
+//         </main>
+//         <SimpleFooter />
+//       </>
+//     );
+//   }
+// }
+
+// export default Profile;

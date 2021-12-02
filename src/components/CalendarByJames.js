@@ -50,11 +50,14 @@ var squatEventsForGoogle = [
   ],
 ];
 
-function getUserSquat(파라미터) {
+function getUserSquat(파라미터, user_pk) {
+  let url = "http://127.0.0.1:8000/apis/users/getuserexercise?userid=";
+  url += user_pk;
+  console.log(url);
   axios
-    .get("http://127.0.0.1:8000/apis/users/getuserexercise?username=finaltest")
+    .get(url)
     .then((Response) => {
-      console.log(Response.data);
+      //console.log(Response.data);
       // squatEvents = [...Response.data]; //deep copy
       for (var i = 0; i < Response.data.length; i++) {
         squatEvents.push({
@@ -73,15 +76,15 @@ function getUserSquat(파라미터) {
         ]);
       }
 
-      console.log("squatEvents:");
-      console.log(squatEvents);
+      //console.log("squatEvents:");
+      //console.log(squatEvents);
 
       // for (var i = 0; i < squatArray.length; i++) {
 
       // }
 
       파라미터();
-
+      squatEvents.splice(0, squatEvents.length);
       // events.push(newDay);
     })
     .catch((Error) => {
@@ -112,8 +115,10 @@ function CalendarByJames() {
   // const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   // const [allEvents, setAllEvents] = useState(events);
   var [text, setText] = useState();
-  console.log("calendar by james");
+  //console.log("calendar by james");
 
+  let user_pk_temp = localStorage.getItem("user_pk");
+  
   var [sqautEventsState, setSqautEventsState] = useState([
     {
       title: "스쿼트19회",
@@ -128,13 +133,13 @@ function CalendarByJames() {
       end: new Date(2021, 10, 28),
     },
   ]);
-  console.log("squatEventsState:");
-  console.log(sqautEventsState);
+  //console.log("squatEventsState:");
+  //console.log(sqautEventsState);
 
   var [squatEventsForGoogleState, setSquatEventsForGoogleState] = useState([]);
 
   useEffect(() => {
-    getUserSquat(updateSquat);
+    getUserSquat(updateSquat, user_pk_temp);
   }, []);
   // getUserSquat(updateText);
   function updateText() {
@@ -143,10 +148,10 @@ function CalendarByJames() {
   }
   function updateSquat() {
     setSqautEventsState(squatEvents);
-    console.log(squatEvents);
+    //console.log(squatEvents);
     setSquatEventsForGoogleState(squatEventsForGoogle);
     console.log("업데이트 스쿼트 스테이트");
-    console.log(squatEventsForGoogle[1]);
+    //console.log(squatEventsForGoogle[1]);
   }
 
   function onSelectEvent눌렀을때함수(event) {
@@ -166,7 +171,7 @@ function CalendarByJames() {
     [new Date("2021-08-25T13:38:02+09:00"), 38024],
     [new Date("2021-09-25T13:38:02+09:00"), 38024],
   ];
-  console.log(eventsData);
+  //console.log(eventsData);
 
   return (
     <div className="App">

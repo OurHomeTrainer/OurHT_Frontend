@@ -11,24 +11,43 @@
 
 .profile-page {
     .card-profile {
-        margin-top: -150px;
+        margin-top: 0px;
 
         .card-profile-image {
             position: relative;
             //min-height: 130px;
 
             img {
-                max-width: 180px;
+                width: 100%;
+                height: 100%;
                 border-radius: $border-radius;
                 @extend .shadow;
-                transform: translate(-50%,-30%);
+                transform: translate(-50%,0%);
                 position: relative;
                 left: 50%;
                 transition: $transition-base;
 
                 &:hover {
-                    transform: translate(-50%, -33%);
+                    transform: translate(-50%, 0%);
                 }
+            }
+        }
+
+        .card-profile-image2 {
+            position: relative;
+            //min-height: 130px;
+
+            img {
+                width: 200px;
+                height: 200px;
+                border-radius: $border-radius;
+                @extend .shadow;
+                transform: translate(-50%,-33%);
+                position: relative;
+                left: 50%;
+                transition: $transition-base;
+
+                
             }
         }
 
