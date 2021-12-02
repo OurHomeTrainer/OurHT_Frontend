@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import { Card, Container, Button,Badge,Row, Col,Progress } from "reactstrap";
@@ -107,7 +108,7 @@ class Profile extends React.Component {
                     >
                       <div className="card-profile-actions py-4 mt-lg-0">
                         
-                        <Button
+                        {/* <Button
                           className="float-right"
                           color="default"
                           href="#pablo"
@@ -115,8 +116,18 @@ class Profile extends React.Component {
                           size="sm"
                         >
                           안녕하세요!
-                        </Button>
-                        {/* <ProfileModifiy/> */}
+                        </Button> */}
+                        <Link to="/userinfo">
+                            <Button
+                              className="mt-4"
+                              color="primary"
+        
+                            >
+                              <div>
+                              사용자 정보 수정
+                              </div>
+                            </Button>
+                          </Link>
                       </div>
                       
                     </Col>
