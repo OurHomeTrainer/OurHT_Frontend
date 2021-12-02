@@ -154,7 +154,7 @@ function Profile() {
                   </Col>
                 </Row>
 
-                <Row className="justify-content-center mt--5">
+                <Row className="justify-content-center mt--5 mb--6">
                   <Col className="order-lg-1" lg="2">
                     <div className="card-profile-stats d-flex justify-content-center" id="ImageLetterColor">
                       <div >

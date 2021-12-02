@@ -174,7 +174,7 @@ function CalendarByJames() {
   //console.log(eventsData);
 
   return (
-    <div className="App">
+    <div id="ImageLetterColor">
       {text}
       <Calendar
         localizer={localizer}
