@@ -5,22 +5,20 @@ import Result from './components/Result';
 
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Sample from './components/Sample';
-import Login from './components/examples/Login';
-import Register from 'components/examples/Register';
-import Profile from './components/examples/Profile';
-import Landing from './components/examples/Landing';
-import InitialCheckSquat from './components/camera/InitialCheckSquat';
-import { UserContextProvider } from './components/camera/users';  // 전역 변수 사용위함
-import SquatMiddle from './components/camera/SquatMiddle';
-import Feed from './components/Feed';
-
+import Sample from "./components/Sample";
+import Login from "./components/examples/Login";
+import Profile from "./components/examples/Profile";
+import Landing from "./components/examples/Landing";
+import InitialCheckSquat from "./components/camera/InitialCheckSquat";
+import { UserContextProvider } from "./components/camera/users"; // 전역 변수 사용위함
+import SquatMiddle from "./components/camera/SquatMiddle";
+import Feed from "./components/Feed";
+import Calendar from "./components/CalendarByJames";
+import CalendarByJames from "./components/CalendarByJames";
+import Register from "./components/examples/Register";
 function App() {
   return (
- 
     <BrowserRouter>
-       
-
       <div className="App">
         <Switch>
           <Route path="/" exact>
@@ -57,7 +55,6 @@ function App() {
           </Route>
 
           <Route path="/login-page">
-
             <Login />
           </Route>
 
@@ -73,15 +70,9 @@ function App() {
             <SquatMiddle />
           </Route>
           </UserContextProvider>
-
         </Switch>
-
-
       </div>
-
     </BrowserRouter>
-
-
   );
 }
 

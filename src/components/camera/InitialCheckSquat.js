@@ -28,7 +28,7 @@ function InitialCheckSquat() {
   const RunPosenet = async () => {
     useEffect(() => {
       const interval = setInterval(() => {
-        if (net !== undefined || webcamRef.current === null) {
+        if (net !== undefined || webcamRef.current !== null || webcamRef !== null) {
           detect(net);
         }
       }, 200);
