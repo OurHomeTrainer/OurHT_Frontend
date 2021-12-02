@@ -13,6 +13,7 @@ import { UserContextProvider } from "./components/camera/users"; // 전역 변�
 import SquatMiddle from "./components/camera/SquatMiddle";
 import Feed from "./components/Feed";
 import CalendarByJames from "./components/CalendarByJames";
+import UserInfo from "./components/UserInfo";
 
 function App() {
   return (
@@ -55,6 +56,10 @@ function App() {
 
             <Route path="/register-page">
               <Register />
+            </Route>
+
+            <Route path="/userinfo">
+              <UserInfo />
             </Route>
 
             <Route path="/profile-page">

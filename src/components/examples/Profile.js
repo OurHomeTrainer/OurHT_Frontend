@@ -16,6 +16,7 @@
 
 */
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import { Card, Container, Button,Badge,Row, Col,Progress } from "reactstrap";
@@ -139,18 +140,19 @@ function Profile() {
                   >
                     <div className="card-profile-actions py-4 mt-lg-0">
                       
-                      <Button
-                        className="float-right"
-                        color="default"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                        size="sm"
-                      >
-                        안녕하세요!
-                      </Button>
+                    <Link to="/userinfo">
+                            <Button
+                              className="mt-4"
+                              color="primary">
+                              <div>
+                              사용자 정보 수정
+                              </div>
+                            </Button>
+                    </Link>
                       {/* <ProfileModifiy/> */}
                     </div>
                     
+
                   </Col>
                 </Row>
 
