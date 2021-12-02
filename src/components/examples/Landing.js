@@ -35,6 +35,9 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
+//image
+import Puang from "components/puang.jpg"
+
 function Landing() {
   
   const main = React.createRef();
@@ -95,6 +98,13 @@ function Landing() {
                         </Button> */}
                       </div>
                     </Col>
+                    {/* <Col>
+                      <div className="card-profile-image">
+                        <a href="#pablo" onClick={e => e.preventDefault()}>
+                          <img src={Puang} style={{maxWidth: '80%'}}></img>
+                        </a>
+                      </div>
+                    </Col> */}
                   </Row>
                 </div>
               </Container>

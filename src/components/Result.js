@@ -57,33 +57,52 @@ function Result(props) {
         props.history.push(`/result/feed/${id}/${count_number}`);
       }
 
+    console.log("feeds",feeds);
+
     return (
         <>
 
           <DemoNavbar />
-          <main className="profile-page">
-            <section className="section-profile-cover section-shaped my-0">
+          <main className="profile-page" id="ImageLetter">
+            <section className="section section-shaped section-lg">
               {/* background */}
-              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4"/>
-            </section>
-  
-            {/* 여기부터가 컨테이너 부분 */}
-            <section className="section">
-              <Container>
-                <Card className="card-profile shadow mt--300">
+              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              
+              </div>
+
+              <div className="profile-page" >
+              <section className="section mt-3">
+              <Container className="pt-lg-5">
+                <Card className="card-profile shadow pb-3 px-3 ">
                   <div className="px-4">
                     <Row className="justify-content-center">
-                      
-  
                       <Col className="order-lg-1" lg="4">
                         <div className="card-profile-stats d-flex justify-content-center">
                           <div>
                             {/* <span className="heading"> <h3>분석 결과</h3> </span> */}
-                            <h4 className="display-4 mb-0">분석 결과</h4>
+                            <h4 className="display-4 mt-3 mb-2">분석 결과</h4>
                           </div>
                         </div>
                       </Col>
-                    </Row>               
+                    </Row> 
+                    <Row className="justify-content-center">
+                      <Col className="order-lg-1">
+                        <div className="card-profile-stats d-flex justify-content-center">
+                          <div>
+                            {/* <span className="heading"> <h3>분석 결과</h3> </span> */}
+                            <h4 className="display-5 mt--3 mb-3">총 {feeds.length}회의 운동을 수행하였습니다!</h4>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>                 
                   </div>
 
                   <div className="row">
@@ -94,13 +113,13 @@ function Result(props) {
                  onClick={(e) => handleClick(e, current_exercise_pk,feed.count_number)} style={{cursor: 'pointer'}}>
                             {/* <img src={feed.phot }
                                 style={{width: '100%'}}></img> */}
-                                <CardBody className="card-profile-image">
+                                <CardBody className="card-profile-image pd-10" >
                                 <img src= {"data:image/webp;base64," + feed.photo} alt={feed.count_number}>
                                     </img>
                                     
                             <div>
-                            <h5 className="text-primary text-uppercase">{feed.count_number} 회차 </h5>
-                            <p className="description mt-3">PERFECT!{feed.check_item_name}</p>
+                            <h5 className="text-primary text-uppercase text-center mt-5">{feed.count_number} 회차 </h5>
+                            <p className="description text-center mt-3" id="ImageLetterColor">PERFECT!{feed.check_item_name}</p>
                             </div>
                             </CardBody>
                         </div>
@@ -110,7 +129,17 @@ function Result(props) {
                 </div>              
                 </Card>
               </Container>
+              
             </section>
+            </div>
+
+
+
+            </section>
+            
+  
+            {/* 여기부터가 컨테이너 부분 */}
+           
           </main>
           <SimpleFooter />
         </>
