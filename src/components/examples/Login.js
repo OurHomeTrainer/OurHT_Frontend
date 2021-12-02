@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // reactstrap components
 import {
@@ -37,109 +37,312 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-class Login extends React.Component {
-  componentDidMount() {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+import { useUserContext } from "components/camera/users.js";
+
+function Login() {
+
+  const main = React.createRef();
+
+  localStorage.setItem("user_pk", 0);
+
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [usertoken, setUsertoken] = useState();
+
+  const [count, setCount] = useState();
+
+  const { user_pk, setUserpk } = useUserContext();
+
+  let count_temp = 0;
+
+  const onUsernameChange = (e) => {
+    setUsername(e.target.value);
   }
-  render() {
-    return (
-      <>
-        <DemoNavbar />
-        <main ref="main">
-          <section className="section section-shaped section-lg">
-            <div className="shape shape-style-1 bg-gradient-info">
 
-            </div>
-            <Container className="pt-lg-7">
-              <Row className="justify-content-center">
-                <Col lg="5">
-                  <Card className="bg-secondary shadow border-0">
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+  }
+  
+  useEffect(() => {
+    async function loginrequest(username, password) {
+      console.log(username, password);
+      fetch(`/rest-auth/login/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.key !== undefined) {
+            setUsertoken(data.key)
+          }
+        })
+      }
+    loginrequest(username, password);
+  }, [count]);
 
-                    <CardBody className="px-lg-5 py-lg-5">
-                      <div className="text-center text-muted mb-4">
-                        <small> Our Home Training </small>
-                      </div>
-                      <Form role="form">
-                        <FormGroup className="mb-3">
-                          <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="ni ni-email-83" />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input placeholder="Email" type="email" />
-                          </InputGroup>
-                        </FormGroup>
-                        <FormGroup>
-                          <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="ni ni-lock-circle-open" />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                              placeholder="Password"
-                              type="password"
-                              autoComplete="off"
-                            />
-                          </InputGroup>
-                        </FormGroup>
-                        <div className="custom-control custom-control-alternative custom-checkbox">
-                          <input
-                            className="custom-control-input"
-                            id=" customCheckLogin"
-                            type="checkbox"
+  async function getuserid(usertoken) {
+    console.log(usertoken);
+    fetch(`/apis/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        usertoken:usertoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem("user_pk", JSON.stringify(data));
+        document.location.href = "/";
+      })
+  }
+
+  function doLogin() {
+    console.log("버튼 클릭");
+    count_temp = count_temp + 1;
+    setCount(count_temp);
+  }
+
+  if (usertoken !== undefined) {
+    getuserid(usertoken);
+  }
+
+  return (
+    <>
+      <DemoNavbar />
+      <main ref={main}>
+        <section className="section section-shaped section-lg">
+          <div className="shape shape-style-1 bg-gradient-info">
+
+          </div>
+          <Container className="pt-lg-7">
+            <Row className="justify-content-center">
+              <Col lg="5">
+                <Card className="bg-secondary shadow border-0">
+
+                  <CardBody className="px-lg-5 py-lg-5">
+                    <div className="text-center text-muted mb-4">
+                      <small> Our Home Training </small>
+                    </div>
+                    <Form role="form">
+                      <FormGroup className="mb-3">
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-email-83" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input placeholder="Username" type="username" onChange={onUsernameChange} />
+                        </InputGroup>
+                      </FormGroup>
+                      <FormGroup>
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-lock-circle-open" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            placeholder="Password"
+                            type="password"
+                            autoComplete="off"
+                            onChange={onPasswordChange}
                           />
-                          <label
-                            className="custom-control-label"
-                            htmlFor=" customCheckLogin"
-                          >
-                            <span>자동저장</span>
-                          </label>
-                        </div>
-                        <div className="text-center">
-                          <Button
-                            className="my-4"
-                            color="primary"
-                            type="button"
-                          >
-                            Sign in
-                          </Button>
-                        </div>
-                      </Form>
-                    </CardBody>
-                  </Card>
-                  <Row className="mt-3">
-                    {/* <Col xs="6">
-                      <a
-                        className="text-light"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <small>Forgot password?</small>
-                      </a>
-                    </Col> */}
-                    <Col className="text-right" xs="8">
-                      <a
-                        className="text-light"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <small>Create new account</small>
-                      </a>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-        </main>
-        <SimpleFooter />
-      </>
-    );
-  }
+                        </InputGroup>
+                      </FormGroup>
+                      <div className="custom-control custom-control-alternative custom-checkbox">
+                        <input
+                          className="custom-control-input"
+                          id=" customCheckLogin"
+                          type="checkbox"
+                        />
+                        <label
+                          className="custom-control-label"
+                          htmlFor=" customCheckLogin"
+                        >
+                          <span>자동저장</span>
+                        </label>
+                      </div>
+                      <div className="text-center">
+                        <Button
+                          className="my-4"
+                          color="primary"
+                          type="button"
+                          onClick = {doLogin}
+                        >
+                          Sign in
+                        </Button>
+                      </div>
+                    </Form>
+                  </CardBody>
+                </Card>
+                <Row className="mt-3">
+                  {/* <Col xs="6">
+                    <a
+                      className="text-light"
+                      href="#pablo"
+                      onClick={e => e.preventDefault()}
+                    >
+                      <small>Forgot password?</small>
+                    </a>
+                  </Col> */}
+                  <Col className="text-right" xs="8">
+                    <a
+                      className="text-light"
+                      href="/register-page"
+                    >
+                      <small >Create new account</small>
+                    </a>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+      </main>
+      <SimpleFooter />
+    </>
+  );
 }
 
+
 export default Login;
+// class Login extends React.Component {
+
+//   constructor(props) {
+//     super(props);
+//     this.username = React.createRef();
+//     this.password = React.createRef();
+//   }
+
+//   componentDidMount() {
+//     document.documentElement.scrollTop = 0;
+//     document.scrollingElement.scrollTop = 0;
+//     this.refs.main.scrollTop = 0;
+//   }
+//   // CSRF Token 처리 함수, POST 요청시 반드시 필요함!
+//   getCookie(name) {
+//     var cookieValue = null;
+//     if (document.cookie && document.cookie !== "") {
+//       var cookies = document.cookie.split(";");
+//       for (var i = 0; i < cookies.length; i++) {
+//         var cookie = jQuery.trim(cookies[i]);
+//         if (cookie.substring(0, name.length + 1) === name + "=") {
+//           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//           break;
+//         }
+//       }
+//     }
+//     return cookieValue;
+//   }
+
+//   render() {
+//     return (
+//       <>
+//         <DemoNavbar />
+//         <main ref="main">
+//           <section className="section section-shaped section-lg">
+//             <div className="shape shape-style-1 bg-gradient-info">
+
+//             </div>
+//             <Container className="pt-lg-7">
+//               <Row className="justify-content-center">
+//                 <Col lg="5">
+//                   <Card className="bg-secondary shadow border-0">
+
+//                     <CardBody className="px-lg-5 py-lg-5">
+//                       <div className="text-center text-muted mb-4">
+//                         <small> Our Home Training </small>
+//                       </div>
+//                       <Form role="form">
+//                         <FormGroup className="mb-3">
+//                           <InputGroup className="input-group-alternative">
+//                             <InputGroupAddon addonType="prepend">
+//                               <InputGroupText>
+//                                 <i className="ni ni-email-83" />
+//                               </InputGroupText>
+//                             </InputGroupAddon>
+//                             <Input placeholder="Username" type="username" ref={this.username} />
+//                           </InputGroup>
+//                         </FormGroup>
+//                         <FormGroup>
+//                           <InputGroup className="input-group-alternative">
+//                             <InputGroupAddon addonType="prepend">
+//                               <InputGroupText>
+//                                 <i className="ni ni-lock-circle-open" />
+//                               </InputGroupText>
+//                             </InputGroupAddon>
+//                             <Input
+//                               placeholder="Password"
+//                               type="password"
+//                               autoComplete="off"
+//                               ref={this.password}
+//                             />
+//                           </InputGroup>
+//                         </FormGroup>
+//                         <div className="custom-control custom-control-alternative custom-checkbox">
+//                           <input
+//                             className="custom-control-input"
+//                             id=" customCheckLogin"
+//                             type="checkbox"
+//                           />
+//                           <label
+//                             className="custom-control-label"
+//                             htmlFor=" customCheckLogin"
+//                           >
+//                             <span>자동저장</span>
+//                           </label>
+//                         </div>
+//                         <div className="text-center">
+//                           <Button
+//                             className="my-4"
+//                             color="primary"
+//                             type="button"
+//                           >
+//                             Sign in
+//                           </Button>
+//                         </div>
+//                       </Form>
+//                     </CardBody>
+//                   </Card>
+//                   <Row className="mt-3">
+//                     {/* <Col xs="6">
+//                       <a
+//                         className="text-light"
+//                         href="#pablo"
+//                         onClick={e => e.preventDefault()}
+//                       >
+//                         <small>Forgot password?</small>
+//                       </a>
+//                     </Col> */}
+//                     <Col className="text-right" xs="8">
+//                       <a
+//                         className="text-light"
+//                         href="#pablo"
+//                         onClick={e => e.preventDefault()}
+//                       >
+//                         <small>Create new account</small>
+//                       </a>
+//                     </Col>
+//                   </Row>
+//                 </Col>
+//               </Row>
+//             </Container>
+//           </section>
+//         </main>
+//         <SimpleFooter />
+//       </>
+//     );
+//   }
+// }
+
+// export default Login;

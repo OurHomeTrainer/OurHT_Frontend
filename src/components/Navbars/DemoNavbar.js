@@ -63,9 +63,68 @@ class DemoNavbar extends React.Component {
   };
 
   render() {
+    
+    const currentuser = localStorage.getItem("user_pk");
+    let currenturl = document.location.href;
+
+    let logincheck;
+    let mypagecheck;
+
+    if (currentuser !== "0") {
+      logincheck = <Link to="/login-page">
+      <Button className="btn-neutral btn-icon" color="default">
+        {/*<span className="btn-inner--icon">
+          <i className="fa fa-cloud-download mr-2" />
+        </span> 아이콘 나중에 추가해야함*/}
+        <span className="nav-link-inner--text ml-1">
+          로그아웃
+        </span>
+      </Button>
+    </Link>;
+      if (currenturl === "http://localhost:3000/info") {
+        mypagecheck = <Link to="/">
+        <Button className="btn-neutral btn-icon" color="default">
+  
+          {/*<span className="btn-inner--icon">
+            <i className="fa fa-cloud-download mr-2" />
+          </span> 아이콘 나중에 추가해야함
+  */}
+          <span className="nav-link-info ml-1">
+            홈으로
+          </span>
+        </Button>
+      </Link>
+      }
+      else {
+        mypagecheck = <Link to="/info">
+        <Button className="btn-neutral btn-icon" color="default">
+  
+          {/*<span className="btn-inner--icon">
+            <i className="fa fa-cloud-download mr-2" />
+          </span> 아이콘 나중에 추가해야함
+  */}
+          <span className="nav-link-info ml-1">
+            내정보
+          </span>
+        </Button>
+      </Link>
+      }
+    } else {
+      logincheck = <Link to="/login-page">
+        <Button className="btn-neutral btn-icon" color="default">
+        {/*<span className="btn-inner--icon">
+          <i className="fa fa-cloud-download mr-2" />
+        </span> 아이콘 나중에 추가해야함*/}
+        <span className="nav-link-inner--text ml-1">
+          로그인
+        </span>
+        </Button>
+      </Link>;
+    }
+
     return (
       <>
-        <header className="header-global">
+        <header id="ImageLetter" className="header-global">
           <Navbar
             className="navbar-main navbar-transparent navbar-light headroom"
             expand="lg"
@@ -86,7 +145,7 @@ class DemoNavbar extends React.Component {
                 onExited={this.onExited}
               >
 
-                <Nav className="navbar-nav-hover align-items-lg-center" navbar>
+                {/* <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
@@ -107,7 +166,7 @@ class DemoNavbar extends React.Component {
 
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
-                      <i className="ni ni-collection d-lg-none mr-1" />
+                      <i className="mr-1" />
                       <span className="nav-link-inner--text">결과분석</span>
                     </DropdownToggle>
                     <DropdownMenu>
@@ -125,7 +184,7 @@ class DemoNavbar extends React.Component {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-                </Nav>
+                </Nav> */}
                 <Nav className="align-items-lg-center ml-lg-auto" navbar>
 
                   <NavItem>
@@ -148,39 +207,11 @@ class DemoNavbar extends React.Component {
 
 
                   <NavItem className="d-none d-lg-block ml-lg-3" >
-                    <Link to="/info">
-                      <Button
-                        className="btn-neutral btn-icon"
-                        color="default"
-                      >
-
-                        {/*<span className="btn-inner--icon">
-                          <i className="fa fa-cloud-download mr-2" />
-                        </span> 아이콘 나중에 추가해야함
-    */}
-                        <span className="nav-link-info ml-1">
-                          내정보
-                        </span>
-                      </Button>
-
-                    </Link>
+                    {mypagecheck}
                   </NavItem>
 
                   <NavItem className="d-none d-lg-block ml-lg-1">
-                    <Link to="/login-page">
-                      <Button
-                        className="btn-neutral btn-icon"
-                        color="default"
-                      >
-                        {/*<span className="btn-inner--icon">
-                          <i className="fa fa-cloud-download mr-2" />
-                        </span> 아이콘 나중에 추가해야함
-    */}
-                        <span className="nav-link-inner--text ml-1">
-                          로그인
-                        </span>
-                      </Button>
-                    </Link>
+                    {logincheck}
                   </NavItem>
 
 

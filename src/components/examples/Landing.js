@@ -35,29 +35,34 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-class Landing extends React.Component {
-  state = {};
-  componentDidMount() {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
-  }
-  render() {
-    return (
-      <>
+function Landing() {
+  
+  const main = React.createRef();
+
+  let user_pk_temp = localStorage.getItem("user_pk");
+
+  return (
+    <>
         <DemoNavbar />
-        <main ref="main">
+        <main ref={main} className="wrapper" id="ImageLetter">
           <div className="position-relative bg-gradient-info">
             {/* shape Hero */}
             <section className="section section-lg section-shaped pb-250">
-              <div className="shape shape-style-1 shape-default">
-
+              <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
               </div>
               <Container className="py-lg-md d-flex">
-                <div className="col px-0">
+                <div id="ImageLetter" className="col px-0">
                   <Row>
                     <Col lg="6">
-                      <h1 className="display-3 text-white">
+                      <h1 id="ImageLetter" className="display-3 text-white">
                         OurHT와 함께 정확한 운동을 시작해보세요!{" "}
                         {/* <span>여기 더 추가해도됨 글씨</span> */}
                       </h1>
@@ -112,10 +117,10 @@ class Landing extends React.Component {
                           
                             이부분 주석 풀고 아이콘 추가 가능 추후에 적절한거 찾아서 넣기
                           */}
-                          <h6 className="text-primary text-uppercase">
+                          <h6 id="ImageLetter" className="text-primary text-uppercase">
                             스쿼트
                           </h6>
-                          <p className="description mt-3">
+                          <p className="text-primary description mt-3">
                             무릎의 각도, 등의 굽음, 엉덩이의 위치가 중요 포인트입니다. 이에 집중하여 운동을 시작해보세요.
                           </p>
                           <div>
@@ -134,8 +139,11 @@ class Landing extends React.Component {
                             <Button
                               className="mt-4"
                               color="primary"
+                             
                             >
+                              <div>
                               시작하기
+                              </div>
                             </Button>
                           </Link>
                         </CardBody>
@@ -152,7 +160,7 @@ class Landing extends React.Component {
                           <h6 className="text-success text-uppercase">
                             푸쉬업
                           </h6>
-                          <p className="description mt-3">
+                          <p className="text-success description mt-3">
                             팔의 각도와 상체를 일직선으로 유지하는 것이 중요합니다. 시선은 전방유지에 신경쓰며 운동을 시작해보세요
                           </p>
                           <div>
@@ -188,7 +196,7 @@ class Landing extends React.Component {
                           <h6 className="text-warning text-uppercase">
                             플랭크
                           </h6>
-                          <p className="description mt-3">
+                          <p className="text-warning description mt-3">
                             코어힘에 집중하세요. 어깨, 엉덩이, 무릎의 위치를 신경쓰는 것이 중요합니다. 힘들어도 1분만 버티세요!
                           </p>
                           <div>
@@ -206,8 +214,6 @@ class Landing extends React.Component {
                             <Button
                               className="mt-4"
                               color="warning"
-
-
                             >
                               시작하기
                             </Button>
@@ -220,14 +226,10 @@ class Landing extends React.Component {
               </Row>
             </Container>
           </section>
-
-
-
         </main>
         <SimpleFooter />
       </>
-    );
-  }
+  );
 }
 
 export default Landing;

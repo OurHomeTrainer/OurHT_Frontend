@@ -1,31 +1,22 @@
 import React, { useState, useEffect } from "react";
 import jQuery, { data } from "jquery";
 
-import { Container, Row, Col } from "reactstrap";
-import { Card } from "react-bootstrap";
+import { Button, Badge, Container, Row, Col } from "reactstrap";
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-// 전역값
-import { useUserContext } from "./camera/users";
-
 function Feed(props) {
-  const { user } = useUserContext();
+
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
 
-    let current_user;
+    let current_user = localStorage.getItem("saveexercisepk");
+    console.log("currnet user", current_user)
 
-    if (user === 999 || user === "999") {
-      let temp = localStorage.getItem("saveexercisepk");
-      current_user = temp;
-    } else {
-      current_user = user;
-      localStorage.setItem("saveexercisepk", JSON.stringify(current_user));
-    }
     
     feedTest(current_user, props.match.params.count_number);
   }, [props.match.params.count_number]);
@@ -116,34 +107,47 @@ function Feed(props) {
           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
           break;
         }
+        return cookieValue;
       }
     }
-    return cookieValue;
   }
+    feedTest();
 
-  return (
-    <>
-      <DemoNavbar />
-      <main className="profile-page">
-        <section className="section-profile-cover section-shaped my-0">
-          {/* background */}
-          <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4" />
-        </section>
 
-        {/* 여기부터가 컨테이너 부분 */}
-        <section className="section">
-          <Container>
-            <Card className="card-profile shadow mt--300">
-              <div className="px-4">
-                <Row className="justify-content-center">
-                  <Col className="order-lg-1" lg="4">
-                    <div className="card-profile-stats d-flex justify-content-center">
-                      <div>
-                        <span className="heading"> 분석 결과 </span>
+    return (
+
+        <>
+
+        <DemoNavbar />
+        <main className="profile-page" id="ImageLetter">
+          <section className="section section-shaped section-lg">
+            {/* background */}
+            <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
+                 <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+            </div>
+            <Container className="pt-lg-5">
+              <Card className="bg-secondary shadow border-0">
+                <div className="px-4">
+                  <Row className="justify-content-center">
+                    <Col className="order-lg-1" lg="4">
+                      <div className="card-profile-stats d-flex justify-content-center">
+                        <div>
+                        <h3 className="display-3 mt-5 mb-5">
+                            세부 피드백
+                         </h3>
+                            
+                        </div>
                       </div>
-                    </div>
                   </Col>
                 </Row>
+                </div>
 
                 <div>
                   <table className="table">
@@ -183,13 +187,12 @@ function Feed(props) {
                   </table>
                   <hr className="my-5" />
                 </div>
-              </div>
-            </Card>
-          </Container>
-        </section>
-      </main>
-      <SimpleFooter />
-    </>
+              </Card>
+            </Container>
+          </section>
+        </main>
+        <SimpleFooter />
+      </>
   );
 }
 

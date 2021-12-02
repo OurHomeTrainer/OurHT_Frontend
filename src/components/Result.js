@@ -1,39 +1,28 @@
 
 import jQuery from 'jquery';
-import React, { useState , useEffect} from "react";
+import React, { useState , useEffect, useParams} from "react";
 
 // reactstrap components
-import { Container, Row, Col } from "reactstrap";
-import { Card} from 'react-bootstrap';
+import { Card, CardBody, Button, Container, Row, Col } from "reactstrap";
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
-// 전역값
-import { useUserContext } from './camera/users';
-
 function Result(props) {
-
-  // 전역
-  const { user } = useUserContext();
     
   const [feeds,setFeed]=useState([]);
 
+  let currenturl = document.location.href;
+  currenturl = currenturl.slice(currenturl.length - 2, currenturl.length);
+  let current_exercise_pk = currenturl;
+  localStorage.setItem("saveexercisepk", current_exercise_pk)
+
     useEffect(() => {
 
-      let current_user;
-
-      if (user === 999 || user === "999") {
-        let temp = localStorage.getItem("saveexercisepk");
-        current_user = temp;
-      } else {
-        current_user = user;
-        localStorage.setItem("saveexercisepk", JSON.stringify(current_user));
-      }
 
         async function feedTest() {
-            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_user}&motion_index=999`, {
+            fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_exercise_pk}&motion_index=999`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +34,7 @@ function Result(props) {
             .then((data) => setFeed(data))
         }
         feedTest();
-      }, [user]);
+      }, []);
 
     function getCookie(name) {
         var cookieValue = null;
@@ -63,7 +52,7 @@ function Result(props) {
     };
 
     const handleClick = (event, id, count_number) => {
-        console.log(event, id);
+        console.log(event, id, count_number);
         event.preventDefault();
         props.history.push(`/result/feed/${id}/${count_number}`);
       }
@@ -89,7 +78,8 @@ function Result(props) {
                       <Col className="order-lg-1" lg="4">
                         <div className="card-profile-stats d-flex justify-content-center">
                           <div>
-                            <span className="heading"> 분석 결과 </span>
+                            {/* <span className="heading"> <h3>분석 결과</h3> </span> */}
+                            <h4 className="display-4 mb-0">분석 결과</h4>
                           </div>
                         </div>
                       </Col>
@@ -99,20 +89,25 @@ function Result(props) {
                   <div className="row">
                     {feeds.map(feed => (
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
-                        <div className="card" key={feed.id}
-                 onClick={(e) => handleClick(e, feed.id, feed.count_number)} style={{cursor: 'pointer'}}>
-                            <img src={"data:image/webp;base64," + feed.photo}
-                                style={{width: '100%'}}></img>
-                                {/* <img src= {Testimg} alt={feed.count_number}>
-                                    </img> */}
-                            <div className="card-body">
-                            <h5 className="card-title">{feed.count_number} 회차 </h5>
-                            <p className="card-text">PERFECT!{feed.check_item_name}</p>
+                        <Card className="card-lift--hover shadow border-0">
+                        <div key={feed.id}
+                 onClick={(e) => handleClick(e, current_exercise_pk,feed.count_number)} style={{cursor: 'pointer'}}>
+                            {/* <img src={feed.phot }
+                                style={{width: '100%'}}></img> */}
+                                <CardBody className="card-profile-image">
+                                <img src= {"data:image/webp;base64," + feed.photo} alt={feed.count_number}>
+                                    </img>
+                                    
+                            <div>
+                            <h5 className="text-primary text-uppercase">{feed.count_number} 회차 </h5>
+                            <p className="description mt-3">PERFECT!{feed.check_item_name}</p>
                             </div>
+                            </CardBody>
                         </div>
+                        </Card>
                         </div>
                 ))}
-                </div>
+                </div>              
                 </Card>
               </Container>
             </section>

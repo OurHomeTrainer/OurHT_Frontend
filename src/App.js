@@ -1,18 +1,18 @@
 import React from "react";
+
+import "./App.css";
 import Result from "./components/Result";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Sample from "./components/Sample";
 import Login from "./components/examples/Login";
+import Register from "omponents/examples/Register";
 import Profile from "./components/examples/Profile";
 import Landing from "./components/examples/Landing";
 import InitialCheckSquat from "./components/camera/InitialCheckSquat";
 import { UserContextProvider } from "./components/camera/users"; // 전역 변수 사용위함
 import SquatMiddle from "./components/camera/SquatMiddle";
 import Feed from "./components/Feed";
-import Calendar from "./components/CalendarByJames";
-import CalendarByJames from "./components/CalendarByJames";
-import Register from "./components/examples/Register";
 function App() {
   return (
     <BrowserRouter>
@@ -27,7 +27,7 @@ function App() {
               <InitialCheckSquat />
             </Route>
 
-            <Route exact path="/result" component={Result}></Route>
+            <Route exact path="/result/feed/:id" component={Result}></Route>
 
             <Switch>
               <Route
@@ -52,8 +52,12 @@ function App() {
               <Login />
             </Route>
 
+            <Route path="/register-page">
+              <Register />
+            </Route>
+
             <Route path="/profile-page">
-              <Profile />
+              <Profile />ㄴ
             </Route>
 
             <Route path="/middle">
