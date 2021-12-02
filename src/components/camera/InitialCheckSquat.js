@@ -15,9 +15,9 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 function InitialCheckSquat() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [tData, setData] = useState("시작!");
-
-  let camcheck;
+  const [tData, setData] = useState();
+  
+  const [camcheck, setCamcheck] = useState("카메라 세팅 정보");
 
   let count = 1;
   let is_person_gone_to_stand = "start";
@@ -25,10 +25,13 @@ function InitialCheckSquat() {
   let url_list = [];
   let current_exercise_pk = localStorage.getItem("saveexercisepk");
 
+  let camchecktag = useRef(null);
+  let feedbacktag = useRef(null);
+
   const RunPosenet = async () => {
     useEffect(() => {
       const interval = setInterval(() => {
-        if (net !== undefined || webcamRef.current !== null || webcamRef !== null) {
+        if (net !== undefined && webcamRef.current !== null) {
           detect(net);
         }
       }, 200);
@@ -45,7 +48,7 @@ function InitialCheckSquat() {
   };
 
   const detect = async (net) => {
-    if (webcamRef.current.video.readyState === 4 && webcamRef.current !== null) {
+    if (webcamRef.current.video.readyState === 4) {
       // Get Video Properties
       let video = null;
       if (webcamRef.current.video !== null) {
@@ -71,6 +74,10 @@ function InitialCheckSquat() {
       // 샘플링 로직
       const camSetFlag = isCameraSetted(pose, videoWidth);
       if (camSetFlag === true) {
+        setCamcheck("카메라 세팅 완료!");
+        if (camchecktag.current !== null) {
+        camchecktag.current.style.color = "green";
+        }
         const squat_state = returnSquatState(pose);
         if (squat_state === "squat") {
           pose_list.push(pose);
@@ -105,6 +112,12 @@ function InitialCheckSquat() {
             url_list.length = 0;
             is_person_gone_to_stand = "start";
           }
+        }
+      }
+      else {
+        setCamcheck("카메라 체크 X");
+        if (camchecktag.current !== null) {
+        camchecktag.current.style.color = "red";
         }
       }
     }
@@ -249,8 +262,20 @@ function InitialCheckSquat() {
       }),
     })
       .then((response) => response.json())
-      .then((data) => setData(data))
-      .then((data) => console.log(data))
+      .then((data) => {
+        setData(data);
+        if (feedbacktag.current !== null) {
+          if (tData === "Perfect") {
+            feedbacktag.current.style.color = "green";
+          }
+          else if (tData === "Good") {
+            feedbacktag.current.style.color = "yellow";
+          }
+          else {
+            feedbacktag.current.style.color = "red";
+          }
+        }
+      })
 
     console.log("몇 회차인가요?", count);
     count += 1;
@@ -278,14 +303,13 @@ function InitialCheckSquat() {
           <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
 
           <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
           </div>
 
           <Container className="pt-lg-5">
@@ -295,19 +319,28 @@ function InitialCheckSquat() {
 
 
             <Row className="justify-content-center">
-                  <Col className="order-lg-1" lg="4">
+                  <Col className="order-lg-1" lg="5">
                     <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                        <h5 className="display-5 mt-3 mb-3"> 실시간 피드백 {tData} </h5>
+                      <h5 ref={camchecktag} className="display-5 mt-4 mb-3"> {camcheck} </h5>
                       </div>
                     </div>
                   </Col>
                   </Row>
             <Row className="justify-content-center">
-                  <Col className="order-lg-1" lg="4">
+                  <Col className="order-lg-1" lg="5">
                   <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                        <h5 className="display-5 mt-3 mb-3"> 실시간 상태 </h5>
+                        <h3 ref={feedbacktag} className="display-5 mt-3 mb-3"> {tData} </h3>
+                      </div>
+                    </div>
+                  </Col>
+            </Row>
+            <Row className="justify-content-center">
+                  <Col className="order-lg-1" lg="5">
+                  <div className="card-profile-stats d-flex justify-content-center">
+                      <div>
+                        <h6 className="mt-3 mb-3"> {count - 1}회 완료하였어요 </h6>
                       </div>
                     </div>
                   </Col>
@@ -351,7 +384,7 @@ function InitialCheckSquat() {
                    
                     
                 </div>
-                <div className="text-center mt-5 mb-5">
+                <div className="text-center mt-3 mb-4">
                     <Link to={`result/feed/${current_exercise_pk}`}>
                             <Button
                               className="mx-4"

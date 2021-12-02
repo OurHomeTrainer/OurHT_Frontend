@@ -1,6 +1,6 @@
 
 import jQuery from 'jquery';
-import React, { useState , useEffect, useParams} from "react";
+import React, { useState , useEffect} from "react";
 
 // reactstrap components
 import { Card, CardBody, Button, Container, Row, Col } from "reactstrap";
@@ -13,14 +13,13 @@ function Result(props) {
     
   const [feeds,setFeed]=useState([]);
 
+  // 여기 수정해야함
   let currenturl = document.location.href;
-  currenturl = currenturl.slice(currenturl.length - 2, currenturl.length);
+  currenturl = currenturl.slice(34, currenturl.length);
   let current_exercise_pk = currenturl;
   localStorage.setItem("saveexercisepk", current_exercise_pk)
 
     useEffect(() => {
-
-
         async function feedTest() {
             fetch(`http://127.0.0.1:8000/apis/users/getuserfeedback?exercise_pk=${current_exercise_pk}&motion_index=999`, {
                 method: "GET",
@@ -31,7 +30,24 @@ function Result(props) {
                 },
             })
             .then((response) => (response.json()))
-            .then((data) => setFeed(data))
+            .then((data) => {
+              let i = 0;
+              for (i = 0; i < data.length; i++) {
+                if (data[i].checklist.length >= 5) {
+                  data[i].feedbackresult = "Perfect!";
+                  data[i].color = "green";
+                }
+                else if (data[i].checklist.length <= 2) {
+                  data[i].feedbackresult = "Bad :(";
+                  data[i].color = "red";
+                }
+                else {
+                  data[i].feedbackresult = "Good ~.~";
+                  data[i].color = "yellow";
+                }
+              }
+              setFeed(data)
+            })
         }
         feedTest();
       }, []);
@@ -52,7 +68,6 @@ function Result(props) {
     };
 
     const handleClick = (event, id, count_number) => {
-        console.log(event, id, count_number);
         event.preventDefault();
         props.history.push(`/result/feed/${id}/${count_number}`);
       }
@@ -90,17 +105,14 @@ function Result(props) {
                     {feeds.map(feed => (
                         <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-4 p-md-3" key={feed.id}>
                         <Card className="card-lift--hover shadow border-0">
-                        <div key={feed.id}
+                        <div key={feed.count_number}
                  onClick={(e) => handleClick(e, current_exercise_pk,feed.count_number)} style={{cursor: 'pointer'}}>
-                            {/* <img src={feed.phot }
-                                style={{width: '100%'}}></img> */}
                                 <CardBody className="card-profile-image">
-                                <img src= {"data:image/webp;base64," + feed.photo} alt={feed.count_number}>
-                                    </img>
+                                <img src= {"data:image/webp;base64," + feed.photo} alt={feed.count_number}/>
                                     
                             <div>
                             <h5 className="text-primary text-uppercase">{feed.count_number} 회차 </h5>
-                            <p className="description mt-3">PERFECT!{feed.check_item_name}</p>
+                            <p className="description mt-3" style={{color:feed.color}}> {feed.feedbackresult} </p>
                             </div>
                             </CardBody>
                         </div>

@@ -73,14 +73,11 @@ function Feed(props) {
   ];
 
   const displayfeedback = [];
-  console.log(feed);
   let i = 0;
   const checklist = feed.checklist;
 
   if (checklist != undefined) {
-    console.log("함수 내부", checklist);
     const check = [false, false, false, false, false, false];
-    console.log(checklist.length);
     for (i = 0; i < checklist.length; i++) {
       check[checklist[i].pk - 1] = true;
     }
