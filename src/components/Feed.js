@@ -140,8 +140,12 @@ function Feed(props) {
                       <div className="card-profile-stats d-flex justify-content-center">
                         <div>
                         <h3 className="display-3 mt-5 mb-5">
-                            세부 피드백
+                          {feed.count_number} 회차 세부 피드백
                          </h3>
+
+                       
+
+                         
                             
                         </div>
                       </div>
@@ -151,38 +155,63 @@ function Feed(props) {
 
                 <div>
                   <table className="table">
+                  
+
+                  
                     <tbody>
                       <tr>
-                        <th scope="row"></th>
+                        <th scope="row "></th>
+                        
                         <td>
                           {
                             <img
                               src={"data:image/webp;base64," + feed.photo}
                               alt={feed.name}
-                              style={{ maxWidth: "100%" }}
+                              style={{ maxWidth: "80%" }}
                             ></img>
                           }
                         </td>
+                    
+                        <td>
+                          {
+                            <img
+                              src={"data:image/webp;base64," + feed.photo}
+                              alt={feed.name}
+                              style={{ maxWidth: "80%" }}
+                            ></img>
+                          }
+                        </td>
+                        
+                        
+                        
                       </tr>
+                      
                       <tr>
                         <th scope="row">Feedback</th>
-                        <td>
+                        <td colSpan="2">
                           {displayfeedback.map(feedback => (
                           <ul>
                             {feedback}
                           </ul>
                           ))}
                         </td>
+                        {/* <td>
+                          {displayfeedback.map(feedback => (
+                          <ul>
+                            {feedback}
+                          </ul>
+                          ))}
+                        </td> */}
                       </tr>
 
-                      <tr>
+                      {/* <tr>
                         <th scope="row">ID</th>
                         <td>{props.match.params.id}</td>
                       </tr>
                       <tr>
                         <th scope="row">Count Number</th>
                         <td>{feed.count_number}</td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                   <hr className="my-5" />
