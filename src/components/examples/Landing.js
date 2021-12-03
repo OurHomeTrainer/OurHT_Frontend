@@ -65,11 +65,12 @@ function Landing() {
                 <div id="ImageLetter" className="col px-0">
                   <Row>
                     <Col lg="6">
-                      <h1 id="ImageLetter" className="display-3 text-white">
-                        OurHT와 함께 정확한 운동을 시작해보세요!{" "}
+                      <h1 id="ImageLetter" className="display-3 text-white mt-4">
+                        OurHT와 함께 정확한 운동을 </h1>
+                      <h1 id="ImageLetter" className="display-3 text-white">시작해보세요!{" "}
                         {/* <span>여기 더 추가해도됨 글씨</span> */}
                       </h1>
-                      <p className="lead text-white">
+                      <p className="lead text-white mb--3">
                         스쿼트 푸쉬업 플랭크의 정확한 자세교정과
                         분석서비스를 통해 당신의 홈트를 도와줍니다.
                       </p>

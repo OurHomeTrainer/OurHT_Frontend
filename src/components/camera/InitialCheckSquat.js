@@ -16,10 +16,12 @@ function InitialCheckSquat() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [tData, setData] = useState();
-  
+
   const [camcheck, setCamcheck] = useState("카메라 세팅 정보");
 
-  let count = 1;
+  const [count, setCount] = useState(1);
+  let count_temp = 1;
+
   let is_person_gone_to_stand = "start";
   let pose_list = [];
   let url_list = [];
@@ -65,9 +67,8 @@ function InitialCheckSquat() {
       const pose = await net.estimateSinglePose(video);
       let imageUrl = null;
       if (webcamRef.current !== null) {
-      imageUrl = webcamRef.current.getScreenshot();
+        imageUrl = webcamRef.current.getScreenshot();
       }
-      
 
       drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
 
@@ -76,7 +77,7 @@ function InitialCheckSquat() {
       if (camSetFlag === true) {
         setCamcheck("카메라 세팅 완료!");
         if (camchecktag.current !== null) {
-        camchecktag.current.style.color = "green";
+          camchecktag.current.style.color = "green";
         }
         const squat_state = returnSquatState(pose);
         if (squat_state === "squat") {
@@ -107,17 +108,18 @@ function InitialCheckSquat() {
 
             console.log("API 호출");
             Postimage(sampling_skel_data, sampling_image_data);
+            count_temp = count_temp + 1;
+            setCount(count_temp);
 
             pose_list.length = 0;
             url_list.length = 0;
             is_person_gone_to_stand = "start";
           }
         }
-      }
-      else {
+      } else {
         setCamcheck("카메라 체크 X");
         if (camchecktag.current !== null) {
-        camchecktag.current.style.color = "red";
+          camchecktag.current.style.color = "red";
         }
       }
     }
@@ -148,15 +150,15 @@ function InitialCheckSquat() {
     if (below_ankle > 20) {
       is_ankle_show = true;
       //console.log("1-1-1: 발목이 보여요");
-      if (mid - 100 < ankle_x < mid + 100) {
+      if (Math.abs(mid - ankle_x) < 30) {
         is_ankle_mid = true;
-        //console.log("1-1-2: 중앙정렬 완료");
+        console.log("1-1-2: 중앙정렬 완료");
       } else {
         is_ankle_mid = false;
       }
     } else {
       is_ankle_show = false;
-      //console.log("발목이 안 보여요!");
+      console.log("발목이 안 보여요!");
     }
 
     // 어깨의 측면view 정렬을 위해
@@ -165,7 +167,7 @@ function InitialCheckSquat() {
       is_shoulder_sideview = true;
     } else {
       is_shoulder_sideview = false;
-      //console.log("몸을 틀어, 측면이 잘 보이도록 조정해주세요!");
+      console.log("몸을 틀어, 측면이 잘 보이도록 조정해주세요!");
     }
 
     // 최종 판단
@@ -267,33 +269,27 @@ function InitialCheckSquat() {
         if (feedbacktag.current !== null) {
           if (tData === "Perfect") {
             feedbacktag.current.style.color = "green";
-          }
-          else if (tData === "Good") {
+          } else if (tData === "Good") {
             feedbacktag.current.style.color = "yellow";
-          }
-          else {
+          } else {
             feedbacktag.current.style.color = "red";
           }
         }
-      })
-
-    console.log("몇 회차인가요?", count);
-    count += 1;
+      });
   }
 
   const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
     let ctx = null;
-    if (canvas.current !== null){
-    ctx = canvas.current.getContext("2d");
-    canvas.current.width = videoWidth;
-    canvas.current.height = videoHeight;
-    drawKeypoints(pose["keypoints"], 0.6, ctx);
-    drawSkeleton(pose["keypoints"], 0.7, ctx);
+    if (canvas.current !== null) {
+      ctx = canvas.current.getContext("2d");
+      canvas.current.width = videoWidth;
+      canvas.current.height = videoHeight;
+      drawKeypoints(pose["keypoints"], 0.6, ctx);
+      drawSkeleton(pose["keypoints"], 0.7, ctx);
     }
   };
 
   RunPosenet();
-
   return (
     <>
       <DemoNavbar />
@@ -301,107 +297,104 @@ function InitialCheckSquat() {
         <section className="section section-shaped section-lg">
           {/* background */}
           <div className="shape shape-style-1 bg-gradient-info shape-default alpha-4">
-
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
           </div>
 
           <Container className="pt-lg-5">
             <Card className="bg-secondary shadow border-0">
-
-            <div className="px-4">
-
-
-            <Row className="justify-content-center">
+              <div className="px-4">
+                <Row className="justify-content-center">
                   <Col className="order-lg-1" lg="5">
                     <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                      <h5 ref={camchecktag} className="display-5 mt-4 mb-3"> {camcheck} </h5>
+                        <h5 ref={camchecktag} className="display-5 mt-4 mb-3">
+                          {" "}
+                          {camcheck}{" "}
+                        </h5>
                       </div>
                     </div>
                   </Col>
-                  </Row>
-            <Row className="justify-content-center">
+                </Row>
+                <Row className="justify-content-center">
                   <Col className="order-lg-1" lg="5">
-                  <div className="card-profile-stats d-flex justify-content-center">
+                    <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                        <h3 ref={feedbacktag} className="display-5 mt-3 mb-3"> {tData} </h3>
+                        <h3 ref={feedbacktag} className="display-5 mt-3 mb-3">
+                          {" "}
+                          {tData}{" "}
+                        </h3>
                       </div>
                     </div>
                   </Col>
-            </Row>
-            <Row className="justify-content-center">
+                </Row>
+                <Row className="justify-content-center">
                   <Col className="order-lg-1" lg="5">
-                  <div className="card-profile-stats d-flex justify-content-center">
+                    <div className="card-profile-stats d-flex justify-content-center">
                       <div>
-                        <h6 className="mt-3 mb-3"> {count - 1}회 완료하였어요 </h6>
+                        <h6 className="mt-3 mb-3">
+                          {" "}
+                          {count - 1}회 완료하였어요{" "}
+                        </h6>
                       </div>
                     </div>
                   </Col>
-            </Row>
-            </div>
+                </Row>
+              </div>
 
-            <div style={{
-                       marginLeft: "auto",
-                      marginRight: "auto",
-                      position: "relative"
-                  }} >
-                    <Webcam
-                        ref={webcamRef}
-                        style={{
-                            
-                        //  marginLeft: "auto",
-                        //    marginRight: "auto",
-                            //left: 0,
-                            //right: 0,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                        />
-                         <canvas
-                        ref={canvasRef}
-                        style={{
-                            position: "absolute",
-                        //    marginLeft: "auto",
-                        //    marginRight: "auto",
-                           // top: 0,
-                            left: 0,
-                         //  right: 100,
-                            textAlign: "center",
-                            zindex: 9,
-                            width: 640,
-                            height: 480,
-                        }}
-                    />
-                   
-                    
-                </div>
-                <div className="text-center mt-3 mb-4">
-                    <Link to={`result/feed/${current_exercise_pk}`}>
-                            <Button
-                              className="mx-4"
-                              color="primary"
-                              position="center"
-                            >
-                              결과보기
-                              {/* {context.pk} */}
-                            </Button>
-                            <span></span>
-                          </Link>
-                      </div>
-
+              <div
+                style={{
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  position: "relative",
+                }}
+              >
+                <Webcam
+                  ref={webcamRef}
+                  style={{
+                    //  marginLeft: "auto",
+                    //    marginRight: "auto",
+                    //left: 0,
+                    //right: 0,
+                    textAlign: "center",
+                    zindex: 9,
+                    width: 640,
+                    height: 480,
+                  }}
+                />
+                <canvas
+                  ref={canvasRef}
+                  style={{
+                    position: "absolute",
+                    //    marginLeft: "auto",
+                    //    marginRight: "auto",
+                    // top: 0,
+                    left: 0,
+                    //  right: 100,
+                    textAlign: "center",
+                    zindex: 9,
+                    width: 640,
+                    height: 480,
+                  }}
+                />
+              </div>
+              <div className="text-center mt-3 mb-4">
+                <Link to={`result/feed/${current_exercise_pk}`}>
+                  <Button className="mx-4" color="primary" position="center">
+                    결과보기
+                    {/* {context.pk} */}
+                  </Button>
+                  <span></span>
+                </Link>
+              </div>
             </Card>
           </Container>
-
-
         </section>
 
         {/* 여기부터가 컨테이너 부분 */}
@@ -411,8 +404,7 @@ function InitialCheckSquat() {
       </main>
       <SimpleFooter />
     </>
-
-      )
+  );
 }
 
 export default InitialCheckSquat;

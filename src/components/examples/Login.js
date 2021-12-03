@@ -131,7 +131,7 @@ function Login() {
 
                   <CardBody className="px-lg-5 py-lg-5">
                     <div className="text-center text-muted mb-4">
-                      <small> Our Home Training </small>
+                      <large> Our Home Training </large>
                     </div>
                     <Form role="form">
                       <FormGroup className="mb-3">
@@ -185,7 +185,7 @@ function Login() {
                     </Form>
                   </CardBody>
                 </Card>
-                <Row className="mt-3">
+                <Row className="mt-3 justify-content-center">
                   {/* <Col xs="6">
                     <a
                       className="text-light"
@@ -195,12 +195,12 @@ function Login() {
                       <small>Forgot password?</small>
                     </a>
                   </Col> */}
-                  <Col className="text-right" xs="8">
+                  <Col className="text-center" xs="8">
                     <a
                       className="text-light"
                       href="/register-page"
                     >
-                      <small >Create new account</small>
+                      <medium>Create new account</medium>
                     </a>
                   </Col>
                 </Row>

@@ -14,6 +14,13 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 //이미지 테스트
 import Testimg from 'components/test2.jpeg'
+import Goodimg from 'components/good.jpg'
+import Wrongimg1 from 'components/wrong1.jpg'
+import Wrongimg2 from 'components/wrong2.jpg'
+import Wrongimg3 from 'components/wrong3.jpg'
+import Wrongimg4 from 'components/wrong4.jpg'
+
+
 //icon
 import {BsCheckLg, BsXLg} from 'react-icons/bs';
 
@@ -66,20 +73,39 @@ function SquatMiddle() {
         }
         return cookieValue;
     };
-    const items = [
-        {
-          src: Testimg,
-          altText: '',
-          caption: '',
-          header: ''
-        },
-        {
-          src: Testimg,
-          altText: '',
-          caption: '',
-          header: ''
-        }
-      ];
+    const itemss = [
+      {
+        src: Wrongimg1,
+        altText: '',
+        caption: '',
+        header: '',
+        maxWidth: '80%'
+      },
+      {
+        src: Wrongimg2,
+        altText: '',
+        caption: '',
+        header: '',
+        maxWidth: '80%'
+       
+      },
+      {
+        src: Wrongimg3,
+        altText: '',
+        caption: '',
+        header: '',
+        maxWidth: '80%'
+       
+      },
+      {
+        src: Wrongimg4,
+        altText: '',
+        caption: '',
+        header: '',
+        maxWidth: '80%'
+       
+      }
+    ];
     
     return (
         <>
@@ -119,14 +145,15 @@ function SquatMiddle() {
                     <Row>
                           <Col className="text-center">
                           <div>
-                        <img src={Testimg} style={{maxWidth: '80%'}}></img> 
+                        <img src={Goodimg} style={{maxWidth: '80%'}}></img> 
                         </div>
                               </Col>
-                          <Col className="text-center">
-                              <div>
-                                <img src={Testimg} style={{maxWidth: '80%'}}></img> 
-                                </div>
-                                </Col>
+                          <Col className="text-center align-self-center" style={{justifyContent:'center'}}>
+                              <div className="justify-content-center ml-5" style={{ maxHeight:"80%", maxWidth: '80%'}}>
+                                 <UncontrolledCarousel items={itemss} />
+                                {/* <img src={Testimg} style={{maxWidth: '80%'}}></img>  */}
+                              </div>
+                          </Col>
                           
                       </Row>
 

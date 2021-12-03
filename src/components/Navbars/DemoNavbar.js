@@ -131,7 +131,7 @@ class DemoNavbar extends React.Component {
             id="navbar-main"
           >
             <Container>
-              <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
+              <NavbarBrand className="mr-lg-5 text-large" to="/" tag={Link}>
                 OURHT
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
