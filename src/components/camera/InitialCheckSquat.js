@@ -107,8 +107,8 @@ function InitialCheckSquat() {
             const sampling_image_data = url_list[max_hip_y_index];
 
             console.log("API 호출");
-            Postimage(sampling_skel_data, sampling_image_data);
             count_temp = count_temp + 1;
+            Postimage(sampling_skel_data, sampling_image_data);
             setCount(count_temp);
 
             pose_list.length = 0;
@@ -259,7 +259,7 @@ function InitialCheckSquat() {
       body: JSON.stringify({
         skeletonpoint: pose,
         url: imageUrl,
-        count: count,
+        count: count_temp - 1,
         exercise_pk: current_exercise_pk,
       }),
     })
