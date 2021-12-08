@@ -79,9 +79,6 @@ function getUserSquat(파라미터, user_pk) {
       console.log("squatEvents:");
       console.log(squatEvents);
 
-      // for (var i = 0; i < squatArray.length; i++) {
-
-      // }
 
       파라미터();
       //squatEvents.splice(0, squatEvents.length);
@@ -90,8 +87,6 @@ function getUserSquat(파라미터, user_pk) {
     .catch((Error) => {
       console.log(Error);
     });
-  //   console.log(events[0]);
-  //   console.log(events.length);
 
   // sqautEvents.push({ title: "", start: "", end: "" });
 }

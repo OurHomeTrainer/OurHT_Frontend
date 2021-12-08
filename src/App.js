@@ -9,7 +9,7 @@ import Register from "./components/examples/Register";
 import Profile from "./components/examples/Profile";
 import Landing from "./components/examples/Landing";
 import InitialCheckSquat from "./components/camera/InitialCheckSquat";
-import { UserContextProvider } from "./components/camera/users"; // 전역 변수 사용위함
+import { UserContextProvider } from "./components/camera/users"; 
 import SquatMiddle from "./components/camera/SquatMiddle";
 import Feed from "./components/Feed";
 import CalendarByJames from "./components/CalendarByJames";

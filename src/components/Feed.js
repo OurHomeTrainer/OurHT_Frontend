@@ -176,23 +176,8 @@ function Feed(props) {
                           <ul>{feedback}</ul>
                         ))}
                       </td>
-                      {/* <td>
-                          {displayfeedback.map(feedback => (
-                          <ul>
-                            {feedback}
-                          </ul>
-                          ))}
-                        </td> */}
                     </tr>
 
-                    {/* <tr>
-                        <th scope="row">ID</th>
-                        <td>{props.match.params.id}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Count Number</th>
-                        <td>{feed.count_number}</td>
-                      </tr> */}
                   </tbody>
                 </table>
                 <hr className="my-5" />

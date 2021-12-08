@@ -183,13 +183,6 @@ function SquatMiddle() {
                     </div>
 
                     
-
-
-                
-
-
-                    {/* <UncontrolledCarousel items={items} /> */}
-                    
                     <div className="text-center mt-1">
                     
                     <h5 className="text-primary mt-1">위와 같이 측면을 향하고 발목이 보이도록 위치해주세요</h5>
@@ -214,11 +207,7 @@ function SquatMiddle() {
   
   
             </section>
-  
-            {/* 여기부터가 컨테이너 부분 */}
-            {/* <section className="section section-lg pt-lg-0 mt--300">
-              
-            </section> */}
+
           </main>
           <SimpleFooter />
         </>

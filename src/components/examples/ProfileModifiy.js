@@ -42,11 +42,8 @@ function ProfileModifiy() {
     function open() {
         console.log("버튼 클릭")
         console.log(openpopup.current.props.isOpen)
-        //Object.assign(openpopup.current.props, {isOpen : true});
         openpopup.current.setState({isOpen: true});
         console.log(openpopup.current.props.isOpen)
-        //openpopup.current.props.isOpen.assign(true);
-        //openpopup.current.isOpen = true;
       }
 
 

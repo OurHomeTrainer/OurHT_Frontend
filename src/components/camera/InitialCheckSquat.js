@@ -358,10 +358,6 @@ function InitialCheckSquat() {
                 <Webcam
                   ref={webcamRef}
                   style={{
-                    //  marginLeft: "auto",
-                    //    marginRight: "auto",
-                    //left: 0,
-                    //right: 0,
                     textAlign: "center",
                     zindex: 9,
                     width: 640,
@@ -372,11 +368,7 @@ function InitialCheckSquat() {
                   ref={canvasRef}
                   style={{
                     position: "absolute",
-                    //    marginLeft: "auto",
-                    //    marginRight: "auto",
-                    // top: 0,
                     left: 0,
-                    //  right: 100,
                     textAlign: "center",
                     zindex: 9,
                     width: 640,
@@ -388,7 +380,6 @@ function InitialCheckSquat() {
                 <Link to={`result/feed/${current_exercise_pk}`}>
                   <Button className="mx-4" color="primary" position="center">
                     결과보기
-                    {/* {context.pk} */}
                   </Button>
                   <span></span>
                 </Link>
@@ -396,11 +387,6 @@ function InitialCheckSquat() {
             </Card>
           </Container>
         </section>
-
-        {/* 여기부터가 컨테이너 부분 */}
-        {/* <section className="section section-lg pt-lg-0 mt--300 ">
-          
-        </section> */}
       </main>
       <SimpleFooter />
     </>
