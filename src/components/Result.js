@@ -31,17 +31,35 @@ function Result(props) {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           let i = 0;
+          let j = 0;
           for (i = 0; i < data.length; i++) {
-            if (data[i].checklist.length >= 5) {
-              data[i].feedbackresult = "Perfect!";
-              data[i].color = "navy";
-            } else if (data[i].checklist.length <= 2) {
+            if (data[i].checklist.length >= 4) {
+              if (
+                data[i].checklist[data[i].checklist.length - 1].pk == 6 &&
+                data[i].checklist.length == 4
+              ) {
+                data[i].feedbackresult = "Good ~.~";
+                data[i].color = "green";
+              } else {
+                data[i].feedbackresult = "Perfect!";
+                data[i].color = "navy";
+              }
+            } else if (data[i].checklist.length <= 1) {
               data[i].feedbackresult = "Bad :(";
               data[i].color = "red";
             } else {
-              data[i].feedbackresult = "Good ~.~";
-              data[i].color = "green";
+              if (
+                data[i].checklist[data[i].checklist.length - 1].pk == 6 &&
+                data[i].checklist.length == 2
+              ) {
+                data[i].feedbackresult = "Bad :(";
+                data[i].color = "red";
+              } else {
+                data[i].feedbackresult = "Good ~.~";
+                data[i].color = "green";
+              }
             }
           }
           setFeed(data);
@@ -69,8 +87,6 @@ function Result(props) {
     event.preventDefault();
     props.history.push(`/result/feed/${id}/${count_number}`);
   };
-
-  console.log("feeds", feeds);
 
   return (
     <>
