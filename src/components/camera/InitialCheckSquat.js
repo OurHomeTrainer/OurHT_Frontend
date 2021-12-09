@@ -150,11 +150,11 @@ function InitialCheckSquat() {
     if (below_ankle > 20) {
       is_ankle_show = true;
       //console.log("1-1-1: 발목이 보여요");
-      if (Math.abs(mid - ankle_x) < 30) {
+      if (Math.abs(mid - ankle_x) < 50) {
         is_ankle_mid = true;
-        console.log("1-1-2: 중앙정렬 완료");
       } else {
         is_ankle_mid = false;
+        console.log("중앙정렬 안됬어요!");
       }
     } else {
       is_ankle_show = false;
@@ -167,7 +167,7 @@ function InitialCheckSquat() {
       is_shoulder_sideview = true;
     } else {
       is_shoulder_sideview = false;
-      console.log("몸을 틀어, 측면이 잘 보이도록 조정해주세요!");
+      console.log("측면이 보이도록 해주세요!");
     }
 
     // 최종 판단
