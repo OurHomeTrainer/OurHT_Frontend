@@ -203,7 +203,7 @@ function InitialCheckSquat() {
 
     if (hip[1] < knee[1]) {
       // 일반적인 경우 --> hip의 y좌표가 작다.
-      if (angle < 20) {
+      if (angle < 30) {
         //console.log("squat");
         return "squat";
       } else if (angle > 80) {
