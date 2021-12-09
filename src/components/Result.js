@@ -34,7 +34,9 @@ function Result(props) {
           console.log(data);
           let i = 0;
           let j = 0;
+          let good_back_flag = false;
           for (i = 0; i < data.length; i++) {
+            good_back_flag = false;
             if (data[i].checklist.length >= 4) {
               if (
                 data[i].checklist[data[i].checklist.length - 1].pk == 6 &&
@@ -60,6 +62,15 @@ function Result(props) {
                 data[i].feedbackresult = "Good ~.~";
                 data[i].color = "green";
               }
+            }
+            for (j = 0; j < data[i].checklist.length; j++) {
+              if (data[i].checklist[j].pk == 6) {
+                good_back_flag = true;
+              }
+            }
+            if (good_back_flag == false) {
+              data[i].feedbackresult = "굽은등..";
+              data[i].color = "red";
             }
           }
           setFeed(data);
