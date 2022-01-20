@@ -40,7 +40,7 @@ class SimpleFooter extends React.Component {
             <Row className=" align-items-center justify-content-md-between">
               <Col md="6">
                 <div className=" copyright">
-                  {new Date().getFullYear()}{" "}
+                  2021{" "}
 
                   중앙대 캡스톤 OurHomeTrainer
 

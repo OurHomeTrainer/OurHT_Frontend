@@ -28,7 +28,7 @@ import {BsCheckLg, BsXLg} from 'react-icons/bs';
 function SquatMiddle() {
 
   let user_pk_temp = localStorage.getItem("user_pk");
-  console.log(user_pk_temp);
+  // console.log(user_pk_temp);
   
   const { setExercisepk, exercise_pk } = useUserContext();
 

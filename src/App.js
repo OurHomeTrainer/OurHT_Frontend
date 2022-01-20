@@ -4,10 +4,10 @@ import React from "react";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Sample from "./components/Sample";
-import Login from "./components/examples/Login";
-import Register from "./components/examples/Register";
-import Profile from "./components/examples/Profile";
-import Landing from "./components/examples/Landing";
+import Login from "./components/users/Login";
+import Register from "./components/users/Register";
+import Profile from "./components/users/Profile";
+import Landing from "./components/users/Landing";
 import InitialCheckSquat from "./components/camera/InitialCheckSquat";
 import { UserContextProvider } from "./components/camera/users"; 
 import SquatMiddle from "./components/camera/SquatMiddle";

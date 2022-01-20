@@ -52,12 +52,10 @@ function Register() {
 
   const onUsernameChange = (e) => {
     setNewusername(e.target.value);
-    console.log(newusername);
   }
 
   const onPasswordChange = (e) => {
     setNewpassword(e.target.value);
-    console.log(newpassword);
   }
 
   async function registerrequest(newusername, newpassword) {
@@ -83,15 +81,8 @@ function Register() {
   }
 
   function doRegister() {
-    console.log("회원가입 버튼 클릭");
-    console.log(newusername, newpassword);
     registerrequest(newusername, newpassword);
   }
-
-  // toast.success("회원가입이 완료되었습니다", {
-  //   autoClose: 3000,
-  //   position: toast.POSITION.TOP_RIGHT
-  // });
 
   return (
     <>

@@ -52,17 +52,14 @@ function UserInfo() {
 
   const onUserageChange = (e) => {
     setNewuserage(e.target.value);
-    console.log(newuserage);
   };
 
   const onUserheightChange = (e) => {
     setNewuserheight(e.target.value);
-    console.log(newuserheight);
   };
 
   const onUserweightChange = (e) => {
     setNewuserweight(e.target.value);
-    console.log(newuserweight);
   };
 
   async function userinfoupdate(
@@ -86,14 +83,11 @@ function UserInfo() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         document.location.href = "/info";
       });
   }
 
   function doUserinfoupdate() {
-    console.log("정보 수정 버튼 클릭");
-    console.log(current_user_pk, newuserage, newuserheight, newuserweight);
     if (
       newuserage === undefined ||
       newuserheight === undefined ||

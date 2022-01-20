@@ -26,7 +26,7 @@ import Puang from "components/puang.jpg";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import CalendarByJames from "components/CalendarByJames";
-import ProfileModifiy from "components/examples/ProfileModifiy";
+import ProfileModifiy from "components/users/ProfileModifiy";
 
 function Profile() {
   const main = React.createRef();
@@ -49,7 +49,7 @@ function Profile() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("허허", data);
+          //console.log("허허", data);
           if (data.age === null) {
             data.age = "입력 필요!";
           }
@@ -64,8 +64,6 @@ function Profile() {
     }
     getuserinfo(current_user_pk);
   }, []);
-
-  console.log(userdata);
 
   return (
     <>

@@ -28,19 +28,6 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [
-  {
-    title: "스쿼트1회",
-    allDay: true,
-    start: new Date(2021, 10, 27),
-    end: new Date(2021, 10, 27),
-  },
-  {
-    title: "스쿼트2회",
-    start: new Date(2021, 10, 28),
-    end: new Date(2021, 10, 28),
-  },
-];
 
 var squatEvents = [];
 var squatEventsForGoogle = [
@@ -53,7 +40,7 @@ var squatEventsForGoogle = [
 function getUserSquat(파라미터, user_pk) {
   let url = "http://127.0.0.1:8000/apis/users/getuserexercise?userid=";
   url += user_pk;
-  console.log(url);
+  //console.log(url);
   axios
     .get(url)
     .then((Response) => {
@@ -76,8 +63,8 @@ function getUserSquat(파라미터, user_pk) {
         ]);
       }
 
-      console.log("squatEvents:");
-      console.log(squatEvents);
+      // console.log("squatEvents:");
+      // console.log(squatEvents);
 
 
       파라미터();

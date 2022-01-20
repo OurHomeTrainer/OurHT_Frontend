@@ -31,7 +31,7 @@ function Result(props) {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          //console.log(data);
           let i = 0;
           let j = 0;
           let good_back_flag = false;
